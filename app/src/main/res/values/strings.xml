@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aplicacion_Tesis</string>
+    <string name="app_name">TutorMath</string>
 
     <!-- Menú / navegación por defecto -->
     <string name="action_settings">Settings</string>

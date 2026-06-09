@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
 
-    <domain-config cleartextTrafficPermitted="true">
+    <!--
+        Política base: solo HTTPS para cualquier dominio no listado abajo.
+        Esto protege la comunicación con Railway y cualquier servidor de producción.
+    -->
+    <base-config cleartextTrafficPermitted="false"/>
 
+    <!--
+        Excepción de desarrollo: permite HTTP solo para las IPs locales/emulador.
+        NUNCA usar estas IPs en producción.
+    -->
+    <domain-config cleartextTrafficPermitted="true">
         <!-- IP DE TU PC -->
         <domain includeSubdomains="true">192.168.1.13</domain>
-
         <!-- IP del EMULADOR -->
         <domain includeSubdomains="true">10.0.2.2</domain>
-
         <!-- Por si usas localhost -->
         <domain includeSubdomains="true">localhost</domain>
-
     </domain-config>
+
 </network-security-config>

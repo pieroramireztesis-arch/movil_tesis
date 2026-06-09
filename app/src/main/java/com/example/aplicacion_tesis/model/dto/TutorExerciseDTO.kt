@@ -10,6 +10,9 @@ data class TutorExerciseOptionDTO(
 
 data class TutorExerciseDTO(
     val status:                      Boolean,
+    // ⚠️ La API envía "bloqueado":true cuando el docente no registró diagnóstico.
+    //    Sin @SerializedName Gson no mapea el campo → el check en TutorFragment nunca dispara.
+    @SerializedName("bloqueado")
     val bloqueadoSinDiagnostico:     Boolean? = null,
     val sinEjercicios:               Boolean? = null,
     val idEjercicio:                 Int?     = null,

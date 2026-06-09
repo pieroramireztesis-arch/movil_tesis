@@ -5,33 +5,16 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    // ---------- TUTOR: RESPONDER EJERCICIO ----------
-    @POST("tutor/responder")
-    suspend fun responderTutor(
-        @Body body: TutorAnswerRequest
-    ): TutorResponse
-
-    // ---------- TUTOR: OBTENER SIGUIENTE EJERCICIO ----------
-    @GET("tutor/ejercicio_siguiente")
-    suspend fun getNextExercise(
-        @Query("idEstudiante") idEstudiante: Int,
-        @Query("idDominio") idDominio: Int?,
-        @Query("ajuste") ajuste: String?
-    ): TutorExerciseDTO
-
     // ---------- DASHBOARD MINI ----------
+    // Usado en: InicioFragment → solo para el saludo (nombre del estudiante).
+    // El progreso y competencias vienen de ProgresoApiService.
     @GET("dashboard/mini/{id}")
     suspend fun getMiniDashboard(
         @Path("id") idEstudiante: Int
     ): MiniDashboardDTO
 
-    // ---------- REGISTER ----------
-    @POST("auth/register")
-    suspend fun register(
-        @Body body: RegisterRequest
-    ): AuthResponse
-
     // ---------- PERFIL ----------
+    // Usado en: ProfileFragment, TeacherProfileActivity
     @GET("usuarios/{id}")
     suspend fun getUsuario(
         @Path("id") idUsuario: Int
@@ -42,4 +25,9 @@ interface ApiService {
         @Path("id") idUsuario: Int,
         @Body body: UpdateProfileRequest
     ): SimpleResponse
+
+    // ❌ MÉTODOS ELIMINADOS (código muerto):
+    //   responderTutor()   → usar TutorApiService.sendAnswer()    (tipo de retorno correcto: RespuestaTutorDTO)
+    //   getNextExercise()  → usar TutorApiService.getNextExercise() (tiene parámetros modo + idEvaluacion)
+    //   register()         → usar AuthService.register()
 }

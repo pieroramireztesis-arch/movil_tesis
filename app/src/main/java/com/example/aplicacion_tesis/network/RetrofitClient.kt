@@ -8,18 +8,24 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    // ======== 🔥 API LOCAL ========
+    // ======== 🔥 API LOCAL (emulador) ========
+    // 10.0.2.2 = localhost del PC desde el emulador Android
     const val BASE_URL = "http://10.0.2.2:3008/"
-    const val WEB_BASE_URL = "http://10.0.2.2:3008/"
 
     /*
-    // ======== API EN LA NUBE ========
+    // ======== API EN LA NUBE (Railway) ========
+    // Descomenta esto y comenta la sección LOCAL antes de generar el APK final:
     const val BASE_URL = "https://api-tesis-af92.onrender.com/"
-    const val WEB_BASE_URL = "https://tesis-algebra.onrender.com/"
     */
 
+    // ⚠️ WEB_BASE_URL eliminado: nunca fue utilizado por ningún fragmento.
+    //    Si en el futuro se necesita (ej: abrir el portal web desde la app),
+    //    añadirlo como: "https://tesis-algebra.onrender.com/"
+
+    // ⚠️  Level.BODY registra contraseñas y tokens JWT en Logcat.
+    //     En producción usa Level.NONE. Para depurar localmente puedes cambiar a Level.BASIC.
     private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+        level = HttpLoggingInterceptor.Level.NONE
     }
 
     private val okHttp = OkHttpClient.Builder()
