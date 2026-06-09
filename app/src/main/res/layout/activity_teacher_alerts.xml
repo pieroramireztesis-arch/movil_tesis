@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ai_bg_screen">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Panel de Profesor"
+                android:textColor="@color/ai_text_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imgTeacherInfo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="7dp"
+                android:src="@drawable/outline_attribution_24"
+                android:background="@drawable/bg_primary_circle"
+                android:contentDescription="@string/profile"
+                android:clickable="false"
+                android:focusable="false"/>
+        </LinearLayout>
+
+        <!-- TABS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <LinearLayout android:id="@+id/tabTeacherInicio" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherInicio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherInicio" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherInformes" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherInformes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informes" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherInformes" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherAlertas" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherAlertas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alertas" android:textSize="12sp" android:maxLines="1" android:textStyle="bold" android:textColor="@color/ai_primary"/>
+                <View android:id="@+id/indicatorTeacherAlertas" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherPerfil" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherPerfil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherPerfil" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- CONTENIDO -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TÍTULO SECCIÓN -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:id="@+id/tvAlertsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Alertas importantes"
+                    android:textColor="@color/ai_text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAlertsSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toca una alerta para ver el detalle y marcarla como atendida."
+                android:textColor="@color/ai_text_muted"
+                android:textSize="13sp"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- LEYENDA NIVELES -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Niveles de alerta"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ai_text_dark"
+                        android:layout_marginBottom="10dp"/>
+
+                    <!-- Crítica -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="36dp"
+                            android:background="#E74C3C"
+                            android:layout_marginEnd="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🔴  Crítica"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#C62828"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4 o más errores recientes consecutivos"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Advertencia -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="36dp"
+                            android:background="#F39C12"
+                            android:layout_marginEnd="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🟡  Advertencia"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#F57F17"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2–3 errores recientes consecutivos"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Informativa -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="36dp"
+                            android:background="@color/ai_primary"
+                            android:layout_marginEnd="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🔵  Informativa"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_primary"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bajo rendimiento en competencia específica"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- LISTA DE ALERTAS -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTeacherAlerts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+            <!-- VACÍO -->
+            <LinearLayout
+                android:id="@+id/tvAlertsEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="32dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✅"
+                    android:textSize="48sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sin alertas por ahora"
+                    android:textColor="@color/ai_text_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Todos los estudiantes van bien"
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="13sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

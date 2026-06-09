@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:background="@color/ai_background_light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Logo circular con Σ -->
+        <FrameLayout
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_primary_circle">
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="Σ"
+                android:textColor="@color/ai_primary"
+                android:textSize="36sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <!-- Título y subtítulo -->
+        <TextView
+            android:layout_marginTop="24dp"
+            android:text="Iniciar Sesión"
+            android:textColor="@color/ai_text_dark"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="Bienvenido de nuevo. ¡Vamos a aprender álgebra!"
+            android:textColor="@color/ai_text_muted"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Usuario -->
+        <TextView
+            android:layout_marginTop="24dp"
+            android:text="Nombre de Usuario / Correo Electrónico"
+            android:textColor="@color/ai_text_dark"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCorreo"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_person_24"
+            app:boxStrokeColor="@color/ai_border"
+            app:boxBackgroundColor="@color/ai_background_light"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCorreo"
+                android:hint="Ingresa tu nombre de usuario o correo"
+                android:inputType="textEmailAddress"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/ai_text_dark"
+                android:textColorHint="@color/ai_text_muted"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Contraseña -->
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="Contraseña"
+            android:textColor="@color/ai_text_dark"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_lock_24"
+            app:endIconMode="password_toggle"
+            app:boxStrokeColor="@color/ai_border"
+            app:boxBackgroundColor="@color/ai_background_light"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:hint="Ingresa tu contraseña"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/ai_text_dark"
+                android:textColorHint="@color/ai_text_muted"
+                android:padding="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón principal -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Iniciar Sesión"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            app:cornerRadius="12dp"
+            app:backgroundTint="@color/ai_primary"
+            android:textColor="@android:color/white" />
+
+        <!-- ¿Olvidé mi contraseña? -->
+        <TextView
+            android:id="@+id/tvOlvide"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textColor="@color/ai_primary"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- ¿Registrar? -->
+        <TextView
+            android:id="@+id/tvRegistro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿No tienes cuenta? Regístrate aquí"
+            android:textColor="@color/ai_primary"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <!-- Espacio inferior -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:layout_margin="20dp">
+
+    <!-- Cabecera de color con ícono -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="28dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:background="@color/ai_primary">
+
+        <!-- Círculo con ícono de advertencia -->
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:text="⚠"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:background="@drawable/bg_circle_light"
+            android:layout_marginBottom="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EVALUACIÓN EN CURSO"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.15"
+            android:textColor="#CCFFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Salir de la evaluación?"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Cuerpo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="24dp">
+
+        <!-- Mensaje principal -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tu avance en esta evaluación se perderá y tendrás que volver a comenzarla."
+            android:textSize="14sp"
+            android:textColor="@color/ai_text_dark"
+            android:lineSpacingExtra="4dp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Bloque de advertencia -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/ai_primary_light"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📝"
+                android:textSize="18sp"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Las respuestas ya enviadas no cuentan si abandonas la evaluación."
+                android:textSize="12sp"
+                android:textColor="@color/ai_primary_dark"
+                android:lineSpacingExtra="3dp" />
+        </LinearLayout>
+
+        <!-- Botón: Continuar evaluación (primario) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinuarEval"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Continuar evaluación"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/ai_primary"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Botón: Sí, salir (secundario outlined) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSalirEval"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Sí, salir de la evaluación"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="@color/ai_text_muted"
+            app:cornerRadius="12dp"
+            app:strokeColor="@color/ai_border" />
+    </LinearLayout>
+
+</LinearLayout>

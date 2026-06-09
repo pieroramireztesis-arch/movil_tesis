@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ai_background_light">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Crea tu cuenta"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/ai_text_dark"
+            android:layout_marginTop="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Comienza tu aventura en el álgebra."
+            android:textColor="@color/ai_text_muted"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Nombre completo -->
+        <TextView
+            android:text="Nombre completo"
+            android:textColor="@color/ai_text_dark"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombre"
+                android:hint="Nombre y apellido"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Correo -->
+        <TextView
+            android:text="Correo electrónico"
+            android:textColor="@color/ai_text_dark"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCorreo"
+                android:hint="Ingresa tu correo electrónico"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Contraseña -->
+        <TextView
+            android:text="Contraseña"
+            android:textColor="@color/ai_text_dark"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:endIconMode="password_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:hint="Ingresa tu contraseña"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Indicador de fuerza de contraseña -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp">
+
+            <ProgressBar
+                android:id="@+id/strengthBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:max="100"
+                android:progress="0"
+                android:progressBackgroundTint="@color/ai_text_muted"
+                android:progressTint="@android:color/holo_red_dark"/>
+
+            <TextView
+                android:id="@+id/tvStrength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Débil"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_gravity="end"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Botón Crear cuenta -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCrear"
+            android:text="Crear Cuenta"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:enabled="false"
+            app:backgroundTint="@color/ai_primary"
+            android:textColor="@android:color/white"/>
+
+        <!-- Link para ir a Login (opcional) -->
+        <TextView
+            android:id="@+id/tvIrLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Ya tienes una cuenta? Inicia sesión"
+            android:textColor="@color/ai_primary"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

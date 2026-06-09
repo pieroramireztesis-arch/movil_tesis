@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ai_bg_screen">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Panel de Profesor"
+                android:textColor="@color/ai_text_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:id="@+id/btnInfo"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_primary_circle"
+                android:padding="7dp"
+                android:contentDescription="@string/profile"
+                android:src="@drawable/outline_attribution_24"
+                android:clickable="false"
+                android:focusable="false"/>
+        </LinearLayout>
+
+        <!-- TABS -->
+        <LinearLayout
+            android:id="@+id/layoutTeacherTabsReports"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <LinearLayout android:id="@+id/tabTeacherInicio" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherInicio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherInicio" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherInformes" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherInformes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informes" android:textSize="12sp" android:maxLines="1" android:textStyle="bold" android:textColor="@color/ai_primary"/>
+                <View android:id="@+id/indicatorTeacherInformes" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherAlertas" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherAlertas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alertas" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherAlertas" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/tabTeacherPerfil" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                <TextView android:id="@+id/tvTabTeacherPerfil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                <View android:id="@+id/indicatorTeacherPerfil" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- CONTENIDO SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- BUSCADOR -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_search"
+                        app:tint="@color/ai_text_muted"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etSearchStudent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Buscar estudiante..."
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:textColor="@color/ai_text_dark"
+                        android:textColorHint="@color/ai_text_muted"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- LABEL ESTUDIANTES -->
+            <TextView
+                android:id="@+id/tvSelectStudentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selecciona un Estudiante"
+                android:textColor="@color/ai_text_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- LISTA ESTUDIANTES -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStudents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="320dp"
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="always"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/tvVerTodosEstudiantes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver todos ▼"
+                android:textColor="@color/ai_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_gravity="end"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone"/>
+
+            <!-- DIVISOR -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/ai_divider"
+                android:layout_marginBottom="14dp"/>
+
+            <!-- TÍTULO INFORME -->
+            <TextView
+                android:id="@+id/tvReportTitleName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecciona un estudiante para ver su informe"
+                android:textColor="@color/ai_text_muted"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- INFORME OCULTO -->
+            <LinearLayout
+                android:id="@+id/layoutInformeEstudiante"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- PIE CHART COMPETENCIA -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCompetencias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desempeño por Competencia"
+                            android:textColor="@color/ai_text_dark"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="10dp"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="1dp">
+                            <Spinner
+                                android:id="@+id/spinnerCompetencia"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/chartPieCompetencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"/>
+
+                        <!-- Leyenda 3 niveles -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
+                                <View android:layout_width="10dp" android:layout_height="10dp" android:background="#27AE60"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
+                                <View android:layout_width="10dp" android:layout_height="10dp" android:background="#F39C12"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                                <View android:layout_width="10dp" android:layout_height="10dp" android:background="#E74C3C"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvPieDetalle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ai_text_dark"
+                            android:gravity="center"
+                            android:layout_marginBottom="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- PUNTAJE + TEMAS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/white">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Puntaje General" android:textSize="12sp" android:textColor="@color/ai_text_muted" android:layout_marginBottom="4dp"/>
+                            <TextView android:id="@+id/tvPuntajeGeneral" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/ai_primary" android:textSize="26sp" android:textStyle="bold"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="@color/white">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Temas Completados" android:textSize="12sp" android:textColor="@color/ai_text_muted" android:layout_marginBottom="4dp"/>
+                            <TextView android:id="@+id/tvTemasCompletados" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0/0" android:textSize="26sp" android:textStyle="bold" android:textColor="@color/ai_text_dark"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <!-- FRECUENCIA DE USO -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardFrecuenciaEstudiante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Frecuencia de Uso"
+                            android:textColor="@color/ai_text_dark"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            android:layout_marginBottom="10dp">
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal" android:background="@color/ai_primary_light" android:padding="12dp" android:layout_marginEnd="4dp">
+                                <TextView android:id="@+id/tvFrecEjercicios" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/ai_primary" android:textSize="28sp" android:textStyle="bold"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ejercicios" android:textColor="@color/ai_text_dark" android:textSize="12sp" android:gravity="center"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal" android:background="@color/ai_primary_light" android:padding="12dp" android:layout_marginEnd="4dp">
+                                <TextView android:id="@+id/tvFrecMateriales" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/ai_comp2" android:textSize="28sp" android:textStyle="bold"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Materiales" android:textColor="@color/ai_text_dark" android:textSize="12sp" android:gravity="center"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal" android:background="@color/ai_primary_light" android:padding="12dp">
+                                <TextView android:id="@+id/tvFrecTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/ai_comp3" android:textSize="28sp" android:textStyle="bold"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total" android:textColor="@color/ai_text_dark" android:textSize="12sp" android:gravity="center"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvFrecUltimaActividad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Última actividad: --"
+                            android:textColor="@color/ai_text_muted"
+                            android:textSize="12sp"/>
+
+                        <!-- MATERIALES -->
+                        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ai_divider" android:layout_marginTop="14dp" android:layout_marginBottom="14dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Materiales de Estudio"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ai_text_dark"
+                            android:layout_marginBottom="10dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                                <TextView android:id="@+id/tvMatTotalMateriales" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_primary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Revisados" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                                <TextView android:id="@+id/tvMatTiempoTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_primary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tiempo total" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                            </LinearLayout>
+
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                                <TextView android:id="@+id/tvMatCompletados" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_comp2"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Completados" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvMatFrecuencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Último acceso: --"
+                            android:textSize="12sp"
+                            android:textColor="@color/ai_text_muted"
+                            android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- HISTORIAL -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tvHistorialTitulo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Historial de Actividad"
+                        android:textColor="@color/ai_text_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/ivFilterOptions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ver más ›"
+                        android:textColor="@color/ai_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:paddingStart="8dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvHistorialEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Este estudiante aún no tiene actividad registrada."
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="13sp"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvActivityHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvVerMasHistorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ver más actividad ▼"
+                    android:textColor="@color/ai_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ai_bg_screen"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- TÍTULO -->
+        <TextView
+            android:id="@+id/tvTituloProgreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mi Progreso"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/ai_text_dark"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- RESUMEN GENERAL -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardResumenGeneral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="@color/white"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Donut + porcentaje -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <com.example.aplicacion_tesis.ui.components.DonutChartView
+                        android:id="@+id/donutProgresoGeneral"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"/>
+
+                    <TextView
+                        android:id="@+id/tvPorcentajeGeneral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ai_text_dark"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvEtiquetaGeneral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="General"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ai_primary"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Stats ejercicios y lecciones -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="@color/ai_primary_light"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp">
+                        <TextView
+                            android:id="@+id/tvTotalEjercicios"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ai_primary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ejercicios"
+                            android:textSize="12sp"
+                            android:textColor="@color/ai_text_muted"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:background="@color/ai_primary_light"
+                        android:padding="12dp"
+                        android:layout_marginStart="6dp">
+                        <TextView
+                            android:id="@+id/tvTotalLecciones"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ai_primary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lecciones"
+                            android:textSize="12sp"
+                            android:textColor="@color/ai_text_muted"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Mensaje motivación -->
+                <TextView
+                    android:id="@+id/tvMensajeMotivacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¡Sigue así, vas por buen camino!"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ai_primary"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:background="@color/ai_primary_light"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- COMPETENCIAS -->
+        <TextView
+            android:id="@+id/tvTituloCompetencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Progreso por Competencia"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/ai_text_dark"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+        <!-- Competencias — PieChart con selector de competencia -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPieCompetencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <!-- Spinner selector -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="1dp">
+                    <Spinner
+                        android:id="@+id/spinnerCompetenciaEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"/>
+                </androidx.cardview.widget.CardView>
+
+                <!-- PieChart / Donut -->
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chartPieCompetenciaEstudiante"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+                <!-- Leyenda 3 niveles -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#27AE60"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#F39C12"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#E74C3C"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvPieDetalleEstudiante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ai_text_dark"
+                    android:gravity="center"
+                    android:layout_marginBottom="2dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- HISTORIAL -->
+        <TextView
+            android:id="@+id/tvTituloHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Historial de Actividad"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/ai_text_dark"/>
+
+        <TextView
+            android:id="@+id/tvHistorialEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aún no hay actividades registradas."
+            android:textColor="@color/ai_text_muted"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistorialProgreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/btnVerMasHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/ai_primary"
+            android:text="Ver más ▼"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"/>
+
+        <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+    </LinearLayout>
+</ScrollView>

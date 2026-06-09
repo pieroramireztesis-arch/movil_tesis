@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/ai_bg_screen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- SALUDO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/outline_account_circle_24"
+                app:tint="@color/ai_primary"
+                android:background="@color/ai_primary_light"
+                android:padding="10dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvSaludo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¡Hola!"
+                    android:textColor="@color/ai_text_dark"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/tvSaludoSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bienvenido de nuevo"
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PROGRESO GENERAL -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Progreso General"
+                        android:textColor="@color/ai_text_dark"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvPorcentajeCabecera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="@color/ai_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:background="@drawable/bg_progress_track">
+                    <ProgressBar
+                        android:id="@+id/progressGeneral"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:progress="0"
+                        android:max="100"
+                        android:progressTint="@color/ai_primary"
+                        android:progressBackgroundTint="@android:color/transparent"/>
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD DOMINIO -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDominio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@color/ai_primary_light"
+                        android:layout_marginEnd="12dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_training"
+                            app:tint="@color/ai_primary"/>
+                    </FrameLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dominio"
+                        android:textColor="@color/ai_text_dark"
+                        android:textStyle="bold"
+                        android:textSize="17sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Practica y domina los temas de álgebra."
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="14dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDominio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    app:backgroundTint="@color/ai_primary"
+                    android:text="Empezar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD TUTOR -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTutor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@color/ai_primary_light"
+                        android:layout_marginEnd="12dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/outline_ar_on_you_24"
+                            app:tint="@color/ai_primary"/>
+                    </FrameLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tutor"
+                        android:textColor="@color/ai_text_dark"
+                        android:textStyle="bold"
+                        android:textSize="17sp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Obtén ayuda personalizada de tu tutor inteligente."
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="14dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTutor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    app:backgroundTint="@color/ai_primary"
+                    android:text="Empezar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- TUS DATOS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Tus Datos"
+            android:textColor="@color/ai_text_dark"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rendimiento por Competencia"
+                    android:textColor="@color/ai_text_dark"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center">
+                    <com.example.aplicacion_tesis.ui.components.DonutChartView
+                        android:id="@+id/donutChartView"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+                <!-- Leyenda -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/ai_comp1" android:layout_marginEnd="8dp"/>
+                        <TextView android:id="@+id/tvTema1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Competencia 1" android:textColor="@color/ai_text_dark" android:textSize="13sp"/>
+                        <TextView android:id="@+id/tvTema1Pct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textStyle="bold" android:textColor="@color/ai_comp1" android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/ai_comp2" android:layout_marginEnd="8dp"/>
+                        <TextView android:id="@+id/tvTema2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Competencia 2" android:textColor="@color/ai_text_dark" android:textSize="13sp"/>
+                        <TextView android:id="@+id/tvTema2Pct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textStyle="bold" android:textColor="@color/ai_comp2" android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/ai_comp3" android:layout_marginEnd="8dp"/>
+                        <TextView android:id="@+id/tvTema3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Competencia 3" android:textColor="@color/ai_text_dark" android:textSize="13sp"/>
+                        <TextView android:id="@+id/tvTema3Pct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textStyle="bold" android:textColor="@color/ai_comp3" android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/ai_comp4" android:layout_marginEnd="8dp"/>
+                        <TextView android:id="@+id/tvTema4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Competencia 4" android:textColor="@color/ai_text_dark" android:textSize="13sp"/>
+                        <TextView android:id="@+id/tvTema4Pct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textStyle="bold" android:textColor="@color/ai_comp4" android:textSize="13sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Botón: ¿Cómo se calcula mi progreso? -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/ai_primary_light"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="❓"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:id="@+id/btnComoSeCalcula"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="¿Cómo se calcula mi progreso?"
+                        android:textColor="@color/ai_primary_dark"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/ai_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVerReporte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_gravity="end"
+                    app:backgroundTint="@color/ai_primary"
+                    android:text="Ver Reporte Completo"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:cornerRadius="10dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Space android:layout_width="0dp" android:layout_height="24dp"/>
+    </LinearLayout>
+</ScrollView>

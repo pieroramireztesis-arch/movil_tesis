@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card">
+
+    <!-- Cabecera azul -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="24dp"
+        android:paddingBottom="18dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@color/ai_primary">
+
+        <TextView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:text="📊"
+            android:textSize="26sp"
+            android:gravity="center"
+            android:background="@drawable/bg_circle_light"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TU SISTEMA DE PROGRESO"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.15"
+            android:textColor="#CCFFFFFF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Cómo se calcula tu nivel?"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Cuerpo con scroll -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="8dp">
+
+            <!-- Sección: Tabla de niveles -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tabla de Niveles"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_primary"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Fila de cabecera -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/ai_primary"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="Nivel" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Nombre" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="Puntaje" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="Progreso" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="end"/>
+            </LinearLayout>
+
+            <!-- Nivel 1 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="#F8F9FA"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N1" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Iniciando" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="0 – 21" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="0%" android:textColor="@color/ai_text_muted" android:textSize="12sp" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 2 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N2" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Básico" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="22 – 35" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="20%" android:textColor="#E67E22" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 3 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="#F8F9FA"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N3" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="En progreso" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="36 – 49" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="40%" android:textColor="#F39C12" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 4 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N4" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Intermedio" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="50 – 64" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="60%" android:textColor="#27AE60" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 5 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="#F8F9FA"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N5" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Avanzado" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="65 – 78" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="80%" android:textColor="@color/ai_primary" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 6 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N6" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Experto" android:textColor="@color/ai_text_dark" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="79 – 92" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="100%" android:textColor="@color/ai_primary" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+            <!-- Nivel 7 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="#FFF8E1"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="N7" android:textColor="#F39C12" android:textSize="12sp" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:text="Maestro ⭐" android:textColor="#E67E22" android:textSize="12sp" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                    android:text="93 – 100" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
+                    android:text="100%" android:textColor="#E67E22" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+            </LinearLayout>
+
+            <!-- Separador -->
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="@color/ai_border" android:layout_marginTop="16dp" android:layout_marginBottom="14dp"/>
+
+            <!-- Sección: Examen diagnóstico -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@color/ai_primary_light"
+                android:paddingStart="12dp" android:paddingEnd="12dp"
+                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📝" android:textSize="20sp" android:layout_marginEnd="10dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Examen diagnóstico"
+                        android:textColor="@color/ai_primary_dark" android:textSize="13sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Tu docente asigna un puntaje inicial (0–100) basado en tu evaluación de inicio de año. Ese puntaje determina tu nivel de partida."
+                        android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Sección: Práctica con el tutor -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Puntos por ejercicio en el Tutor"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_primary"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Tabla delta -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Cabecera -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:background="@color/ai_primary"
+                    android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                        android:text="Respuesta" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="Rápida" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="Normal" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="Lenta" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                </LinearLayout>
+                <!-- Correcta -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:background="#F0FFF4"
+                    android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="6dp" android:paddingBottom="6dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                        android:text="✓ Correcta" android:textColor="#27AE60" android:textSize="12sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="+8 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="+5 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="+2 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                </LinearLayout>
+                <!-- Incorrecta -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="6dp" android:paddingBottom="6dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
+                        android:text="✗ Incorrecta" android:textColor="#E74C3C" android:textSize="12sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="–3 pts" android:textColor="#E74C3C" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="–3 pts" android:textColor="#E74C3C" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:text="–5 pts" android:textColor="#E74C3C" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⏱ Rápida: menos de 30 s  •  Normal: 30–90 s  •  Lenta: más de 90 s"
+                android:textSize="11sp"
+                android:textColor="@color/ai_text_muted"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Botón cerrar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCerrarCalculo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Entendido"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/ai_primary"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

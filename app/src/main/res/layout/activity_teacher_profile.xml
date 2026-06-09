@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ai_bg_screen"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:elevation="3dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:layout_marginStart="-16dp"
+            android:layout_marginEnd="-16dp"
+            android:layout_marginTop="-16dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvHeaderTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Panel de Profesor"
+                    android:textColor="@color/ai_text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/imgTeacherInfo"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="7dp"
+                    android:src="@drawable/outline_attribution_24"
+                    android:background="@drawable/bg_primary_circle"
+                    android:contentDescription="@string/profile"
+                    android:clickable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <!-- TABS -->
+            <LinearLayout
+                android:id="@+id/layoutTeacherTabsProfile"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal">
+
+                <LinearLayout android:id="@+id/tabTeacherInicio" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTabTeacherInicio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                    <View android:id="@+id/indicatorTeacherInicio" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/tabTeacherInformes" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTabTeacherInformes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informes" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                    <View android:id="@+id/indicatorTeacherInformes" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/tabTeacherAlertas" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTabTeacherAlertas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alertas" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
+                    <View android:id="@+id/indicatorTeacherAlertas" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/tabTeacherPerfil" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTabTeacherPerfil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="12sp" android:maxLines="1" android:textStyle="bold" android:textColor="@color/ai_primary"/>
+                    <View android:id="@+id/indicatorTeacherPerfil" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- AVATAR PROFESOR -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="20dp">
+
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@color/ai_primary_light"
+                    android:layout_marginEnd="16dp">
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_person_24"
+                        app:tint="@color/ai_primary"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvNombreTeacherTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre del Docente"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/ai_text_dark"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:id="@+id/tvCorreoTeacherTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="docente@email.com"
+                        android:textSize="13sp"
+                        android:textColor="@color/ai_text_muted"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- FORMULARIO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Información Personal"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/ai_text_dark"
+            android:layout_marginBottom="12dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre completo"
+                    android:textSize="12sp"
+                    android:textColor="@color/ai_text_muted"
+                    android:layout_marginBottom="4dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNombreTeacher"
+                        android:hint="Nombre y apellidos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Correo electrónico"
+                    android:textSize="12sp"
+                    android:textColor="@color/ai_text_muted"
+                    android:layout_marginBottom="4dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCorreoTeacher"
+                        android:inputType="textEmailAddress"
+                        android:hint="correo@ejemplo.com"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nueva contraseña"
+                    android:textSize="12sp"
+                    android:textColor="@color/ai_text_muted"
+                    android:layout_marginBottom="4dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPasswordTeacher"
+                        android:hint="Dejar en blanco para no cambiar"
+                        android:inputType="textPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- GUARDAR -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGuardarTeacher"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="10dp"
+            android:text="Guardar Cambios"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@color/ai_primary"/>
+
+        <!-- CERRAR SESIÓN -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogoutTeacher"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="24dp"
+            android:text="Cerrar Sesión"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/ai_error"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@android:color/transparent"
+            app:strokeColor="@color/ai_error"
+            app:strokeWidth="1.5dp"/>
+
+        <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+    </LinearLayout>
+</ScrollView>

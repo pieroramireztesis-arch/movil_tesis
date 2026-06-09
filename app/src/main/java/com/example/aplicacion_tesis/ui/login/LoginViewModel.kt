@@ -1,0 +1,73 @@
+package com.example.aplicacion_tesis.ui.login
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.aplicacion_tesis.network.RetrofitClient
+import com.example.aplicacion_tesis.network.TokenStore
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
+import com.example.aplicacion_tesis.model.dto.LoginRequest
+
+sealed class LoginState {
+    object Idle : LoginState()
+    object Loading : LoginState()
+    data class Success(val token: String) : LoginState()
+    data class Error(val message: String) : LoginState()
+}
+
+class LoginViewModel : ViewModel() {
+
+    private val _state = MutableStateFlow<LoginState>(LoginState.Idle)
+    val state: StateFlow<LoginState> = _state
+
+    fun login(correo: String, password: String) {
+        viewModelScope.launch {
+            _state.value = LoginState.Loading
+            try {
+                val resp = RetrofitClient.authApi.login(
+                    LoginRequest(
+                        correo = correo.trim(),
+                        password = password.trim()   // 👈 importante
+                    )
+                )
+
+                val user = resp.user        // viene de "data" en el JSON
+                val token = resp.token
+
+                val idEstudiante = user?.id_estudiante
+                val idDocente = user?.id_docente
+
+                if (resp.status && !token.isNullOrBlank() && user != null) {
+                    val fullName = "${user.nombre} ${user.apellidos}".trim()
+
+                    TokenStore.save(
+                        tokenValue = token,
+                        userIdValue = user.id_usuario,
+                        roleValue = user.rol,
+                        nameValue = fullName,
+                        studentIdValue = idEstudiante,
+                        teacherIdValue = idDocente,
+                        emailValue = user.correo
+                    )
+
+                    _state.value = LoginState.Success(token)
+                } else {
+                    _state.value = LoginState.Error(
+                        resp.message ?: "Credenciales inválidas."
+                    )
+                }
+
+            } catch (e: HttpException) {
+                _state.value = LoginState.Error("Error del servidor (${e.code()}).")
+            } catch (e: IOException) {
+                _state.value = LoginState.Error("Sin conexión a la red.")
+            } catch (e: Exception) {
+                _state.value = LoginState.Error(e.localizedMessage ?: "Error desconocido.")
+            }
+        }
+    }
+}
+
