@@ -1,3 +1,23 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- ── Sistema de espaciado TutorMath ──────────────────────────
+         Usar SIEMPRE estos valores para paddings/margins:
+         xs 4 · s 8 · m 12 · l 16 · xl 24 · xxl 32 -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_s">8dp</dimen>
+    <dimen name="spacing_m">12dp</dimen>
+    <dimen name="spacing_l">16dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_xxl">32dp</dimen>
+
+    <!-- ── Radios de esquina ── -->
+    <dimen name="radius_small">8dp</dimen>
+    <dimen name="radius_card">16dp</dimen>
+    <dimen name="radius_large">24dp</dimen>
+
+    <!-- ── Elevación y targets táctiles ── -->
+    <dimen name="elevation_card">2dp</dimen>
+    <dimen name="touch_target_min">48dp</dimen>
+    <dimen name="button_height">52dp</dimen>
 </resources>

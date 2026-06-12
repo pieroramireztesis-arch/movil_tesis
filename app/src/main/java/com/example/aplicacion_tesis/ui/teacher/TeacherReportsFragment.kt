@@ -2,21 +2,17 @@ package com.example.aplicacion_tesis.ui.teacher
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.aplicacion_tesis.R
+import com.example.aplicacion_tesis.databinding.FragmentTeacherReportsBinding
 import com.example.aplicacion_tesis.model.dto.ProgresoPorCompetenciaItemDTO
 import com.example.aplicacion_tesis.model.dto.TeacherActivityItem
 import com.example.aplicacion_tesis.model.dto.TeacherStudentItem
@@ -26,53 +22,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TeacherReportsActivity : AppCompatActivity() {
+/** F2: antes era TeacherReportsActivity. */
+class TeacherReportsFragment : Fragment() {
 
-    private enum class TeacherTab { INICIO, INFORMES, ALERTAS, PERFIL }
+    private var _binding: FragmentTeacherReportsBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var tabTeacherInicio: LinearLayout
-    private lateinit var tabTeacherInformes: LinearLayout
-    private lateinit var tabTeacherAlertas: LinearLayout
-    private lateinit var tvTabTeacherInicio: TextView
-    private lateinit var tvTabTeacherInformes: TextView
-    private lateinit var tvTabTeacherAlertas: TextView
-    private lateinit var indicatorTeacherInicio: View
-    private lateinit var indicatorTeacherInformes: View
-    private lateinit var indicatorTeacherAlertas: View
-
-    private lateinit var etSearchStudent: EditText
-    private lateinit var rvStudents: RecyclerView
-    private lateinit var tvReportTitleName: TextView
-    private lateinit var layoutInformeEstudiante: LinearLayout
-    private lateinit var tvPuntajeGeneral: TextView
-    private lateinit var tvTemasCompletados: TextView
-
-    // ✅ Pie chart + spinner en vez de barras
-    private lateinit var chartPieCompetencia: com.github.mikephil.charting.charts.PieChart
-    private lateinit var spinnerCompetencia: android.widget.Spinner
-    private lateinit var tvPieDetalle: TextView
-    private var competenciasActuales: List<ProgresoPorCompetenciaItemDTO> = emptyList()
-
-    private lateinit var tvFrecEjercicios: TextView
-    private lateinit var tvFrecMateriales: TextView
-    private lateinit var tvFrecTotal: TextView
-    private lateinit var tvFrecUltimaActividad: TextView
-
-    private lateinit var tvMatTotalMateriales: TextView
-    private lateinit var tvMatTiempoTotal: TextView
-    private lateinit var tvMatCompletados: TextView
-    private lateinit var tvMatFrecuencia: TextView
-
-    private lateinit var rvActivityHistory: RecyclerView
-    private lateinit var tvHistorialEmpty: TextView
-    private lateinit var tvVerMasHistorial: TextView
-    private lateinit var tvFilterOptions: TextView
     private lateinit var historyAdapter: TeacherActivityAdapter
-
     private lateinit var adapter: TeacherReportStudentAdapter
     private var allStudents: List<TeacherStudentItem> = emptyList()
     private var filteredStudents: List<TeacherStudentItem> = emptyList()
     private var currentStudent: TeacherStudentItem? = null
+    private var competenciasActuales: List<ProgresoPorCompetenciaItemDTO> = emptyList()
 
     private var historialCompleto: List<TeacherActivityItem> = emptyList()
     private var mostrandoTodoHistorial = false
@@ -80,11 +41,15 @@ class TeacherReportsActivity : AppCompatActivity() {
     private val ESTUDIANTES_VISIBLES = 4
     private var mostrandoTodosEstudiantes = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_teacher_reports)
-        bindViews()
-        setupTabs()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTeacherReportsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupStudentsRecycler()
         setupHistoryRecycler()
         setupSearch()
@@ -92,93 +57,28 @@ class TeacherReportsActivity : AppCompatActivity() {
         loadTeacherStudents()
     }
 
-    private fun bindViews() {
-        tabTeacherInicio     = findViewById(R.id.tabTeacherInicio)
-        tabTeacherInformes   = findViewById(R.id.tabTeacherInformes)
-        tabTeacherAlertas    = findViewById(R.id.tabTeacherAlertas)
-        tvTabTeacherInicio   = findViewById(R.id.tvTabTeacherInicio)
-        tvTabTeacherInformes = findViewById(R.id.tvTabTeacherInformes)
-        tvTabTeacherAlertas  = findViewById(R.id.tvTabTeacherAlertas)
-        indicatorTeacherInicio   = findViewById(R.id.indicatorTeacherInicio)
-        indicatorTeacherInformes = findViewById(R.id.indicatorTeacherInformes)
-        indicatorTeacherAlertas  = findViewById(R.id.indicatorTeacherAlertas)
-
-        etSearchStudent         = findViewById(R.id.etSearchStudent)
-        rvStudents              = findViewById(R.id.rvStudents)
-        tvReportTitleName       = findViewById(R.id.tvReportTitleName)
-        layoutInformeEstudiante = findViewById(R.id.layoutInformeEstudiante)
-        tvPuntajeGeneral        = findViewById(R.id.tvPuntajeGeneral)
-        tvTemasCompletados      = findViewById(R.id.tvTemasCompletados)
-
-        // ✅ Pie chart + spinner
-        chartPieCompetencia = findViewById(R.id.chartPieCompetencia)
-        spinnerCompetencia  = findViewById(R.id.spinnerCompetencia)
-        tvPieDetalle        = findViewById(R.id.tvPieDetalle)
-
-        tvFrecEjercicios      = findViewById(R.id.tvFrecEjercicios)
-        tvFrecMateriales      = findViewById(R.id.tvFrecMateriales)
-        tvFrecTotal           = findViewById(R.id.tvFrecTotal)
-        tvFrecUltimaActividad = findViewById(R.id.tvFrecUltimaActividad)
-
-        tvMatTotalMateriales = findViewById(R.id.tvMatTotalMateriales)
-        tvMatTiempoTotal     = findViewById(R.id.tvMatTiempoTotal)
-        tvMatCompletados     = findViewById(R.id.tvMatCompletados)
-        tvMatFrecuencia      = findViewById(R.id.tvMatFrecuencia)
-
-        rvActivityHistory = findViewById(R.id.rvActivityHistory)
-        tvHistorialEmpty  = findViewById(R.id.tvHistorialEmpty)
-        tvVerMasHistorial = findViewById(R.id.tvVerMasHistorial)
-        tvFilterOptions   = findViewById(R.id.ivFilterOptions)
-
-
-        try {
-            findViewById<LinearLayout>(R.id.tabTeacherPerfil)
-                ?.setOnClickListener {
-                    startActivity(Intent(this, TeacherProfileActivity::class.java))
-                }
-        } catch (_: Exception) {}
-    }
-
-    private fun setupTabs() {
-        selectTeacherTab(TeacherTab.INFORMES)
-        tabTeacherInicio.setOnClickListener {
-            startActivity(Intent(this, TeacherHomeActivity::class.java))
-            finish()
-        }
-        tabTeacherInformes.setOnClickListener { selectTeacherTab(TeacherTab.INFORMES) }
-        tabTeacherAlertas.setOnClickListener {
-            startActivity(Intent(this, TeacherAlertsActivity::class.java))
-            finish()
-        }
-
-        try {
-            findViewById<LinearLayout>(R.id.tabTeacherPerfil)?.setOnClickListener {
-                startActivity(Intent(this, TeacherProfileActivity::class.java))
-            }
-        } catch (_: Exception) {}
-    }
-
     private fun setupButtons() {
-        tvFilterOptions.setOnClickListener {
+        binding.ivFilterOptions.setOnClickListener {
             val student = currentStudent
             if (student == null) {
-                Toast.makeText(this, "Primero selecciona un estudiante.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Primero selecciona un estudiante.", Toast.LENGTH_SHORT).show()
             } else {
                 abrirReporteCompleto(student)
             }
         }
-        tvVerMasHistorial.setOnClickListener {
+        binding.tvVerMasHistorial.setOnClickListener {
             mostrandoTodoHistorial = !mostrandoTodoHistorial
             historyAdapter.updateItems(
                 if (mostrandoTodoHistorial) historialCompleto
                 else historialCompleto.take(HISTORIAL_LIMITE)
             )
-            tvVerMasHistorial.text = if (mostrandoTodoHistorial) "Ver menos ▲" else "Ver más actividad ▼"
+            binding.tvVerMasHistorial.text =
+                if (mostrandoTodoHistorial) "Ver menos ▲" else "Ver más actividad ▼"
         }
     }
 
     private fun abrirReporteCompleto(student: TeacherStudentItem) {
-        startActivity(Intent(this, TeacherStudentReportActivity::class.java).apply {
+        startActivity(Intent(requireContext(), TeacherStudentReportActivity::class.java).apply {
             putExtra("student_id",       student.idEstudiante)
             putExtra("student_name",     student.nombre)
             putExtra("student_progress", student.progreso)
@@ -189,18 +89,18 @@ class TeacherReportsActivity : AppCompatActivity() {
         adapter = TeacherReportStudentAdapter(emptyList()) { student ->
             showStudentReport(student)
         }
-        rvStudents.layoutManager = LinearLayoutManager(this)
-        rvStudents.adapter = adapter
+        binding.rvStudents.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvStudents.adapter = adapter
     }
 
     private fun setupHistoryRecycler() {
         historyAdapter = TeacherActivityAdapter()
-        rvActivityHistory.layoutManager = LinearLayoutManager(this)
-        rvActivityHistory.adapter = historyAdapter
+        binding.rvActivityHistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvActivityHistory.adapter = historyAdapter
     }
 
     private fun setupSearch() {
-        etSearchStudent.addTextChangedListener(object : TextWatcher {
+        binding.etSearchStudent.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 applyFilter(s?.toString()?.trim() ?: "")
             }
@@ -212,11 +112,10 @@ class TeacherReportsActivity : AppCompatActivity() {
     private fun loadTeacherStudents() {
         val idDocente = TokenStore.teacherId
         if (idDocente == null || idDocente <= 0) {
-            Toast.makeText(this, "No se encontró el ID del docente.", Toast.LENGTH_LONG).show()
-            finish()
+            Toast.makeText(requireContext(), "No se encontró el ID del docente.", Toast.LENGTH_LONG).show()
             return
         }
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val resp = RetrofitClient.docenteApi.getStudentsByTeacher(idDocente)
                 if (resp.status && !resp.data.isNullOrEmpty()) {
@@ -225,13 +124,13 @@ class TeacherReportsActivity : AppCompatActivity() {
                     withContext(Dispatchers.Main) { mostrarEstudiantes(filteredStudents) }
                 } else {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@TeacherReportsActivity,
+                        if (isAdded) Toast.makeText(requireContext(),
                             "No se encontraron estudiantes.", Toast.LENGTH_LONG).show()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@TeacherReportsActivity,
+                    if (isAdded) Toast.makeText(requireContext(),
                         "Error al cargar estudiantes", Toast.LENGTH_LONG).show()
                 }
             }
@@ -239,17 +138,17 @@ class TeacherReportsActivity : AppCompatActivity() {
     }
 
     private fun mostrarEstudiantes(lista: List<TeacherStudentItem>) {
-        val tvVerTodos = try { findViewById<TextView>(R.id.tvVerTodosEstudiantes) }
-        catch (_: Exception) { null }
+        if (_binding == null) return
+        val tvVerTodos = binding.tvVerTodosEstudiantes
 
         if (lista.size <= ESTUDIANTES_VISIBLES) {
             adapter.updateItems(lista)
-            tvVerTodos?.visibility = View.GONE
+            tvVerTodos.visibility = View.GONE
         } else {
             adapter.updateItems(lista.take(ESTUDIANTES_VISIBLES))
-            tvVerTodos?.visibility = View.VISIBLE
-            tvVerTodos?.text = "Ver todos (${lista.size}) ▼"
-            tvVerTodos?.setOnClickListener {
+            tvVerTodos.visibility = View.VISIBLE
+            tvVerTodos.text = "Ver todos (${lista.size}) ▼"
+            tvVerTodos.setOnClickListener {
                 mostrandoTodosEstudiantes = !mostrandoTodosEstudiantes
                 if (mostrandoTodosEstudiantes) {
                     adapter.updateItems(lista)
@@ -270,21 +169,21 @@ class TeacherReportsActivity : AppCompatActivity() {
 
     private fun showStudentReport(student: TeacherStudentItem) {
         currentStudent = student
-        tvReportTitleName.text = "Informe del estudiante\n\"${student.nombre}\""
-        layoutInformeEstudiante.visibility = View.VISIBLE
+        binding.tvReportTitleName.text = "Informe del estudiante\n\"${student.nombre}\""
+        binding.layoutInformeEstudiante.visibility = View.VISIBLE
         mostrandoTodoHistorial = false
-        tvVerMasHistorial.visibility = View.GONE
+        binding.tvVerMasHistorial.visibility = View.GONE
 
-        tvFrecEjercicios.text      = "..."
-        tvFrecMateriales.text      = "..."
-        tvFrecTotal.text           = "..."
-        tvFrecUltimaActividad.text = "Última actividad: cargando..."
-        tvMatTotalMateriales.text  = "..."
-        tvMatTiempoTotal.text      = "..."
-        tvMatCompletados.text      = "..."
-        tvMatFrecuencia.text       = "Último acceso: cargando..."
+        binding.tvFrecEjercicios.text      = "..."
+        binding.tvFrecMateriales.text      = "..."
+        binding.tvFrecTotal.text           = "..."
+        binding.tvFrecUltimaActividad.text = "Última actividad: cargando..."
+        binding.tvMatTotalMateriales.text  = "..."
+        binding.tvMatTiempoTotal.text      = "..."
+        binding.tvMatCompletados.text      = "..."
+        binding.tvMatFrecuencia.text       = "Último acceso: cargando..."
 
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val compResponse = RetrofitClient.progresoApi
                     .getPorCompetencia(idEstudiante = student.idEstudiante)
@@ -359,41 +258,41 @@ class TeacherReportsActivity : AppCompatActivity() {
                 val matFrec   = frecuenciaMat
 
                 withContext(Dispatchers.Main) {
-                    tvPuntajeGeneral.text = "$progFinal%"
+                    if (_binding == null) return@withContext
+                    binding.tvPuntajeGeneral.text = "$progFinal%"
                     val completados = temas.count { it.porcentaje >= 70 }
-                    tvTemasCompletados.text = "$completados/${temas.size}"
-                    // ✅ Pie chart en vez de barras
+                    binding.tvTemasCompletados.text = "$completados/${temas.size}"
                     updateCompetenciasBars(temas)
 
-                    tvFrecEjercicios.text      = ejFinal.toString()
-                    tvFrecMateriales.text      = matFinal.toString()
-                    tvFrecTotal.text           = totFinal.toString()
-                    tvFrecUltimaActividad.text = "Última actividad: $ultFinal"
+                    binding.tvFrecEjercicios.text      = ejFinal.toString()
+                    binding.tvFrecMateriales.text      = matFinal.toString()
+                    binding.tvFrecTotal.text           = totFinal.toString()
+                    binding.tvFrecUltimaActividad.text = "Última actividad: $ultFinal"
 
-                    tvMatTotalMateriales.text = matTotal.toString()
-                    tvMatTiempoTotal.text     = formatearTiempo(matTiempo)
-                    tvMatCompletados.text     = matComp.toString()
-                    tvMatFrecuencia.text      = "Último acceso: $matFrec"
+                    binding.tvMatTotalMateriales.text = matTotal.toString()
+                    binding.tvMatTiempoTotal.text     = formatearTiempo(matTiempo)
+                    binding.tvMatCompletados.text     = matComp.toString()
+                    binding.tvMatFrecuencia.text      = "Último acceso: $matFrec"
 
                     historialCompleto = histItems
                     if (histItems.isEmpty()) {
-                        tvHistorialEmpty.visibility  = View.VISIBLE
-                        rvActivityHistory.visibility = View.GONE
-                        tvVerMasHistorial.visibility = View.GONE
+                        binding.tvHistorialEmpty.visibility  = View.VISIBLE
+                        binding.rvActivityHistory.visibility = View.GONE
+                        binding.tvVerMasHistorial.visibility = View.GONE
                     } else {
-                        tvHistorialEmpty.visibility  = View.GONE
-                        rvActivityHistory.visibility = View.VISIBLE
+                        binding.tvHistorialEmpty.visibility  = View.GONE
+                        binding.rvActivityHistory.visibility = View.VISIBLE
                         historyAdapter.updateItems(histItems.take(HISTORIAL_LIMITE))
-                        tvVerMasHistorial.visibility =
+                        binding.tvVerMasHistorial.visibility =
                             if (histItems.size > HISTORIAL_LIMITE) View.VISIBLE else View.GONE
-                        tvVerMasHistorial.text = "Ver más actividad ▼"
+                        binding.tvVerMasHistorial.text = "Ver más actividad ▼"
                     }
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@TeacherReportsActivity,
+                    if (isAdded) Toast.makeText(requireContext(),
                         "Error al cargar reporte: ${e.localizedMessage}",
                         Toast.LENGTH_LONG).show()
                 }
@@ -401,7 +300,6 @@ class TeacherReportsActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ Reemplaza barras por pie chart + spinner
     private fun updateCompetenciasBars(temas: List<ProgresoPorCompetenciaItemDTO>) {
         competenciasActuales = temas
         setupSpinnerCompetencias(temas)
@@ -411,13 +309,13 @@ class TeacherReportsActivity : AppCompatActivity() {
     private fun setupSpinnerCompetencias(temas: List<ProgresoPorCompetenciaItemDTO>) {
         val nombres = temas.map { abreviarNombre(it.nombre) }
         val spinnerAdapter = android.widget.ArrayAdapter(
-            this, android.R.layout.simple_spinner_item, nombres
+            requireContext(), android.R.layout.simple_spinner_item, nombres
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
-        spinnerCompetencia.adapter = spinnerAdapter
-        spinnerCompetencia.onItemSelectedListener = object :
+        binding.spinnerCompetencia.adapter = spinnerAdapter
+        binding.spinnerCompetencia.onItemSelectedListener = object :
             android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long
+                parent: android.widget.AdapterView<*>?, view: View?, pos: Int, id: Long
             ) { if (pos < temas.size) actualizarPieChart(temas[pos]) }
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
@@ -452,7 +350,7 @@ class TeacherReportsActivity : AppCompatActivity() {
             sliceSpace = 3f
         }
 
-        chartPieCompetencia.apply {
+        binding.chartPieCompetencia.apply {
             data                    = com.github.mikephil.charting.data.PieData(dataSet)
             description.isEnabled   = false
             isDrawHoleEnabled       = true
@@ -475,8 +373,8 @@ class TeacherReportsActivity : AppCompatActivity() {
             porcentaje >= 40 -> "⚡ En Proceso" to "Necesita refuerzo"
             else             -> "⚠ Inicio" to "Requiere atención inmediata"
         }
-        tvPieDetalle.text = "$nivel  ·  $descripcion"
-        tvPieDetalle.setTextColor(colorLogrado)
+        binding.tvPieDetalle.text = "$nivel  ·  $descripcion"
+        binding.tvPieDetalle.setTextColor(colorLogrado)
     }
 
     private fun formatearTiempo(segundos: Int): String = when {
@@ -499,15 +397,8 @@ class TeacherReportsActivity : AppCompatActivity() {
         } catch (_: Exception) { fecha }
     }
 
-    private fun selectTeacherTab(tab: TeacherTab) {
-        fun activate(tv: TextView, indicator: View, active: Boolean) {
-            tv.setTextColor(ContextCompat.getColor(this,
-                if (active) R.color.ai_primary else R.color.ai_text_muted))
-            tv.setTypeface(null, if (active) Typeface.BOLD else Typeface.NORMAL)
-            indicator.visibility = if (active) View.VISIBLE else View.GONE
-        }
-        activate(tvTabTeacherInicio,   indicatorTeacherInicio,   tab == TeacherTab.INICIO)
-        activate(tvTabTeacherInformes, indicatorTeacherInformes, tab == TeacherTab.INFORMES)
-        activate(tvTabTeacherAlertas,  indicatorTeacherAlertas,  tab == TeacherTab.ALERTAS)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

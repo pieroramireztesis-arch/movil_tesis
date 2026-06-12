@@ -4,7 +4,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- ✅ PALETA PRINCIPAL — Azul educativo profundo -->
+    <!-- ✅ PALETA PRINCIPAL — Azul educativo profundo (igual que la web) -->
     <color name="ai_primary">#1565C0</color>
     <color name="ai_primary_light">#E3F0FF</color>
     <color name="ai_primary_dark">#0D47A1</color>
@@ -18,8 +18,6 @@
     <!-- Texto -->
     <color name="ai_text_dark">#1A1A2E</color>
     <color name="ai_text_muted">#4A5568</color>
-    <color name="text_light">#1A1A2E</color>
-    <color name="text_dark">#F5F5F5</color>
 
     <!-- ✅ Competencias MINEDU — colores vibrantes -->
     <color name="ai_comp1">#1565C0</color>  <!-- Cantidad — Azul -->
@@ -33,8 +31,11 @@
 
     <!-- Estados -->
     <color name="ai_success">#1B5E20</color>
+    <color name="ai_success_light">#E6F4EA</color>
     <color name="ai_error">#B71C1C</color>
+    <color name="ai_error_light">#FDECEA</color>
     <color name="ai_warning">#E65100</color>
+    <color name="ai_warning_light">#FFF3E0</color>
 
     <!-- UI -->
     <color name="ai_divider">#E8ECF0</color>
@@ -46,11 +47,16 @@
     <color name="ai_progress_bg">#E3EAF5</color>
     <color name="ai_progress_fg">#1565C0</color>
 
-    <!-- Panel docente -->
+    <!-- Panel docente (alias del primario) -->
     <color name="background_light">#F5F7FA</color>
-    <color name="background_dark">#0D1520</color>
-    <color name="secondary_light">#E8ECF0</color>
     <color name="teacher_primary">#1565C0</color>
     <color name="teacher_primary_dark">#0D47A1</color>
     <color name="accent">#FFC300</color>
+
+    <!--
+      ❌ ELIMINADOS (nombres invertidos / sin uso):
+        text_light era #1A1A2E (oscuro) y text_dark era #F5F5F5 (claro) —
+        nombres al revés y 0 usos en layouts/Kotlin.
+        background_dark y secondary_light tampoco se usaban.
+    -->
 </resources>

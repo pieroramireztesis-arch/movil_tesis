@@ -1,93 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/ai_bg_screen">
-
-    <!-- HEADER -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:elevation="3dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="12dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Panel de Profesor"
-                android:textColor="@color/ai_text_dark"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/imgTeacherInfo"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:padding="7dp"
-                android:src="@drawable/outline_attribution_24"
-                android:background="@drawable/bg_primary_circle"
-                android:contentDescription="@string/profile"
-                android:clickable="false"
-                android:focusable="false"/>
-        </LinearLayout>
-
-        <!-- TABS -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal">
-
-            <LinearLayout android:id="@+id/tabTeacherInicio" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <TextView android:id="@+id/tvTabTeacherInicio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
-                <View android:id="@+id/indicatorTeacherInicio" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
-            </LinearLayout>
-
-            <LinearLayout android:id="@+id/tabTeacherInformes" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <TextView android:id="@+id/tvTabTeacherInformes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informes" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
-                <View android:id="@+id/indicatorTeacherInformes" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
-            </LinearLayout>
-
-            <LinearLayout android:id="@+id/tabTeacherAlertas" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <TextView android:id="@+id/tvTabTeacherAlertas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alertas" android:textSize="12sp" android:maxLines="1" android:textStyle="bold" android:textColor="@color/ai_primary"/>
-                <View android:id="@+id/indicatorTeacherAlertas" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary"/>
-            </LinearLayout>
-
-            <LinearLayout android:id="@+id/tabTeacherPerfil" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <TextView android:id="@+id/tvTabTeacherPerfil" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="12sp" android:maxLines="1" android:textColor="@color/ai_text_muted"/>
-                <View android:id="@+id/indicatorTeacherPerfil" android:layout_width="match_parent" android:layout_height="3dp" android:layout_marginTop="4dp" android:background="@color/ai_primary" android:visibility="gone"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- CONTENIDO -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
-
+    android:background="@color/ai_bg_screen"
+    android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- TÍTULO SECCIÓN -->
+            <!-- TÃTULO SECCIÃ“N -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,7 +63,7 @@
                         android:textColor="@color/ai_text_dark"
                         android:layout_marginBottom="10dp"/>
 
-                    <!-- Crítica -->
+                    <!-- CrÃ­tica -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -161,14 +85,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="🔴  Crítica"
+                                android:text="ðŸ”´  CrÃ­tica"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#C62828"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4 o más errores recientes consecutivos"
+                                android:text="4 o mÃ¡s errores recientes consecutivos"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -196,14 +120,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="🟡  Advertencia"
+                                android:text="ðŸŸ¡  Advertencia"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#F57F17"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2–3 errores recientes consecutivos"
+                                android:text="2â€“3 errores recientes consecutivos"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -230,14 +154,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="🔵  Informativa"
+                                android:text="ðŸ”µ  Informativa"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/ai_primary"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Bajo rendimiento en competencia específica"
+                                android:text="Bajo rendimiento en competencia especÃ­fica"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -252,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
 
-            <!-- VACÍO -->
+            <!-- VACÃO -->
             <LinearLayout
                 android:id="@+id/tvAlertsEmpty"
                 android:layout_width="match_parent"
@@ -265,7 +189,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✅"
+                    android:text="âœ…"
                     android:textSize="48sp"
                     android:layout_marginBottom="12dp"/>
 
@@ -287,5 +211,5 @@
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</ScrollView>
+

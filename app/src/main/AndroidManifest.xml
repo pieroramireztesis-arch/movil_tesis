@@ -42,12 +42,9 @@
         <activity android:name=".ui.home.tabs.practica.PracticaEjercicioActivity" />
 
 
-        <!-- Profesor -->
+        <!-- Profesor (F2: Alertas/Perfil/Informes ahora son fragments dentro de TeacherHomeActivity) -->
         <activity android:name=".ui.teacher.TeacherHomeActivity" android:exported="false" />
-        <activity android:name=".ui.teacher.TeacherAlertsActivity" android:exported="false" />
         <activity android:name=".ui.home.tabs.TemaDetalleActivity" android:exported="false" />
-        <activity android:name=".ui.teacher.TeacherProfileActivity" android:exported="false" />
-        <activity android:name=".ui.teacher.TeacherReportsActivity" android:exported="false" />
         <activity android:name=".ui.teacher.TeacherStudentReportActivity" android:exported="false" />
 
     </application>

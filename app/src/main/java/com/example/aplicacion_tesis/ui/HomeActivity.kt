@@ -9,13 +9,18 @@ import com.example.aplicacion_tesis.R
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.home.HomePagerAdapter
 import com.example.aplicacion_tesis.ui.login.LoginActivity
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
+    private lateinit var bottomNav: BottomNavigationView
+
+    // Orden de los destinos = orden de HomePagerAdapter
+    private val menuIds = listOf(
+        R.id.nav_inicio, R.id.nav_dominio, R.id.nav_tutor,
+        R.id.nav_progreso, R.id.nav_perfil
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +37,29 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_home)
 
-        tabLayout = findViewById(R.id.tabLayoutHome)
         viewPager = findViewById(R.id.viewPager)
+        bottomNav = findViewById(R.id.bottomNav)
 
         val adapter = HomePagerAdapter(this)
         viewPager.adapter = adapter
 
-        // ✅ CORREGIDO: valor fijo 4 garantiza que NUNCA destruye ningún tab
-        // adapter.itemCount no funciona correctamente con ViewPager2
+        // ✅ valor fijo 4 garantiza que NUNCA destruye ningún tab
         viewPager.offscreenPageLimit = 4
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = adapter.titles[position]
-        }.attach()
+        // Bottom nav → ViewPager (sin animación de página para sentirse instantáneo)
+        bottomNav.setOnItemSelectedListener { item ->
+            val pos = menuIds.indexOf(item.itemId)
+            if (pos >= 0) viewPager.setCurrentItem(pos, false)
+            pos >= 0
+        }
+
+        // ViewPager (swipe) → marcar ítem del bottom nav
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                if (position in menuIds.indices) {
+                    bottomNav.menu.findItem(menuIds[position]).isChecked = true
+                }
+            }
+        })
     }
 }

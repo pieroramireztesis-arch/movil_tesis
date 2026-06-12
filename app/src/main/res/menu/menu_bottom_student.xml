@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom Navigation del ESTUDIANTE — mismo orden que HomePagerAdapter -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_nav_home"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_dominio"
+        android:icon="@drawable/ic_nav_book"
+        android:title="Temas" />
+    <item
+        android:id="@+id/nav_tutor"
+        android:icon="@drawable/ic_nav_school"
+        android:title="Tutor" />
+    <item
+        android:id="@+id/nav_progreso"
+        android:icon="@drawable/ic_nav_chart"
+        android:title="Progreso" />
+    <item
+        android:id="@+id/nav_perfil"
+        android:icon="@drawable/ic_nav_person"
+        android:title="Perfil" />
+</menu>

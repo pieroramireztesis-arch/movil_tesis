@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom Navigation del DOCENTE — mismo orden que TeacherPagerAdapter -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_teacher_inicio"
+        android:icon="@drawable/ic_nav_home"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_teacher_informes"
+        android:icon="@drawable/ic_nav_report"
+        android:title="Informes" />
+    <item
+        android:id="@+id/nav_teacher_alertas"
+        android:icon="@drawable/ic_nav_alert"
+        android:title="Alertas" />
+    <item
+        android:id="@+id/nav_teacher_perfil"
+        android:icon="@drawable/ic_nav_person"
+        android:title="Perfil" />
+</menu>
