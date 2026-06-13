@@ -130,7 +130,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/ai_card_bg"
                 android:padding="24dp"
                 android:orientation="vertical">
 
@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Descripción"
-                    android:textColor="#444444"
+                    android:textColor="@color/ai_text_dark"
                     android:textSize="15sp"
                     android:lineSpacingExtra="6dp"/>
 

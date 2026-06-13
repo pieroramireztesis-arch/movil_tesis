@@ -1,111 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/ai_background_light">
+    android:background="@color/ai_bg_screen"
+    android:fitsSystemWindows="true">
+
+    <!-- Símbolos matemáticos flotantes -->
+    <TextView
+        android:id="@+id/mathS1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="∫"
+        android:textColor="#40FFFFFF"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:importantForAccessibility="no"/>
+    <TextView
+        android:id="@+id/mathS2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="≠"
+        android:textColor="#35FFFFFF"
+        android:textSize="62sp"
+        android:textStyle="bold"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="12dp"
+        android:importantForAccessibility="no"/>
+    <TextView
+        android:id="@+id/mathS3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="∑"
+        android:textColor="#30FFFFFF"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="18dp"
+        android:importantForAccessibility="no"/>
+    <TextView
+        android:id="@+id/mathS4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="π"
+        android:textColor="#28FFFFFF"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="14dp"
+        android:importantForAccessibility="no"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- Header -->
-        <LinearLayout
+        <!-- HEADER GRADIENTE -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="200dp"
+            android:background="@drawable/bg_gradient_header">
 
+            <!-- Botón volver (esquina superior izquierda) -->
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:padding="10dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/app_name"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Recuperar cuenta"
-                android:textColor="@color/ai_text_dark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            <View
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/bg_orb_white"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="-40dp"
+                android:layout_marginEnd="-40dp"/>
 
-        <ImageView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_lock_reset" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="¿Olvidaste tu contraseña?"
-            android:textColor="@color/ai_text_dark"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvSubtitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="center"
-            android:text="Ingresa tu correo electrónico para recibir una nueva contraseña."
-            android:textColor="@color/ai_text_muted"
-            android:textSize="16sp" />
-
-        <!-- Campo correo -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Correo electrónico"
-            android:textColor="@color/ai_text_dark" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCorreo"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:hint="tu.correo@ejemplo.com"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="16dp">
 
-        <!-- Botón Enviar -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEnviar"
+                <FrameLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:padding="10dp"
+                    android:clipToOutline="true"
+                    android:background="@drawable/bg_white_circle">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_lock_reset"
+                        android:contentDescription="Recuperar contraseña"/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:text="Tutor Math"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Recuperar acceso"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- FORMULARIO OSCURO -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="20dp"
-            android:text="Enviar"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@color/ai_primary" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_form_top_rounded"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
-        <!-- Volver al login -->
-        <TextView
-            android:id="@+id/tvVolver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="14dp"
-            android:text="¿Recuerdas tu contraseña? Inicia sesión"
-            android:textColor="@color/ai_primary"
-            android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="32dp"
+                android:paddingBottom="24dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="@color/ai_text_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvSubtitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa tu correo electrónico para recibir una nueva contraseña."
+                    android:textColor="@color/ai_text_muted"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:layout_marginBottom="28dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Correo electrónico"
+                    android:textColor="@color/ai_text_dark"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="6dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="tu.correo@ejemplo.com"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/ai_text_dark"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEnviar"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Enviar"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@color/ai_primary"/>
+
+                <TextView
+                    android:id="@+id/tvVolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Recuerdas tu contraseña? Inicia sesión"
+                    android:textColor="@color/ai_primary"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"/>
+
+                <Space android:layout_width="0dp" android:layout_height="16dp"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-</ScrollView>
+</FrameLayout>

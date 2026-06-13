@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:text="Ejercicio X"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/ai_text_dark" />
 
     <TextView
         android:id="@+id/tvSubtituloHistorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Resultado: correcto/incorrecto"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:textColor="@color/ai_text_muted" />
 </LinearLayout>

@@ -15,11 +15,13 @@ interface TutorApiService {
     // ✅ Sin / al inicio — Retrofit usa BASE_URL correctamente
     @GET("tutor/ejercicio_siguiente")
     suspend fun getNextExercise(
-        @Query("idEstudiante") idEstudiante: Int,
-        @Query("idDominio")    idDominio: Int?,
-        @Query("ajuste")       ajuste: String?,
-        @Query("modo")         modo: String = "repaso",
-        @Query("idEvaluacion") idEvaluacion: Int? = null
+        @Query("idEstudiante")       idEstudiante: Int,
+        @Query("idDominio")          idDominio: Int?,
+        @Query("ajuste")             ajuste: String?,
+        @Query("modo")               modo: String = "repaso",
+        @Query("idEvaluacion")       idEvaluacion: Int? = null,
+        @Query("postRefuerzo")       postRefuerzo: Boolean? = null,
+        @Query("idEjercicioFallado") idEjercicioFallado: Int? = null
     ): TutorExerciseDTO
 
     @POST("tutor/responder")

@@ -1,7 +1,10 @@
 package com.example.aplicacion_tesis.ui.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +25,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        startFloatAnim(binding.mathS1, -30f, 3000L, 0L)
+        startFloatAnim(binding.mathS2, -22f, 3600L, 350L)
+        startFloatAnim(binding.mathS3, -28f, 4200L, 700L)
+        startFloatAnim(binding.mathS4, -18f, 2800L, 150L)
 
         // 🔹 Iniciar sesión
         binding.btnLogin.setOnClickListener {
@@ -102,5 +110,17 @@ class LoginActivity : AppCompatActivity() {
     private fun setLoading(loading: Boolean) {
         binding.btnLogin.isEnabled = !loading
         binding.btnLogin.text = if (loading) "Verificando..." else "Iniciar Sesión"
+    }
+
+    private fun startFloatAnim(view: View?, dy: Float, duration: Long, delay: Long) {
+        view ?: return
+        ObjectAnimator.ofFloat(view, "translationY", 0f, dy).apply {
+            this.duration = duration
+            startDelay = delay
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+            start()
+        }
     }
 }

@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="∑"
-        android:textColor="#20FFFFFF"
+        android:textColor="#55FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
         android:layout_gravity="bottom|start"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="π"
-        android:textColor="#16FFFFFF"
+        android:textColor="#48FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:layout_gravity="top|center_horizontal"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="x²"
-        android:textColor="#18FFFFFF"
+        android:textColor="#50FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="bottom|end"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="∫"
-        android:textColor="#12FFFFFF"
+        android:textColor="#45FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold"
         android:layout_gravity="center_vertical|start"
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TutorMath"
+                android:text="Tutor Math"
                 android:textAppearance="@style/TextAppearance.TutorMath.Subtitle"
                 android:textColor="@color/white"/>
 
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:text="I.E. 27 de Diciembre · Lambayeque"
                 android:textAppearance="@style/TextAppearance.TutorMath.Label"
-                android:textColor="@color/ai_primary_light"/>
+                android:textColor="#CCFFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

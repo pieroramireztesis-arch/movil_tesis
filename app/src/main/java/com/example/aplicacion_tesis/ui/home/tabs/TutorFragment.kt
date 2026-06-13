@@ -117,6 +117,8 @@ class TutorFragment : Fragment() {
     private var nivelActualCached:            String? = null
     private var idEjercicioDesarrolloSubido:  Int?    = null
     private var repasoExerciseBeforeEval:     TutorExerciseDTO? = null
+    private var modoVerificacion:             Boolean           = false
+    private val competenciasAlertadas = mutableSetOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -677,6 +679,8 @@ class TutorFragment : Fragment() {
     private fun cargarNuevoEjercicio(ajuste: String?) {
         val idEst = idEstudiante ?: return
 
+        modoVerificacion            = false
+        actualizarBadgeModo()
         attempts                    = 0
         usoPistaActual              = false
         lastAjuste                  = ajuste
@@ -737,8 +741,11 @@ class TutorFragment : Fragment() {
         modoGuardado      = modoActual
         guardarEjercicioEnPrefs(dto)
 
-        tvTituloTutor.text = if (modoActual == "evaluacion")
-            "Evaluación de Álgebra" else "Práctica de Álgebra"
+        tvTituloTutor.text = when {
+            modoActual == "evaluacion" -> "Evaluación de Álgebra"
+            modoVerificacion           -> "Comprueba lo aprendido"
+            else                       -> "Práctica de Álgebra"
+        }
         tvEnunciado.text   = dto.enunciado ?: ""
         cargarImagenConGlide(dto.imagenUrl)
 
@@ -943,7 +950,14 @@ class TutorFragment : Fragment() {
                     nivelMLPendiente  = resp.nivelMLCompetencia
                     nivelActualCached = resp.nivelMLCompetencia
                     mostrarNivelEnUI(resp.nivelMLCompetencia)
-                    Toast.makeText(requireContext(), "¡Correcto! 🎉", Toast.LENGTH_SHORT).show()
+
+                    if (modoVerificacion) {
+                        Toast.makeText(requireContext(),
+                            "¡Excelente! Pusiste en práctica lo que aprendiste. 🌟",
+                            Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), "¡Correcto! 🎉", Toast.LENGTH_SHORT).show()
+                    }
 
                     selectedFileUri             = null
                     desarrolloSubidoOk          = false
@@ -982,9 +996,31 @@ class TutorFragment : Fragment() {
                             cardFeedback.visibility = View.GONE
                         }
 
+                        // Alerta docente: informar al estudiante que su docente será notificado
+                        val compActual = currentExercise?.idCompetencia
+                        if (resp.docenteAlertado == true && compActual != null &&
+                            compActual !in competenciasAlertadas) {
+                            competenciasAlertadas.add(compActual)
+                            Toast.makeText(requireContext(),
+                                "📩 Tu docente podrá ver que necesitas apoyo en este tema.",
+                                Toast.LENGTH_LONG).show()
+                        }
+
                         if (attempts >= 2) {
-                            if (resp.materialSugerido != null || resp.recursosAdicionales != null) {
-                                mostrarDialogoMaterial(resp.materialSugerido, resp.recursosAdicionales)
+                            if (modoVerificacion) {
+                                // En verificación nunca mostrar diálogo de material — avanzar directo
+                                selectedFileUri             = null
+                                desarrolloSubidoOk          = false
+                                idEjercicioDesarrolloSubido = null
+                                ejercicioGuardado           = null
+                                limpiarPrefs()
+                                mostrarMensajeAjusteNivel(resp.nuevoAjuste) {
+                                    cargarNuevoEjercicio(resp.nuevoAjuste)
+                                }
+                            } else if (resp.materialSugerido != null || resp.recursosAdicionales != null) {
+                                val enunciadoCorto = tvEnunciado.text.toString()
+                                    .take(70).let { if (tvEnunciado.text.length > 70) "$it…" else it }
+                                mostrarDialogoMaterial(resp.materialSugerido, resp.recursosAdicionales, enunciadoCorto)
                             } else {
                                 selectedFileUri             = null
                                 desarrolloSubidoOk          = false
@@ -1108,9 +1144,14 @@ class TutorFragment : Fragment() {
     }
 
     private fun mostrarDialogoMaterial(
-        material:  MaterialSugeridoDTO?,
-        recursos:  RecursosAdicionalesDTO?
+        material:         MaterialSugeridoDTO?,
+        recursos:         RecursosAdicionalesDTO?,
+        enunciadoCorto:   String? = null
     ) {
+        // Capturar ejercicio fallado ANTES de mostrar el diálogo para la verificación post-refuerzo
+        val idCompFallado = currentExercise?.idCompetencia
+        val idEjFallado   = currentExercise?.idEjercicio
+
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_material_sugerido, null)
 
@@ -1118,6 +1159,7 @@ class TutorFragment : Fragment() {
         val layoutDocente  = dialogView.findViewById<View>(R.id.layoutMaterialDocente)
         val tvTipo         = dialogView.findViewById<TextView>(R.id.tvDialogMaterialTipo)
         val tvNombre       = dialogView.findViewById<TextView>(R.id.tvDialogMaterialNombre)
+        val tvContexto     = dialogView.findViewById<TextView>(R.id.tvDialogContexto)
         val btnAbrir       = dialogView.findViewById<MaterialButton>(R.id.btnDialogAbrirMaterial)
         val layoutTimer    = dialogView.findViewById<View>(R.id.layoutTimer)
         val progressTimer  = dialogView.findViewById<android.widget.ProgressBar>(R.id.progressTimer)
@@ -1131,13 +1173,22 @@ class TutorFragment : Fragment() {
 
         val btnContin      = dialogView.findViewById<MaterialButton>(R.id.btnDialogContinuar)
 
-        // ── Mostrar sección material si el docente asignó uno ────────────────
+        // ── Estado del diálogo ────────────────────────────────────────────────
         var timerJob:         Job?  = null
+        var waitJob:          Job?  = null   // bloqueo inicial de 60s
         var materialAbierto         = false
         var tiempoTranscurrido      = 0
         var tiempoInicioMaterial    = 0L
-        val tiempoMinimo            = 300
+        // Usar el tiempo estimado real del material; mínimo 120s, máximo 600s
+        val tiempoMinimo = material?.tiempoEstimado?.coerceIn(120, 600) ?: 300
 
+        // ── Contexto del fallo — muestra el enunciado truncado ───────────────
+        if (!enunciadoCorto.isNullOrBlank()) {
+            tvContexto.text       = "Intentaste este ejercicio 2 veces. ¡Está bien! Revisa el material y vuelve a intentarlo."
+            tvContexto.visibility = View.VISIBLE
+        }
+
+        // ── Mostrar sección material si el docente asignó uno ────────────────
         if (material != null) {
             layoutDocente.visibility = View.VISIBLE
             val esVideo = material.tipo.lowercase().contains("video")
@@ -1154,16 +1205,28 @@ class TutorFragment : Fragment() {
             layoutRecursos.visibility = View.GONE
         }
 
-        btnContin.visibility = View.VISIBLE
-        btnContin.isEnabled  = true
-        btnContin.text       = "Continuar sin ver"
-        btnContin.alpha      = 1f
+        // btnContin inicia deshabilitado — el XML ya lo pone en enabled=false/alpha=0.5
+        // Se habilita después de 60s o cuando el timer del material completa
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)
             .create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        // ── Bloqueo inicial de 60s — fuerza al menos leer el título del material ──
+        waitJob = viewLifecycleOwner.lifecycleScope.launch {
+            for (i in 60 downTo 1) {
+                if (!isActive) break
+                btnContin.text = "Disponible en ${i}s…"
+                delay(1000)
+            }
+            if (isActive && !materialAbierto) {
+                btnContin.isEnabled = true
+                btnContin.alpha     = 1f
+                btnContin.text      = "Continuar sin revisar el material"
+            }
+        }
 
         // ── Observer para el timer cuando el alumno abre el material ─────────
         val lifecycleObserver = object : androidx.lifecycle.DefaultLifecycleObserver {
@@ -1224,6 +1287,7 @@ class TutorFragment : Fragment() {
             if (!materialAbierto) {
                 materialAbierto        = true
                 tiempoInicioMaterial   = System.currentTimeMillis()
+                waitJob?.cancel()      // el timer del material toma el control
                 btnAbrir.text          = "✅ Ya lo estoy revisando"
                 btnAbrir.isEnabled     = false
                 layoutTimer.visibility = View.VISIBLE
@@ -1282,6 +1346,7 @@ class TutorFragment : Fragment() {
 
         // ── Continuar / salir ─────────────────────────────────────────────────
         btnContin.setOnClickListener {
+            waitJob?.cancel()
             timerJob?.cancel()
             viewLifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
             // Guardar tiempo visto (el servidor calcula estado: completado ≥240s, visto si no)
@@ -1294,12 +1359,18 @@ class TutorFragment : Fragment() {
             idEjercicioDesarrolloSubido = null
             ejercicioGuardado           = null
             limpiarPrefs()
-            mostrarMensajeAjusteNivel(lastAjuste) {
-                cargarNuevoEjercicio(lastAjuste)
+            // Verificación post-refuerzo: ejercicio más fácil de la misma competencia
+            if (idCompFallado != null && idEjFallado != null) {
+                cargarEjercicioVerificacion(idCompFallado, idEjFallado)
+            } else {
+                mostrarMensajeAjusteNivel(lastAjuste) {
+                    cargarNuevoEjercicio(lastAjuste)
+                }
             }
         }
 
         dialog.setOnDismissListener {
+            waitJob?.cancel()
             timerJob?.cancel()
             viewLifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
         }
@@ -1605,5 +1676,61 @@ class TutorFragment : Fragment() {
             }
         }
         return nombre ?: uri.path?.substringAfterLast('/')
+    }
+
+    private fun cargarEjercicioVerificacion(idComp: Int, idEjFallado: Int) {
+        val idEst = idEstudiante ?: return
+
+        modoVerificacion            = true
+        attempts                    = 0
+        usoPistaActual              = false
+        selectedFileUri             = null
+        desarrolloSubidoOk          = false
+        lastRespuestaId             = null
+        nivelMLPendiente            = null
+        idEjercicioDesarrolloSubido = null
+
+        cardFeedback.visibility            = View.GONE
+        cardResultadoEvaluacion.visibility = View.GONE
+        cardEjercicio.visibility           = View.VISIBLE
+        tvFeedback.text                    = ""
+        rgAlternativas.clearCheck()
+        listOf(rbA, rbB, rbC, rbD, rbE).forEach { it.visibility = View.GONE }
+
+        tvTituloTutor.text = "Comprueba lo aprendido"
+        tvBadgeModo.text   = "Verificación — ¿Comprendiste el concepto?"
+        tvBadgeModo.setTextColor(resources.getColor(R.color.ai_warning, null))
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val dto = RetrofitClient.tutorApi.getNextExercise(
+                    idEstudiante       = idEst,
+                    idDominio          = idComp,
+                    ajuste             = null,
+                    modo               = "repaso",
+                    idEvaluacion       = null,
+                    postRefuerzo       = true,
+                    idEjercicioFallado = idEjFallado
+                )
+                if (!dto.status || dto.sinEjercicios == true || dto.opciones.isNullOrEmpty()) {
+                    // Sin ejercicio de verificación disponible → avanzar normal
+                    modoVerificacion = false
+                    actualizarBadgeModo()
+                    mostrarMensajeAjusteNivel(lastAjuste) {
+                        cargarNuevoEjercicio(lastAjuste)
+                    }
+                    return@launch
+                }
+                currentExercise = dto
+                bindExerciseToUI(dto)
+                // Sobreescribir título que bindExerciseToUI pone en modo repaso
+                tvTituloTutor.text = "Comprueba lo aprendido"
+            } catch (e: Exception) {
+                modoVerificacion = false
+                actualizarBadgeModo()
+                Toast.makeText(requireContext(),
+                    "Error al cargar ejercicio: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

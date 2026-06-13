@@ -1,7 +1,10 @@
 package com.example.aplicacion_tesis.ui.login
+import android.animation.ObjectAnimator
 import com.example.aplicacion_tesis.ui.HomeActivity
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -26,6 +29,11 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        startFloatAnim(binding.mathS1, -28f, 3200L, 0L)
+        startFloatAnim(binding.mathS2, -20f, 3800L, 400L)
+        startFloatAnim(binding.mathS3, -32f, 4500L, 800L)
+        startFloatAnim(binding.mathS4, -16f, 2900L, 200L)
 
         // Listeners para validar y calcular fuerza
         binding.etNombre.addTextChangedListener(watcher)
@@ -180,5 +188,17 @@ class RegisterActivity : AppCompatActivity() {
         val nombre    = parts.firstOrNull() ?: ""
         val apellidos = parts.drop(1).joinToString(" ").ifBlank { "-" }
         return nombre to apellidos
+    }
+
+    private fun startFloatAnim(view: View?, dy: Float, duration: Long, delay: Long) {
+        view ?: return
+        ObjectAnimator.ofFloat(view, "translationY", 0f, dy).apply {
+            this.duration = duration
+            startDelay = delay
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+            start()
+        }
     }
 }

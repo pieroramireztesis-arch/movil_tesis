@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ai_bg_screen">
@@ -9,34 +10,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="∑"
-        android:textColor="#14FFFFFF"
-        android:textSize="80sp"
+        android:textColor="#30FFFFFF"
+        android:textSize="72sp"
         android:textStyle="bold"
         android:layout_gravity="top|start"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="12dp"
         android:importantForAccessibility="no"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="π"
-        android:textColor="#10FFFFFF"
-        android:textSize="60sp"
+        android:textColor="#28FFFFFF"
+        android:textSize="56sp"
         android:textStyle="bold"
         android:layout_gravity="top|end"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
         android:importantForAccessibility="no"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="≠"
-        android:textColor="#0CFFFFFF"
-        android:textSize="50sp"
+        android:textColor="#22FFFFFF"
+        android:textSize="44sp"
         android:textStyle="bold"
         android:layout_gravity="bottom|start"
-        android:layout_marginBottom="80dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="20dp"
         android:importantForAccessibility="no"/>
 
     <ScrollView
@@ -44,373 +45,620 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- TÍTULO -->
-        <TextView
-            android:id="@+id/tvTituloProgreso"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mi Progreso"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/ai_text_dark"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- RESUMEN GENERAL -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardResumenGeneral"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/ai_card_bg"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
-
-            <LinearLayout
+            <!-- ═══════════════════════════════════════════
+                 CARD 1 — Progreso General
+                 Circular = % (regla del profesor)
+                 ═══════════════════════════════════════════ -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:strokeColor="@color/ai_card_stroke"
+                app:strokeWidth="1dp">
 
-                <!-- Donut + porcentaje -->
-                <FrameLayout
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <com.example.aplicacion_tesis.ui.components.DonutChartView
-                        android:id="@+id/donutProgresoGeneral"
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"/>
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
-                        android:id="@+id/tvPorcentajeGeneral"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0%"
-                        android:textSize="28sp"
+                        android:text="Mi Progreso"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/ai_text_dark"
-                        android:layout_gravity="center"/>
-                </FrameLayout>
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp"/>
 
-                <TextView
-                    android:id="@+id/tvEtiquetaGeneral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="General"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ai_primary"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp"/>
+                    <!-- Donut circular — % general -->
+                    <FrameLayout
+                        android:layout_width="152dp"
+                        android:layout_height="152dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp">
 
-                <!-- Stats ejercicios y lecciones -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp">
+                        <com.example.aplicacion_tesis.ui.components.DonutChartView
+                            android:id="@+id/donutGeneral"
+                            android:layout_width="152dp"
+                            android:layout_height="152dp"/>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center">
+
+                            <TextView
+                                android:id="@+id/tvPctGeneral"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%"
+                                android:textSize="26sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_primary"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="objetivo"
+                                android:textSize="10sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvNivelGeneral"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:background="@color/ai_primary_light"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp">
-                        <TextView
-                            android:id="@+id/tvTotalEjercicios"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/ai_primary"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ejercicios"
-                            android:textSize="12sp"
-                            android:textColor="@color/ai_text_muted"/>
-                    </LinearLayout>
+                        android:text="⚠ Inicio"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ai_warning"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"/>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:background="@color/ai_primary_light"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp">
-                        <TextView
-                            android:id="@+id/tvTotalLecciones"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/ai_primary"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lecciones"
-                            android:textSize="12sp"
-                            android:textColor="@color/ai_text_muted"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Mensaje motivación -->
-                <TextView
-                    android:id="@+id/tvMensajeMotivacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="¡Sigue así, vas por buen camino!"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ai_primary"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:background="@color/ai_primary_light"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- COMPETENCIAS -->
-        <TextView
-            android:id="@+id/tvTituloCompetencias"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Progreso por Competencia"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/ai_text_dark"
-            xmlns:app="http://schemas.android.com/apk/res-auto"/>
-
-        <!-- Competencias — PieChart con selector de competencia -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardPieCompetencias"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/ai_card_bg"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <!-- Spinner selector -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="1dp">
-                    <Spinner
-                        android:id="@+id/spinnerCompetenciaEstudiante"
+                    <TextView
+                        android:id="@+id/tvMensajeMotivacion"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"/>
-                </com.google.android.material.card.MaterialCardView>
+                        android:layout_height="wrap_content"
+                        android:text="¡Sigue así, vas por buen camino!"
+                        android:textSize="13sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp"/>
 
-                <!-- PieChart / Donut -->
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/chartPieCompetenciaEstudiante"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    <!-- Divisor -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ai_divider"
+                        android:layout_marginBottom="12dp"/>
 
-                <!-- Leyenda 3 niveles -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="4dp">
+                    <!-- Stats: ejercicios + materiales (cantidades en texto) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
 
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
-                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#27AE60"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
-                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:background="@color/ai_primary_light"
+                            android:padding="10dp"
+                            android:layout_marginEnd="6dp">
+                            <TextView
+                                android:id="@+id/tvStatEjercicios"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="22sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_primary"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ejercicios"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
 
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
-                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#F39C12"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
-                    </LinearLayout>
-
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="#E74C3C"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:background="@color/ai_primary_light"
+                            android:padding="10dp"
+                            android:layout_marginStart="6dp">
+                            <TextView
+                                android:id="@+id/tvStatMateriales"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="22sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_primary"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Materiales"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_muted"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:id="@+id/tvPieDetalleEstudiante"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ai_text_dark"
-                    android:gravity="center"
-                    android:layout_marginBottom="2dp"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- ════════════════════════════════════════
-             TIEMPO POR NIVEL DE DIFICULTAD
-             ════════════════════════════════════════ -->
-        <TextView
-            android:id="@+id/tvTituloTiempoNivel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Tiempo por Dificultad"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/ai_text_dark"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardTiempoNivel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/ai_card_bg"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
-
-            <LinearLayout
+            <!-- ═══════════════════════════════════════════
+                 CARD 2 — Las 4 Competencias
+                 Circular = % por competencia (regla del profesor)
+                 ═══════════════════════════════════════════ -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="14dp">
+                android:text="Mis Competencias"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:layout_marginBottom="8dp"/>
 
-                <!-- Cabecera de columnas -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:strokeColor="@color/ai_card_stroke"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-                    <TextView
-                        android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <!-- Fila 1: C1 + C2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="Nivel"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/ai_text_muted"/>
-                    <TextView
-                        android:layout_width="0dp"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <!-- C1: Cantidad -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="8dp">
+
+                            <FrameLayout
+                                android:layout_width="84dp"
+                                android:layout_height="84dp">
+                                <com.example.aplicacion_tesis.ui.components.DonutChartView
+                                    android:id="@+id/donutC1"
+                                    android:layout_width="84dp"
+                                    android:layout_height="84dp"/>
+                                <TextView
+                                    android:id="@+id/tvPctC1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#818CF8"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvNombreC1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cantidad"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_dark"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:id="@+id/tvNivelC1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inicio"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_warning"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <!-- C2: Regularidad -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="8dp">
+
+                            <FrameLayout
+                                android:layout_width="84dp"
+                                android:layout_height="84dp">
+                                <com.example.aplicacion_tesis.ui.components.DonutChartView
+                                    android:id="@+id/donutC2"
+                                    android:layout_width="84dp"
+                                    android:layout_height="84dp"/>
+                                <TextView
+                                    android:id="@+id/tvPctC2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#34D399"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvNombreC2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Regularidad"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_dark"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:id="@+id/tvNivelC2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inicio"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_warning"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Fila 2: C3 + C4 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:text="Tiempo prom."
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/ai_text_muted"
-                        android:gravity="center"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Aciertos"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/ai_text_muted"
-                        android:gravity="end"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Resp."
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/ai_text_muted"
-                        android:gravity="end"/>
+                        android:orientation="horizontal">
+
+                        <!-- C3: Forma -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="8dp">
+
+                            <FrameLayout
+                                android:layout_width="84dp"
+                                android:layout_height="84dp">
+                                <com.example.aplicacion_tesis.ui.components.DonutChartView
+                                    android:id="@+id/donutC3"
+                                    android:layout_width="84dp"
+                                    android:layout_height="84dp"/>
+                                <TextView
+                                    android:id="@+id/tvPctC3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#FB923C"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvNombreC3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Forma / Mov."
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_dark"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:id="@+id/tvNivelC3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inicio"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_warning"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <!-- C4: Gestión de Datos -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:padding="8dp">
+
+                            <FrameLayout
+                                android:layout_width="84dp"
+                                android:layout_height="84dp">
+                                <com.example.aplicacion_tesis.ui.components.DonutChartView
+                                    android:id="@+id/donutC4"
+                                    android:layout_width="84dp"
+                                    android:layout_height="84dp"/>
+                                <TextView
+                                    android:id="@+id/tvPctC4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#C084FC"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvNombreC4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Gestión Datos"
+                                android:textSize="11sp"
+                                android:textColor="@color/ai_text_dark"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:id="@+id/tvNivelC4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inicio"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/ai_warning"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- Filas de datos (agregadas dinámicamente desde ProgresoFragment) -->
+            <!-- ═══════════════════════════════════════════
+                 CARD 3 — Respuestas por Dificultad
+                 Barras = cantidades (regla del profesor)
+                 + filas de tasa de acierto (%)
+                 ═══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Respuestas por Dificultad"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:layout_marginBottom="8dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:strokeColor="@color/ai_card_stroke"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
-                    android:id="@+id/llTiempoPorNivel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical"
+                    android:padding="14dp">
 
-                <!-- Sin datos -->
-                <TextView
-                    android:id="@+id/tvTiempoNivelEmpty"
+                    <!-- Eje Y: cantidad de respuestas -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="N° de respuestas ↑"
+                        android:textSize="11sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:layout_marginBottom="2dp"/>
+
+                    <!-- BarChart: cantidad de respuestas por nivel -->
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/chartBarDificultad"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"/>
+
+                    <!-- Eje X: nivel de dificultad -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nivel de dificultad"
+                        android:textSize="11sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvBarEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aún no hay respuestas registradas."
+                        android:textColor="@color/ai_text_muted"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:visibility="gone"/>
+
+                    <!-- Divisor -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ai_divider"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tasa de acierto por nivel"
+                        android:textSize="12sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Filas dinámicas de acierto -->
+                    <LinearLayout
+                        android:id="@+id/llDificultad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                    <TextView
+                        android:id="@+id/tvDificultadEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sin datos de acierto."
+                        android:textColor="@color/ai_text_muted"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ═══════════════════════════════════════════
+                 CARD 4 — Evolución de Puntaje
+                 Lineal = tendencia en el tiempo (regla del profesor)
+                 ═══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Evolución de Puntaje"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:layout_marginBottom="8dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:strokeColor="@color/ai_card_stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aún no hay respuestas registradas."
-                    android:textColor="@color/ai_text_muted"
-                    android:textSize="13sp"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:visibility="gone"/>
+                    android:orientation="vertical"
+                    android:padding="14dp">
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <!-- Eje Y: puntaje -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Puntaje ↑"
+                        android:textSize="11sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:layout_marginBottom="2dp"/>
 
-        <!-- HISTORIAL -->
-        <TextView
-            android:id="@+id/tvTituloHistorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Historial de Actividad"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/ai_text_dark"/>
+                    <!-- LineChart: puntaje a lo largo del tiempo -->
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chartLineEvolucion"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"/>
 
-        <TextView
-            android:id="@+id/tvHistorialEmpty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Aún no hay actividades registradas."
-            android:textColor="@color/ai_text_muted"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:padding="24dp"
-            android:visibility="gone"/>
+                    <!-- Eje X: fecha -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de actividad"
+                        android:textSize="11sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHistorialProgreso"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:id="@+id/tvLineEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aún no hay actividad registrada para mostrar la evolución."
+                        android:textColor="@color/ai_text_muted"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:padding="16dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/btnVerMasHistorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="14dp"
-            android:gravity="center"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="@color/ai_primary"
-            android:text="Ver más ▼"
-            android:visibility="gone"
-            android:layout_marginBottom="8dp"/>
+            <!-- ═══════════════════════════════════════════
+                 HISTORIAL DE ACTIVIDAD
+                 ═══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Actividad Reciente"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:layout_marginBottom="8dp"/>
 
-        <Space android:layout_width="match_parent" android:layout_height="16dp"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvHistorialEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aún no hay actividades registradas."
+                android:textColor="@color/ai_text_muted"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:padding="24dp"
+                android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistorialProgreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/btnVerMasHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_primary"
+                android:text="Ver más ▼"
+                android:visibility="gone"
+                android:layout_marginBottom="8dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

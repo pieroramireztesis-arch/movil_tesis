@@ -24,7 +24,9 @@ data class TutorExerciseDTO(
     val mensaje:                     String?  = null,
     val requiereDesarrollo:          Boolean? = null,
     val modo:                        String?  = null,
-    val nivelEstudianteCompetencia:  String?  = null
+    val nivelEstudianteCompetencia:  String?  = null,
+    @SerializedName("esVerificacion")
+    val esVerificacion:              Boolean? = null
 )
 
 // ✅ Material sugerido cuando el estudiante falla (asignado por el docente)
@@ -56,5 +58,6 @@ data class RespuestaTutorDTO(
     @SerializedName("nivelCompetenciaInt") val nivelCompetenciaInt: Int?                   = null,
     @SerializedName("nivelGlobal")         val nivelGlobal:         String?                = null,
     @SerializedName("materialSugerido")    val materialSugerido:    MaterialSugeridoDTO?   = null,
-    @SerializedName("recursosAdicionales") val recursosAdicionales: RecursosAdicionalesDTO? = null
+    @SerializedName("recursosAdicionales") val recursosAdicionales: RecursosAdicionalesDTO? = null,
+    @SerializedName("docenteAlertado")     val docenteAlertado:     Boolean?                = null
 )

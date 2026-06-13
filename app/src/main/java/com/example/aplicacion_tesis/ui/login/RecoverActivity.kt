@@ -1,7 +1,10 @@
 package com.example.aplicacion_tesis.ui.login
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aplicacion_tesis.databinding.ActivityRecoverBinding
@@ -19,6 +22,11 @@ class RecoverActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRecoverBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        startFloatAnim(binding.mathS1, -26f, 3400L, 0L)
+        startFloatAnim(binding.mathS2, -18f, 4000L, 500L)
+        startFloatAnim(binding.mathS3, -30f, 3800L, 250L)
+        startFloatAnim(binding.mathS4, -14f, 2600L, 750L)
 
         // Cambia el subtítulo como pediste
         binding.tvSubtitulo.text =
@@ -61,5 +69,17 @@ class RecoverActivity : AppCompatActivity() {
         // Volver al login
         binding.tvVolver.setOnClickListener { finish() }
         binding.btnBack.setOnClickListener { finish() }
+    }
+
+    private fun startFloatAnim(view: View?, dy: Float, duration: Long, delay: Long) {
+        view ?: return
+        ObjectAnimator.ofFloat(view, "translationY", 0f, dy).apply {
+            this.duration = duration
+            startDelay = delay
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+            start()
+        }
     }
 }
