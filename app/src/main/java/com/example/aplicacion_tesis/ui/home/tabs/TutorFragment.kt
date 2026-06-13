@@ -105,6 +105,7 @@ class TutorFragment : Fragment() {
     private lateinit var tvResultadoPuntaje:      TextView
     private lateinit var tvNivelResultado:        TextView
     private lateinit var donutResultado:          DonutChartView
+    private lateinit var confettiView:            com.example.aplicacion_tesis.ui.components.ConfettiView
     private lateinit var cardEjercicio:           LinearLayout
     private lateinit var tvNivelActual:           TextView
     private lateinit var tvCompetenciaTag:        TextView
@@ -262,6 +263,7 @@ class TutorFragment : Fragment() {
         btnSonido                = view.findViewById(R.id.btnSonido)
         tvRachaBadge             = view.findViewById(R.id.tvRachaBadge)
         viewProgressBar          = view.findViewById(R.id.viewProgressBar)
+        confettiView             = view.findViewById(R.id.confettiView)
     }
 
     private fun setupModoSelector() {
@@ -1533,6 +1535,11 @@ class TutorFragment : Fragment() {
             else          -> Triple("📚 No te desanimes: el Tutor te ayudará a avanzar.",  "#F87171", "📌 En Inicio")
         }
         val color = Color.parseColor(colorHex)
+
+        // A11: confetti al alcanzar nivel logrado o destacado
+        if (puntaje >= 70) {
+            view?.post { confettiView.launch() }
+        }
 
         // Donut con el puntaje
         donutResultado.setPercentage(puntaje.coerceIn(0, 100).toFloat(), color)

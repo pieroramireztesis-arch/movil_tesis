@@ -528,6 +528,15 @@
     </LinearLayout>
 </ScrollView>
 
+<!-- A11: overlay de confetti — se activa programáticamente al subir de nivel -->
+<com.example.aplicacion_tesis.ui.components.ConfettiView
+    android:id="@+id/confettiView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:clickable="false"
+    android:importantForAccessibility="no" />
+
 <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/btnSonido"
     android:layout_width="wrap_content"
