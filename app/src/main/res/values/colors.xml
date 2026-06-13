@@ -4,60 +4,53 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- ✅ PALETA PRINCIPAL — Azul educativo profundo (igual que la web) -->
-    <color name="ai_primary">#1565C0</color>
-    <color name="ai_primary_light">#E3F0FF</color>
-    <color name="ai_primary_dark">#0D47A1</color>
+    <!-- ✅ PALETA PRINCIPAL — Índigo TutorMath (tema oscuro, igual que la web) -->
+    <color name="ai_primary">#818CF8</color>           <!-- Índigo claro — visible en fondo oscuro -->
+    <color name="ai_primary_light">#312E81</color>      <!-- Contenedor índigo oscuro -->
+    <color name="ai_primary_dark">#4F46E5</color>       <!-- Índigo puro para acentos -->
 
-    <!-- Fondos — gris muy suave, casi blanco -->
-    <color name="ai_bg_screen">#F5F7FA</color>
-    <color name="ai_background_light">#F5F7FA</color>
-    <color name="ai_card_bg">#FFFFFF</color>
-    <color name="ai_bg_card">#FFFFFF</color>
+    <!-- Fondos OSCUROS (deep dark — igual que web landing) -->
+    <color name="ai_bg_screen">#0F172A</color>          <!-- Fondo principal — navy profundo -->
+    <color name="ai_background_light">#0F172A</color>
+    <color name="ai_card_bg">#1E293B</color>            <!-- Superficie de tarjeta oscura -->
+    <color name="ai_bg_card">#1E293B</color>
 
-    <!-- Texto -->
-    <color name="ai_text_dark">#1A1A2E</color>
-    <color name="ai_text_muted">#374151</color>
+    <!-- Texto CLARO (para fondo oscuro) -->
+    <color name="ai_text_dark">#F1F5F9</color>          <!-- Texto principal — blanco suave -->
+    <color name="ai_text_muted">#94A3B8</color>         <!-- Texto secundario — gris claro -->
 
-    <!-- ✅ Competencias MINEDU — colores vibrantes -->
-    <color name="ai_comp1">#1565C0</color>  <!-- Cantidad — Azul -->
-    <color name="ai_comp2">#2E7D32</color>  <!-- Regularidad — Verde -->
-    <color name="ai_comp3">#E65100</color>  <!-- Forma — Naranja -->
-    <color name="ai_comp4">#6A1B9A</color>  <!-- Datos — Morado -->
+    <!-- ✅ Competencias MINEDU — colores vibrantes para fondo oscuro -->
+    <color name="ai_comp1">#818CF8</color>  <!-- Cantidad — Índigo claro -->
+    <color name="ai_comp2">#34D399</color>  <!-- Regularidad — Verde esmeralda -->
+    <color name="ai_comp3">#FB923C</color>  <!-- Forma — Naranja vibrante -->
+    <color name="ai_comp4">#C084FC</color>  <!-- Datos — Violeta -->
 
     <!-- Alias compatibilidad -->
-    <color name="ai_progress">#2E7D32</color>
-    <color name="ai_accent">#E65100</color>
+    <color name="ai_progress">#34D399</color>
+    <color name="ai_accent">#FB923C</color>
 
-    <!-- Estados -->
-    <color name="ai_success">#1B5E20</color>
-    <color name="ai_success_light">#E6F4EA</color>
-    <color name="ai_error">#B71C1C</color>
-    <color name="ai_error_light">#FDECEA</color>
-    <color name="ai_warning">#E65100</color>
-    <color name="ai_warning_light">#FFF3E0</color>
+    <!-- Estados — colores vibrantes para fondo oscuro -->
+    <color name="ai_success">#34D399</color>
+    <color name="ai_success_light">#052E16</color>
+    <color name="ai_error">#F87171</color>
+    <color name="ai_error_light">#450A0A</color>
+    <color name="ai_warning">#FB923C</color>
+    <color name="ai_warning_light">#431407</color>
 
-    <!-- UI -->
-    <color name="ai_divider">#E8ECF0</color>
-    <color name="ai_border">#D0D9E8</color>
-    <color name="ai_card_border">#C5D0E0</color>
-    <color name="ai_card_stroke">#CBD5E1</color>
+    <!-- UI — bordes y separadores para fondo oscuro -->
+    <color name="ai_divider">#334155</color>
+    <color name="ai_border">#475569</color>
+    <color name="ai_card_border">#334155</color>
+    <color name="ai_card_stroke">#4338CA</color>        <!-- Borde índigo sutil -->
 
-    <!-- Barras de progreso -->
-    <color name="ai_progress_track">#E3EAF5</color>
-    <color name="ai_progress_bg">#E3EAF5</color>
-    <color name="ai_progress_fg">#1565C0</color>
+    <!-- Barras de progreso para fondo oscuro -->
+    <color name="ai_progress_track">#1E3A5F</color>
+    <color name="ai_progress_bg">#1E3A5F</color>
+    <color name="ai_progress_fg">#818CF8</color>
 
     <!-- Panel docente (alias del primario) -->
-    <color name="background_light">#F5F7FA</color>
-    <color name="teacher_primary">#1565C0</color>
-    <color name="teacher_primary_dark">#0D47A1</color>
-    <color name="accent">#FFC300</color>
-
-    <!--
-      ❌ ELIMINADOS (nombres invertidos / sin uso):
-        text_light era #1A1A2E (oscuro) y text_dark era #F5F5F5 (claro) —
-        nombres al revés y 0 usos en layouts/Kotlin.
-        background_dark y secondary_light tampoco se usaban.
-    -->
+    <color name="background_light">#0F172A</color>
+    <color name="teacher_primary">#818CF8</color>
+    <color name="teacher_primary_dark">#4F46E5</color>
+    <color name="accent">#FB923C</color>
 </resources>

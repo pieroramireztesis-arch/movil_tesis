@@ -93,7 +93,7 @@
 
             <!-- Nivel 1 -->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:background="#F8F9FA"
+                android:orientation="horizontal" android:background="#1A2744"
                 android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
                     android:text="N1" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
@@ -119,7 +119,7 @@
             </LinearLayout>
             <!-- Nivel 3 -->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:background="#F8F9FA"
+                android:orientation="horizontal" android:background="#1A2744"
                 android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
                     android:text="N3" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
@@ -141,11 +141,11 @@
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
                     android:text="50 – 64" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
-                    android:text="60%" android:textColor="#27AE60" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
+                    android:text="60%" android:textColor="@color/ai_comp2" android:textSize="12sp" android:textStyle="bold" android:gravity="end"/>
             </LinearLayout>
             <!-- Nivel 5 -->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:background="#F8F9FA"
+                android:orientation="horizontal" android:background="#1A2744"
                 android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
                     android:text="N5" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
@@ -171,7 +171,7 @@
             </LinearLayout>
             <!-- Nivel 7 -->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:background="#FFF8E1"
+                android:orientation="horizontal" android:background="#2D1F00"
                 android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
                     android:text="N7" android:textColor="#F39C12" android:textSize="12sp" android:textStyle="bold"/>
@@ -239,13 +239,13 @@
                     android:orientation="horizontal" android:background="#F0FFF4"
                     android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="6dp" android:paddingBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
-                        android:text="✓ Correcta" android:textColor="#27AE60" android:textSize="12sp" android:textStyle="bold"/>
+                        android:text="✓ Correcta" android:textColor="@color/ai_comp2" android:textSize="12sp" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="+8 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                        android:text="+8 pts" android:textColor="@color/ai_comp2" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="+5 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                        android:text="+5 pts" android:textColor="@color/ai_comp2" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="+2 pts" android:textColor="#27AE60" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
+                        android:text="+2 pts" android:textColor="@color/ai_comp2" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
                 </LinearLayout>
                 <!-- Incorrecta -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"

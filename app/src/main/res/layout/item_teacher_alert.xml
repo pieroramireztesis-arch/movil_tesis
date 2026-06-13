@@ -8,7 +8,7 @@
     app:cardElevation="2dp"
     app:cardCornerRadius="14dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@color/white">
+    app:cardBackgroundColor="@color/ai_card_bg">
 
     <LinearLayout
         android:layout_width="match_parent"

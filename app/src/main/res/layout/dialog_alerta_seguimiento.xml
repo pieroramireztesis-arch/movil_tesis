@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:background="@color/ai_card_bg"
     android:padding="24dp">
 
     <!-- Título -->
@@ -14,7 +14,7 @@
         android:text="Seguimiento de alerta"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#0A0F14"
+        android:textColor="@color/ai_text_dark"
         android:gravity="center"
         android:layout_marginBottom="6dp" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textColor="#0A6FD4"
+        android:textColor="@color/ai_primary"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="12dp" />
@@ -33,7 +33,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#B0BEC5"
+        android:background="@color/ai_divider"
         android:layout_marginBottom="12dp" />
 
     <!-- Descripción -->
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="13sp"
-        android:textColor="#2C5282"
+        android:textColor="@color/ai_text_muted"
         android:lineSpacingExtra="3dp"
         android:gravity="center"
         android:layout_marginBottom="8dp" />
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:textColor="#2C5282"
+        android:textColor="@color/ai_text_muted"
         android:gravity="center"
         android:layout_marginBottom="20dp" />
 
@@ -67,7 +67,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:background="#0A6FD4"
+        android:background="@color/ai_primary_dark"
         android:layout_marginBottom="10dp" />
 
     <!-- Botón cancelar -->
@@ -76,9 +76,9 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:text="Cancelar"
-        android:textColor="#2C5282"
+        android:textColor="@color/ai_text_muted"
         android:textSize="14sp"
         android:gravity="center"
-        android:background="#F0F4F8" />
+        android:background="@color/ai_bg_screen" />
 
 </LinearLayout>

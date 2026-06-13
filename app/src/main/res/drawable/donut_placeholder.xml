@@ -19,7 +19,7 @@
     <!-- círculo interior blanco -->
     <item android:top="35dp" android:bottom="35dp" android:left="35dp" android:right="35dp">
         <shape android:shape="oval">
-            <solid android:color="@android:color/white"/>
+            <solid android:color="#1E293B"/>
         </shape>
     </item>
 </layer-list>

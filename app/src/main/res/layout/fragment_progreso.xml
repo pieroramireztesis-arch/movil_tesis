@@ -31,7 +31,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/ai_card_bg"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <LinearLayout
@@ -168,7 +168,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="14dp"
             app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/ai_card_bg"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <LinearLayout
@@ -255,7 +255,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="14dp"
             app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/ai_card_bg"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <LinearLayout

@@ -2,28 +2,27 @@
 
     <!-- ════════════════════════════════════════════════════════════
          TEMA DE MARCA TutorMath · I.E. 27 de Diciembre
-         Material 3 CLARO (Light, no DayNight): la app no soporta modo
-         oscuro real, así que se fuerza claro para evitar la mezcla de
-         fondos blancos hardcodeados con componentes oscuros.
+         Material 3 OSCURO: fondo navy profundo + cards glassmorphism,
+         igual que el landing y login web.
          ════════════════════════════════════════════════════════════ -->
-    <style name="Base.Theme.Aplicacion_Tesis" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Marca: azul educativo -->
+    <style name="Base.Theme.Aplicacion_Tesis" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Marca: índigo claro (visible en fondo oscuro) -->
         <item name="colorPrimary">@color/ai_primary</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/ai_primary_light</item>
-        <item name="colorOnPrimaryContainer">@color/ai_primary_dark</item>
+        <item name="colorOnPrimaryContainer">@color/ai_text_dark</item>
 
         <item name="colorSecondary">@color/ai_comp2</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">#E6F4EA</item>
+        <item name="colorSecondaryContainer">#14532D</item>
         <item name="colorOnSecondaryContainer">@color/ai_comp2</item>
 
-        <!-- Superficies y fondo -->
+        <!-- Superficies y fondo oscuro -->
         <item name="android:colorBackground">@color/ai_bg_screen</item>
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">#1E293B</item>
         <item name="colorOnSurface">@color/ai_text_dark</item>
-        <item name="colorSurfaceVariant">@color/ai_primary_light</item>
-        <item name="colorOnSurfaceVariant">@color/ai_text_dark</item>
+        <item name="colorSurfaceVariant">#1E3A5F</item>
+        <item name="colorOnSurfaceVariant">@color/ai_text_muted</item>
         <item name="colorOutline">@color/ai_border</item>
         <item name="colorOutlineVariant">@color/ai_divider</item>
         <item name="colorError">@color/ai_error</item>
@@ -37,13 +36,13 @@
         <item name="shapeAppearanceCornerMedium">@style/Shape.TutorMath.Medium</item>
         <item name="shapeAppearanceCornerLarge">@style/Shape.TutorMath.Large</item>
 
-        <!-- Cards con borde visible -->
+        <!-- Cards con estilo oscuro global -->
         <item name="materialCardViewStyle">@style/Widget.TutorMath.Card</item>
 
-        <!-- Barra de estado azul (coincide con el header de marca) -->
-        <item name="android:statusBarColor">@color/ai_primary</item>
+        <!-- Barra de estado: índigo oscuro (coincide con el gradiente de cabecera) -->
+        <item name="android:statusBarColor">#1e1b4b</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/ai_bg_screen</item>
     </style>
 
     <style name="Theme.Aplicacion_Tesis" parent="Base.Theme.Aplicacion_Tesis" />
@@ -62,7 +61,7 @@
     <!-- ════════════════════════════════════════════════════════════
          ESCALA TIPOGRÁFICA TutorMath (única fuente de verdad)
          Display 28 · H1 22 · H2 18 · Subtitle 16 · Body 15 ·
-         Caption 13 · Label 12 — no usar tamaños fuera de esta escala.
+         Caption 13 · Label 12
          ════════════════════════════════════════════════════════════ -->
     <style name="TextAppearance.TutorMath.Display" parent="TextAppearance.Material3.HeadlineLarge">
         <item name="android:textSize">28sp</item>
@@ -97,33 +96,33 @@
         <item name="android:textColor">@color/ai_text_muted</item>
     </style>
 
-    <!-- Tabs (legacy, por si queda algún TabLayout) -->
+    <!-- Tabs -->
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">12sp</item>
         <item name="android:maxLines">1</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <!-- ── MaterialCardView global — borde + sombra suave ───────── -->
+    <!-- ── MaterialCardView global — superficie oscura + borde índigo ── -->
     <style name="Widget.TutorMath.Card" parent="Widget.Material3.CardView.Elevated">
         <item name="strokeColor">@color/ai_card_stroke</item>
         <item name="strokeWidth">1dp</item>
-        <item name="cardElevation">2dp</item>
+        <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">@dimen/radius_card</item>
-        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardBackgroundColor">@color/ai_card_bg</item>
     </style>
 
-    <!-- ── Bottom Navigation TutorMath (estudiante y docente) ────── -->
+    <!-- ── Bottom Navigation TutorMath — fondo oscuro ──────────────── -->
     <style name="Widget.TutorMath.BottomNav" parent="Widget.Material3.BottomNavigationView">
         <item name="itemIconTint">@color/nav_item_color</item>
         <item name="itemTextColor">@color/nav_item_color</item>
         <item name="itemActiveIndicatorStyle">@style/Widget.TutorMath.BottomNav.Indicator</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/ai_bg_screen</item>
         <item name="elevation">8dp</item>
         <item name="labelVisibilityMode">labeled</item>
     </style>
     <style name="Widget.TutorMath.BottomNav.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/ai_primary_light</item>
+        <item name="android:color">#312E81</item>
     </style>
 
 </resources>

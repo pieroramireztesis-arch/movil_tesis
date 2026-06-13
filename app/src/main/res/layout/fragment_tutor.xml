@@ -33,7 +33,7 @@
             android:layout_marginBottom="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="1dp"
-            app:cardBackgroundColor="@color/white">
+            app:cardBackgroundColor="@color/ai_card_bg">
 
             <LinearLayout
                 android:layout_width="match_parent"
