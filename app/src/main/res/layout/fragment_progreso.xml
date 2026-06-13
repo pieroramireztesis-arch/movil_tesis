@@ -24,7 +24,7 @@
             android:layout_marginBottom="16dp"/>
 
         <!-- RESUMEN GENERAL -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardResumenGeneral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                     android:padding="10dp"
                     android:background="@color/ai_primary_light"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- COMPETENCIAS -->
         <TextView
@@ -161,7 +161,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
         <!-- Competencias — PieChart con selector de competencia -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardPieCompetencias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:padding="14dp">
 
                 <!-- Spinner selector -->
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
@@ -190,7 +190,7 @@
                         android:layout_height="48dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"/>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- PieChart / Donut -->
                 <com.github.mikephil.charting.charts.PieChart
@@ -233,7 +233,7 @@
                     android:gravity="center"
                     android:layout_marginBottom="2dp"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- ════════════════════════════════════════
              TIEMPO POR NIVEL DE DIFICULTAD
@@ -248,7 +248,7 @@
             android:textStyle="bold"
             android:textColor="@color/ai_text_dark"/>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardTiempoNivel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -327,7 +327,7 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- HISTORIAL -->
         <TextView

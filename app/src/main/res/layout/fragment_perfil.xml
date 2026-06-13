@@ -13,7 +13,7 @@
         android:padding="16dp">
 
         <!-- AVATAR + NOMBRE -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -61,7 +61,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/ai_text_muted"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- INFORMACIÓN PERSONAL -->
         <TextView
@@ -73,7 +73,7 @@
             android:textColor="@color/ai_text_dark"
             android:layout_marginBottom="12dp"/>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- ✅ ID correcto: btnGuardar -->
         <com.google.android.material.button.MaterialButton

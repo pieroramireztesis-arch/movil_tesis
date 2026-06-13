@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Header de marca compartido (estudiante y docente):
-     logo del colegio + TutorMath · I.E. 27 de Diciembre -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:background="@color/white"
-    android:elevation="3dp"
+    android:background="@color/ai_primary"
     android:paddingStart="@dimen/spacing_l"
     android:paddingEnd="@dimen/spacing_l"
     android:paddingTop="@dimen/spacing_m"
@@ -32,12 +29,13 @@
             android:layout_height="wrap_content"
             android:text="TutorMath"
             android:textAppearance="@style/TextAppearance.TutorMath.Subtitle"
-            android:textColor="@color/ai_primary"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I.E. 27 de Diciembre · Lambayeque"
-            android:textAppearance="@style/TextAppearance.TutorMath.Label"/>
+            android:textAppearance="@style/TextAppearance.TutorMath.Label"
+            android:textColor="@color/ai_primary_light"/>
     </LinearLayout>
 </LinearLayout>

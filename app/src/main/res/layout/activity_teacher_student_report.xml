@@ -41,7 +41,7 @@
         </LinearLayout>
 
         <!-- CARD CABECERA ESTUDIANTE -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -93,10 +93,10 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- CARD PROGRESO GENERAL — LineChart con datos reales -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -154,10 +154,10 @@
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- CARD RADAR COMPETENCIAS -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -294,10 +294,10 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- ══ CARD MATERIALES DE ESTUDIO ══════════════════════════════ -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardMaterialesEstudio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -410,11 +410,11 @@
                     android:visibility="gone" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
         <!-- ══ FIN CARD MATERIALES ════════════════════════════════════ -->
 
         <!-- ══ CARD TIEMPO POR DIFICULTAD ══════════════════════════════ -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardTiempoNivelDocente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -489,11 +489,11 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
         <!-- ══ FIN CARD TIEMPO POR DIFICULTAD ══════════════════════════ -->
 
         <!-- CARD FRECUENCIA DE USO -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardFrecuenciaIndividual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -558,7 +558,7 @@
                     android:textSize="13sp" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>

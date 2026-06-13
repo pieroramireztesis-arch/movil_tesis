@@ -17,7 +17,7 @@
 
     <!-- Texto -->
     <color name="ai_text_dark">#1A1A2E</color>
-    <color name="ai_text_muted">#4A5568</color>
+    <color name="ai_text_muted">#374151</color>
 
     <!-- ✅ Competencias MINEDU — colores vibrantes -->
     <color name="ai_comp1">#1565C0</color>  <!-- Cantidad — Azul -->
@@ -40,7 +40,8 @@
     <!-- UI -->
     <color name="ai_divider">#E8ECF0</color>
     <color name="ai_border">#D0D9E8</color>
-    <color name="ai_card_border">#1A000000</color>
+    <color name="ai_card_border">#C5D0E0</color>
+    <color name="ai_card_stroke">#CBD5E1</color>
 
     <!-- Barras de progreso -->
     <color name="ai_progress_track">#E3EAF5</color>

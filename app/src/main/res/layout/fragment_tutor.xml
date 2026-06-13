@@ -27,7 +27,7 @@
             android:layout_marginBottom="12dp"/>
 
         <!-- SELECTOR MODO Repaso / Evaluación -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
@@ -64,7 +64,7 @@
                     android:textColor="@color/ai_text_muted"
                     android:background="@drawable/bg_tab_selected_right"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- BADGE MODO -->
         <TextView

@@ -32,15 +32,14 @@
                 android:layout_marginBottom="12dp">
 
                 <!-- Matriculados -->
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardEstudiantesActivos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/white">
+                    app:cardElevation="2dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -66,18 +65,17 @@
                             android:textSize="32sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Progreso promedio -->
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardProgresoPromedio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/white">
+                    app:cardElevation="2dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -103,11 +101,11 @@
                             android:textSize="32sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- COMPETENCIA CON MÁS DIFICULTADES -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardTemaDificil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,7 +149,7 @@
                         android:background="@drawable/bg_circle_light"
                         android:contentDescription="Competencia con dificultades"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- BOTÓN VER INFORMES -->
             <com.google.android.material.button.MaterialButton
@@ -194,7 +192,7 @@
             </LinearLayout>
 
             <!-- Actividad 1 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardActividad1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,10 +222,10 @@
                         android:textSize="12sp"
                         android:paddingTop="3dp"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Actividad 2 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardActividad2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -257,10 +255,10 @@
                         android:textSize="12sp"
                         android:paddingTop="3dp"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Actividad 3 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardActividad3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -290,7 +288,7 @@
                         android:textSize="12sp"
                         android:paddingTop="3dp"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- USO DE LA APLICACIÓN -->
             <TextView
@@ -302,7 +300,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"/>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -482,6 +480,6 @@
                         android:padding="16dp"
                         android:visibility="gone"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 </ScrollView>
