@@ -62,8 +62,9 @@ class TutorFragment : Fragment() {
         private const val KEY_IMAGEN_URL   = "ejercicio_imagen_url"
         private const val KEY_ID_EJERCICIO = "ejercicio_id"
         private const val KEY_ID_COMP      = "ejercicio_id_comp"
-        private const val KEY_PISTA        = "ejercicio_pista"
-        private const val KEY_MODO         = "ejercicio_modo"
+        private const val KEY_PISTA         = "ejercicio_pista"
+        private const val KEY_PISTA_VISIBLE = "pista_visible"
+        private const val KEY_MODO          = "ejercicio_modo"
         private const val KEY_LAST_FILE    = "last_file_uri"
         private const val KEY_SONIDO       = "sonido_activado"
 
@@ -682,6 +683,16 @@ class TutorFragment : Fragment() {
             nivelActualCached = nivelRest
             mostrarNivelEnUI(nivelRest)
         }
+        // Restaurar pista si estaba visible antes de cerrar sesión
+        val pistaVis = requireContext()
+            .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .getBoolean(KEY_PISTA_VISIBLE, false)
+        val pistaTexto = pistaActual?.takeIf { it.isNotBlank() }
+        if (pistaVis && pistaTexto != null && modoActual == "repaso") {
+            cardFeedback.visibility = View.VISIBLE
+            tvFeedbackTitle.text    = "Pista"
+            tvFeedback.text         = pistaTexto
+        }
     }
 
     private fun mostrarMensajeSinEstudiante(mensaje: String) {
@@ -838,7 +849,7 @@ class TutorFragment : Fragment() {
             .edit()
             .remove(KEY_ENUNCIADO).remove(KEY_IMAGEN_URL)
             .remove(KEY_ID_EJERCICIO).remove(KEY_ID_COMP)
-            .remove(KEY_PISTA).remove(KEY_MODO)
+            .remove(KEY_PISTA).remove(KEY_PISTA_VISIBLE).remove(KEY_MODO)
             .apply()
         ejercicioGuardado = null
     }
@@ -1029,6 +1040,8 @@ class TutorFragment : Fragment() {
                             tvFeedback.text         = pistaActual?.takeIf { it.isNotBlank() }
                                 ?: "Revisa el enunciado paso a paso."
                             usoPistaActual = true
+                            requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                                .edit().putBoolean(KEY_PISTA_VISIBLE, true).apply()
                         } else {
                             cardFeedback.visibility = View.GONE
                         }
@@ -1429,7 +1442,31 @@ class TutorFragment : Fragment() {
             }
         }
 
-        // ── Lógica real de salida (reutilizada por checkpoint y salida directa) ──
+        // ── Regresar al mismo ejercicio desde el checkpoint (el alumno dijo "Sí, puedo") ──
+        fun regresarAlMismoEjercicio() {
+            waitJob?.cancel()
+            timerJob?.cancel()
+            viewLifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            if (materialAbierto && material != null) {
+                registrarMaterialInconcluso(material.idMaterial, tiempoTranscurrido)
+            }
+            dialog.dismiss()
+            selectedFileUri             = null
+            desarrolloSubidoOk          = false
+            idEjercicioDesarrolloSubido = null
+            rgAlternativas.clearCheck()
+            val ej = currentExercise ?: return
+            restaurarUIDesdeEjercicio(ej)
+            // Volver a mostrar la pista si el alumno ya la había visto (ya falló una vez)
+            val pista = pistaActual?.takeIf { it.isNotBlank() }
+            if (pista != null && modoActual == "repaso") {
+                cardFeedback.visibility = View.VISIBLE
+                tvFeedbackTitle.text    = "Pista"
+                tvFeedback.text         = pista
+            }
+        }
+
+        // ── Lógica de salida hacia nuevo ejercicio ──────────────────────────────
         fun ejecutarContinuacion() {
             waitJob?.cancel()
             timerJob?.cancel()
@@ -1462,7 +1499,7 @@ class TutorFragment : Fragment() {
                 layoutCheckpoint.visibility = android.view.View.VISIBLE
                 tvCheckpointEnun.text = enunciado
 
-                btnCheckpointSi.setOnClickListener { ejecutarContinuacion() }
+                btnCheckpointSi.setOnClickListener { regresarAlMismoEjercicio() }
                 btnCheckpointRevisar.setOnClickListener {
                     // Volver al material: ocultar checkpoint, mostrar botón
                     layoutCheckpoint.visibility = android.view.View.GONE
