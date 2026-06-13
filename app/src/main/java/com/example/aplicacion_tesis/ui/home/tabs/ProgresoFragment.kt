@@ -24,6 +24,7 @@ import com.example.aplicacion_tesis.ui.components.DonutChartView
 import com.example.aplicacion_tesis.ui.home.ProgressEvents
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.RadarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -31,6 +32,9 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.coroutines.launch
@@ -62,6 +66,9 @@ class ProgresoFragment : Fragment() {
     private lateinit var tvNivelC2: TextView
     private lateinit var tvNivelC3: TextView
     private lateinit var tvNivelC4: TextView
+
+    // ── Card Radar — Perfil de las 4 competencias ─────────
+    private lateinit var radarChart: RadarChart
 
     // ── Card 3: Bar chart + filas de acierto ─────────────
     private lateinit var barChart: BarChart
@@ -120,6 +127,9 @@ class ProgresoFragment : Fragment() {
         tvNivelC2 = view.findViewById(R.id.tvNivelC2)
         tvNivelC3 = view.findViewById(R.id.tvNivelC3)
         tvNivelC4 = view.findViewById(R.id.tvNivelC4)
+
+        // Card Radar
+        radarChart       = view.findViewById(R.id.radarCompetencias)
 
         // Card 3
         barChart         = view.findViewById(R.id.chartBarDificultad)
@@ -285,6 +295,58 @@ class ProgresoFragment : Fragment() {
             val nivelLabel = tema?.nombreNivel?.ifBlank { nivelTexto(pct) } ?: nivelTexto(pct)
             tvNiveles[i].text = nivelLabel
             tvNiveles[i].setTextColor(colorNivel(pct))
+        }
+
+        actualizarRadarChart(temas)
+    }
+
+    // ══════════════════════════════════════════════════════
+    // CARD RADAR — araña de las 4 competencias MINEDU
+    // ══════════════════════════════════════════════════════
+    private fun actualizarRadarChart(temas: List<ProgresoPorCompetenciaItemDTO>) {
+        val etiquetas = listOf("Cantidad", "Regularidad", "Forma/Mov.", "Datos")
+        val entradas  = (0..3).map { i ->
+            RadarEntry(temas.getOrNull(i)?.porcentaje?.coerceIn(0, 100)?.toFloat() ?: 0f)
+        }
+
+        val dataSet = RadarDataSet(entradas, "").apply {
+            color              = Color.parseColor("#818CF8")
+            fillColor          = Color.parseColor("#818CF8")
+            setDrawFilled(true)
+            fillAlpha          = 55
+            lineWidth          = 2.2f
+            setDrawValues(false)
+            setDrawHighlightCircleEnabled(true)
+            highlightCircleStrokeColor = Color.parseColor("#818CF8")
+            highlightCircleInnerRadius = 3f
+        }
+
+        radarChart.apply {
+            data = RadarData(dataSet)
+
+            xAxis.apply {
+                valueFormatter = IndexAxisValueFormatter(etiquetas)
+                textColor      = Color.parseColor("#94A3B8")
+                textSize       = 11f
+            }
+            yAxis.apply {
+                setDrawLabels(false)
+                axisMinimum = 0f
+                axisMaximum = 100f
+                setLabelCount(5, true)
+            }
+
+            webColor      = Color.parseColor("#334155")
+            webColorInner = Color.parseColor("#334155")
+            webAlpha      = 160
+            webLineWidth  = 1f
+
+            description.isEnabled = false
+            legend.isEnabled      = false
+            setBackgroundColor(Color.TRANSPARENT)
+            setTouchEnabled(false)
+            animateXY(900, 900)
+            invalidate()
         }
     }
 

@@ -374,7 +374,7 @@
                 android:textColor="@color/ai_text_dark"/>
         </LinearLayout>
 
-        <!-- RESULTADO EVALUACIÓN -->
+        <!-- RESULTADO EVALUACIÓN (A3) -->
         <LinearLayout
             android:id="@+id/cardResultadoEvaluacion"
             android:layout_width="match_parent"
@@ -393,8 +393,32 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/ai_text_dark"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="20dp"/>
 
+            <!-- Score grande en círculo coloreado -->
+            <FrameLayout
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.example.aplicacion_tesis.ui.components.DonutChartView
+                    android:id="@+id/donutResultado"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"/>
+
+                <TextView
+                    android:id="@+id/tvResultadoPuntaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ai_primary"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+            <!-- Correctas y nivel MINEDU -->
             <TextView
                 android:id="@+id/tvResultadoCorrectas"
                 android:layout_width="wrap_content"
@@ -405,25 +429,36 @@
                 android:layout_marginBottom="8dp"/>
 
             <TextView
-                android:id="@+id/tvResultadoPuntaje"
+                android:id="@+id/tvNivelResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0%"
-                android:textSize="48sp"
+                android:text=""
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/ai_primary"
-                android:layout_marginBottom="8dp"/>
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginBottom="6dp"
+                android:visibility="gone"/>
 
-            <!-- Mensaje motivacional según el puntaje (M9) -->
+            <!-- Mensaje motivacional (M9) -->
             <TextView
                 android:id="@+id/tvResultadoMensaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:gravity="center"
                 android:textColor="@color/ai_text_muted"
                 android:layout_marginBottom="20dp"/>
+
+            <!-- Barra de progreso visual del score -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/ai_divider"
+                android:layout_marginBottom="16dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVolverRepaso"
@@ -433,6 +468,20 @@
                 android:textAllCaps="false"
                 android:textSize="15sp"
                 app:backgroundTint="@color/ai_primary"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerProgreso"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Ver mi progreso →"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textColor="@color/ai_primary"
+                app:strokeColor="@color/ai_primary"
                 app:cornerRadius="12dp"
                 android:visibility="gone"/>
         </LinearLayout>

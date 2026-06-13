@@ -445,6 +445,50 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- ═══════════════════════════════════════════
+                 CARD RADAR — Perfil de las 4 Competencias MINEDU
+                 ═══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perfil de Competencias"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:layout_marginBottom="8dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/ai_card_bg"
+                app:strokeColor="@color/ai_card_stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <com.github.mikephil.charting.charts.RadarChart
+                        android:id="@+id/radarCompetencias"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cada eje es una competencia MINEDU · 0 – 100%"
+                        android:textSize="11sp"
+                        android:textColor="@color/ai_text_muted"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ═══════════════════════════════════════════
                  CARD 3 — Respuestas por Dificultad
                  Barras = cantidades (regla del profesor)
                  + filas de tasa de acierto (%)

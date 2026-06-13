@@ -44,6 +44,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import androidx.viewpager2.widget.ViewPager2
+import com.example.aplicacion_tesis.ui.components.DonutChartView
 import java.io.File
 import java.io.FileOutputStream
 
@@ -99,6 +101,8 @@ class TutorFragment : Fragment() {
     private lateinit var cardResultadoEvaluacion: LinearLayout
     private lateinit var tvResultadoCorrectas:    TextView
     private lateinit var tvResultadoPuntaje:      TextView
+    private lateinit var tvNivelResultado:        TextView
+    private lateinit var donutResultado:          DonutChartView
     private lateinit var cardEjercicio:           LinearLayout
     private lateinit var tvNivelActual:           TextView
     private lateinit var tvCompetenciaTag:        TextView
@@ -246,6 +250,8 @@ class TutorFragment : Fragment() {
         cardResultadoEvaluacion  = view.findViewById(R.id.cardResultadoEvaluacion)
         tvResultadoCorrectas     = view.findViewById(R.id.tvResultadoCorrectas)
         tvResultadoPuntaje       = view.findViewById(R.id.tvResultadoPuntaje)
+        tvNivelResultado         = view.findViewById(R.id.tvNivelResultado)
+        donutResultado           = view.findViewById(R.id.donutResultado)
         cardEjercicio            = view.findViewById(R.id.cardEjercicio)
         tvCompetenciaTag         = view.findViewById(R.id.tvCompetenciaTag)
         tvNivelActual            = try {
@@ -1503,20 +1509,42 @@ class TutorFragment : Fragment() {
         btnSubirFoto.visibility            = View.GONE
         cardResultadoEvaluacion.visibility = View.VISIBLE
         tvResultadoCorrectas.text          = "Correctas: $correctas / $total"
-        tvResultadoPuntaje.text            = "Puntaje: $puntaje%"
+        tvResultadoPuntaje.text            = "$puntaje%"
         tvTituloTutor.text                 = "Evaluación completada ✅"
 
-        // M9: mensaje motivacional + color del puntaje según el resultado
-        val tvMensaje = view?.findViewById<TextView>(R.id.tvResultadoMensaje)
-        val (mensaje, color) = when {
-            puntaje >= 90 -> "🏆 ¡Excelente! Dominas estos temas." to 0xFF27AE60.toInt()
-            puntaje >= 70 -> "💪 ¡Muy bien! Vas por buen camino."  to 0xFF27AE60.toInt()
-            puntaje >= 50 -> "📈 Buen intento. Sigue practicando en el tutor para mejorar." to 0xFFE67E22.toInt()
-            else          -> "📚 No te desanimes: practica en el módulo Tutor y verás tu progreso." to 0xFFE74C3C.toInt()
+        val (mensaje, colorHex, nivelTextoRes) = when {
+            puntaje >= 90 -> Triple("🏆 ¡Excelente! Dominas estos temas.",          "#34D399", "⭐ Nivel Destacado")
+            puntaje >= 70 -> Triple("💪 ¡Muy bien! Estás en el nivel esperado.",     "#34D399", "✅ Nivel Logrado")
+            puntaje >= 50 -> Triple("📈 Buen intento. Practica en el Tutor para mejorar.", "#FB923C", "⚡ En Proceso")
+            else          -> Triple("📚 No te desanimes: el Tutor te ayudará a avanzar.",  "#F87171", "📌 En Inicio")
         }
+        val color = Color.parseColor(colorHex)
+
+        // Donut con el puntaje
+        donutResultado.setPercentage(puntaje.coerceIn(0, 100).toFloat(), color)
+        tvResultadoPuntaje.setTextColor(color)
+
+        // Badge de nivel MINEDU
+        tvNivelResultado.text = nivelTextoRes
+        tvNivelResultado.background = GradientDrawable().apply {
+            setColor(Color.parseColor(colorHex + "33")) // 20% opacity
+            cornerRadius = 50f * resources.displayMetrics.density
+        }
+        tvNivelResultado.setTextColor(color)
+        tvNivelResultado.visibility = View.VISIBLE
+
+        val tvMensaje = view?.findViewById<TextView>(R.id.tvResultadoMensaje)
         tvMensaje?.text = mensaje
         tvMensaje?.visibility = View.VISIBLE
-        tvResultadoPuntaje.setTextColor(color)
+
+        // Botón "Ver mi progreso →" navega al tab ProgresoFragment (índice 3)
+        val btnVerProgreso = view?.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnVerProgreso)
+        btnVerProgreso?.visibility = View.VISIBLE
+        btnVerProgreso?.setOnClickListener {
+            try {
+                requireActivity().findViewById<ViewPager2>(R.id.viewPager).currentItem = 3
+            } catch (_: Exception) { }
+        }
 
         // ✅ Botón para verificar nueva evaluación o ir a repaso
         val btnVolverRepaso = view?.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnVolverRepaso)
