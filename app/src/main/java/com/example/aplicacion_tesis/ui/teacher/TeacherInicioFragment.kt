@@ -80,7 +80,7 @@ class TeacherInicioFragment : Fragment() {
                             val item = lista[index]
                             card.visibility = View.VISIBLE
                             tituloView.text = "${item.nombreEstudiante} ha ${item.tipo} \"${item.tema}\""
-                            tiempoView.text = item.fecha.orEmpty()
+                            tiempoView.text = formatearFecha(item.fecha)
                         } else {
                             card.visibility = View.GONE
                         }
@@ -155,6 +155,19 @@ class TeacherInicioFragment : Fragment() {
                 e.printStackTrace()
             }
         }
+    }
+
+    /** "2026-05-31T18:36:12.023350" → "31 May 2026 · 18:36" (legible para el docente) */
+    private fun formatearFecha(fecha: String?): String {
+        if (fecha.isNullOrBlank()) return "--"
+        return try {
+            val regex = Regex("""(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})""")
+            val m = regex.find(fecha) ?: return fecha
+            val (anio, mes, dia, hh, mm) = m.destructured
+            val meses = listOf("", "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
+            "$dia ${meses[mes.toInt()]} $anio · $hh:$mm"
+        } catch (_: Exception) { fecha }
     }
 
     override fun onDestroyView() {

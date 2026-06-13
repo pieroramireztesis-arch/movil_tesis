@@ -17,7 +17,7 @@
                 android:id="@+id/tvGreeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Â¡Hola, Profesor!"
+                android:text="¡Hola, Profesor!"
                 android:textColor="@color/ai_text_dark"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -49,9 +49,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ðŸ‘¥ Matriculados"
+                            android:text="Matriculados"
                             android:textColor="@color/ai_text_muted"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
+                            android:gravity="center_vertical"
+                            app:drawableStartCompat="@drawable/ic_nav_person"
+                            android:drawableTint="@color/ai_primary"
+                            android:drawablePadding="6dp"
                             android:layout_marginBottom="6dp"/>
                         <TextView
                             android:id="@+id/tvEstudiantesActivos"
@@ -82,9 +86,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ðŸ“Š Progreso"
+                            android:text="Progreso"
                             android:textColor="@color/ai_text_muted"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
+                            android:gravity="center_vertical"
+                            app:drawableStartCompat="@drawable/ic_nav_chart"
+                            android:drawableTint="@color/ai_comp2"
+                            android:drawablePadding="6dp"
                             android:layout_marginBottom="6dp"/>
                         <TextView
                             android:id="@+id/tvProgresoPromedio"
@@ -98,7 +106,7 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <!-- COMPETENCIA CON MÃS DIFICULTADES -->
+            <!-- COMPETENCIA CON MÁS DIFICULTADES -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardTemaDificil"
                 android:layout_width="match_parent"
@@ -121,7 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Competencia con mÃ¡s dificultades"
+                            android:text="Competencia con más dificultades"
                             android:textColor="@color/ai_text_muted"
                             android:textSize="12sp"
                             android:layout_marginBottom="4dp"/>
@@ -134,16 +142,18 @@
                             android:textSize="14sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
-                    <TextView
+                    <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:text="âš ï¸"
-                        android:textSize="22sp"
-                        android:gravity="center"/>
+                        android:padding="8dp"
+                        android:src="@drawable/ic_warning"
+                        app:tint="@color/ai_warning"
+                        android:background="@drawable/bg_circle_light"
+                        android:contentDescription="Competencia con dificultades"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- BOTÃ“N VER INFORMES -->
+            <!-- BOTÓN VER INFORMES -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerInformes"
                 android:layout_width="match_parent"
@@ -177,7 +187,7 @@
                     android:id="@+id/tvVerTodaActividad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ver informes â€º"
+                    android:text="Ver informes ›"
                     android:textColor="@color/ai_primary"
                     android:textSize="13sp"
                     android:textStyle="bold"/>
@@ -282,11 +292,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- USO DE LA APLICACIÃ“N -->
+            <!-- USO DE LA APLICACIÓN -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Uso de la AplicaciÃ³n"
+                android:text="Uso de la Aplicación"
                 android:textColor="@color/ai_text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -314,12 +324,13 @@
                         android:gravity="center_vertical"
                         android:paddingVertical="10dp"
                         android:visibility="gone">
-                        <TextView
+                        <ImageView
                             android:layout_width="28dp"
-                            android:layout_height="wrap_content"
-                            android:text="ðŸ¥‡"
-                            android:textSize="18sp"
-                            android:gravity="center"/>
+                            android:layout_height="28dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_medal"
+                            app:tint="#F1C40F"
+                            android:contentDescription="Puesto"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -367,12 +378,13 @@
                         android:gravity="center_vertical"
                         android:paddingVertical="10dp"
                         android:visibility="gone">
-                        <TextView
+                        <ImageView
                             android:layout_width="28dp"
-                            android:layout_height="wrap_content"
-                            android:text="ðŸ¥ˆ"
-                            android:textSize="18sp"
-                            android:gravity="center"/>
+                            android:layout_height="28dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_medal"
+                            app:tint="#95A5A6"
+                            android:contentDescription="Puesto"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -420,12 +432,13 @@
                         android:gravity="center_vertical"
                         android:paddingVertical="10dp"
                         android:visibility="gone">
-                        <TextView
+                        <ImageView
                             android:layout_width="28dp"
-                            android:layout_height="wrap_content"
-                            android:text="ðŸ¥‰"
-                            android:textSize="18sp"
-                            android:gravity="center"/>
+                            android:layout_height="28dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_medal"
+                            app:tint="#CD7F32"
+                            android:contentDescription="Puesto"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -462,7 +475,7 @@
                         android:id="@+id/tvFrecuenciaVacia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="AÃºn no hay datos de uso registrados."
+                        android:text="Aún no hay datos de uso registrados."
                         android:textColor="@color/ai_text_muted"
                         android:textSize="13sp"
                         android:gravity="center"
@@ -472,4 +485,3 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 </ScrollView>
-

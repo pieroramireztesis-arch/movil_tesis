@@ -69,7 +69,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="InformaciÃ³n Personal"
+            android:text="Información Personal"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/ai_text_dark"
@@ -112,7 +112,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Correo electrÃ³nico"
+                    android:text="Correo electrónico"
                     android:textSize="12sp"
                     android:textColor="@color/ai_text_muted"
                     android:layout_marginBottom="4dp"/>
@@ -133,7 +133,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nueva contraseÃ±a"
+                    android:text="Nueva contraseña"
                     android:textSize="12sp"
                     android:textColor="@color/ai_text_muted"
                     android:layout_marginBottom="4dp"/>
@@ -167,13 +167,13 @@
             app:cornerRadius="14dp"
             app:backgroundTint="@color/ai_primary"/>
 
-        <!-- CERRAR SESIÃ“N -->
+        <!-- CERRAR SESIÓN -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogoutTeacher"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginBottom="24dp"
-            android:text="Cerrar SesiÃ³n"
+            android:text="Cerrar Sesión"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textSize="15sp"
@@ -186,4 +186,3 @@
         <Space android:layout_width="match_parent" android:layout_height="16dp"/>
     </LinearLayout>
 </ScrollView>
-

@@ -11,7 +11,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- TÃTULO SECCIÃ“N -->
+            <!-- TÍTULO SECCIÓN -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                         android:textColor="@color/ai_text_dark"
                         android:layout_marginBottom="10dp"/>
 
-                    <!-- CrÃ­tica -->
+                    <!-- Crítica -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -85,14 +85,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ðŸ”´  CrÃ­tica"
+                                android:text="🔴  Crítica"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#C62828"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4 o mÃ¡s errores recientes consecutivos"
+                                android:text="4 o más errores recientes consecutivos"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -120,14 +120,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ðŸŸ¡  Advertencia"
+                                android:text="🟡  Advertencia"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#F57F17"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2â€“3 errores recientes consecutivos"
+                                android:text="2–3 errores recientes consecutivos"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -154,14 +154,14 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ðŸ”µ  Informativa"
+                                android:text="🔵  Informativa"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/ai_primary"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Bajo rendimiento en competencia especÃ­fica"
+                                android:text="Bajo rendimiento en competencia específica"
                                 android:textSize="11sp"
                                 android:textColor="@color/ai_text_muted"/>
                         </LinearLayout>
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
 
-            <!-- VACÃO -->
+            <!-- VACÍO -->
             <LinearLayout
                 android:id="@+id/tvAlertsEmpty"
                 android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="âœ…"
+                    android:text="✅"
                     android:textSize="48sp"
                     android:layout_marginBottom="12dp"/>
 
@@ -212,4 +212,3 @@
             </LinearLayout>
         </LinearLayout>
 </ScrollView>
-
