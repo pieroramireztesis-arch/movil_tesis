@@ -42,6 +42,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import java.io.File
 import java.io.FileOutputStream
 
@@ -119,6 +121,9 @@ class TutorFragment : Fragment() {
     private var repasoExerciseBeforeEval:     TutorExerciseDTO? = null
     private var modoVerificacion:             Boolean           = false
     private val competenciasAlertadas = mutableSetOf<Int>()
+    private var rachaActual:                  Int               = 0
+    private lateinit var tvRachaBadge:        TextView
+    private lateinit var viewProgressBar:     View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -247,6 +252,8 @@ class TutorFragment : Fragment() {
             view.findViewById(R.id.tvNivelActual)
         } catch (e: Exception) { TextView(requireContext()) }
         btnSonido                = view.findViewById(R.id.btnSonido)
+        tvRachaBadge             = view.findViewById(R.id.tvRachaBadge)
+        viewProgressBar          = view.findViewById(R.id.viewProgressBar)
     }
 
     private fun setupModoSelector() {
@@ -951,6 +958,10 @@ class TutorFragment : Fragment() {
                     nivelActualCached = resp.nivelMLCompetencia
                     mostrarNivelEnUI(resp.nivelMLCompetencia)
 
+                    rachaActual++
+                    actualizarRachaBadge()
+                    animarBarraFeedback(correcto = true)
+
                     if (modoVerificacion) {
                         Toast.makeText(requireContext(),
                             "¡Excelente! Pusiste en práctica lo que aprendiste. 🌟",
@@ -972,6 +983,9 @@ class TutorFragment : Fragment() {
                     reproducirSonido(correcto = false)
                     mostrarNivelEnUI(resp.nivelMLCompetencia)
                     lastAjuste = resp.nuevoAjuste
+                    rachaActual = 0
+                    actualizarRachaBadge()
+                    animarBarraFeedback(correcto = false)
 
                     if (modoActual == "evaluacion") {
                         // En evaluación: sin pistas, sin diálogos, avanza directo
@@ -1049,6 +1063,42 @@ class TutorFragment : Fragment() {
                 Toast.makeText(requireContext(),
                     "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun animarBarraFeedback(correcto: Boolean) {
+        val color = if (correcto) Color.parseColor("#34D399") else Color.parseColor("#F87171")
+        viewProgressBar.setBackgroundColor(color)
+        viewProgressBar.scaleX = 0f
+        viewProgressBar.pivotX = 0f
+        viewProgressBar.alpha  = 1f
+        viewProgressBar.visibility = View.VISIBLE
+        viewProgressBar.animate()
+            .scaleX(1f)
+            .setDuration(600)
+            .withEndAction {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(if (correcto) 1400 else 700)
+                    viewProgressBar.animate().alpha(0f).setDuration(350).withEndAction {
+                        viewProgressBar.visibility = View.GONE
+                        viewProgressBar.alpha = 1f
+                    }.start()
+                }
+            }.start()
+    }
+
+    private fun actualizarRachaBadge() {
+        if (rachaActual >= 2) {
+            tvRachaBadge.text = "🔥 $rachaActual"
+            val bgColor = if (rachaActual >= 5) Color.parseColor("#DC2626")
+                          else Color.parseColor("#F59E0B")
+            val rad = 50f * resources.displayMetrics.density
+            tvRachaBadge.background = GradientDrawable().apply {
+                setColor(bgColor); cornerRadius = rad
+            }
+            tvRachaBadge.visibility = View.VISIBLE
+        } else {
+            tvRachaBadge.visibility = View.GONE
         }
     }
 
