@@ -44,6 +44,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
+import android.view.HapticFeedbackConstants
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aplicacion_tesis.ui.components.DonutChartView
 import java.io.File
@@ -958,6 +960,12 @@ class TutorFragment : Fragment() {
                 }
 
                 if (resp.correcta) {
+                    // A8: Haptic correcto — pulso corto confirmación
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        requireView().performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                    else
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                     reproducirSonido(correcto = true)
                     ProgressEvents.notifyChanged()
                     nivelMLPendiente  = resp.nivelMLCompetencia
@@ -986,6 +994,12 @@ class TutorFragment : Fragment() {
                     cargarNuevoEjercicio(resp.nuevoAjuste)
 
                 } else {
+                    // A8: Haptic incorrecto — pulso largo/doble para señal diferenciada
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        requireView().performHapticFeedback(HapticFeedbackConstants.REJECT)
+                    else
+                        requireView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+
                     reproducirSonido(correcto = false)
                     mostrarNivelEnUI(resp.nivelMLCompetencia)
                     lastAjuste = resp.nuevoAjuste

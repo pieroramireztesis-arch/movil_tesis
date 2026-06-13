@@ -2,62 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@drawable/bg_card"
-    android:padding="14dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:clipToPadding="false">
 
-    <!-- Fila 1: Título del ejercicio -->
-    <TextView
-        android:id="@+id/tvHistorialTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:textColor="@color/ai_text_dark"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginBottom="8dp" />
+    <!-- Barra de acento lateral (color = correcto/incorrecto) -->
+    <View
+        android:id="@+id/viewAccentBar"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="#27AE60" />
 
-    <!-- Fila 2: Fecha + badges -->
+    <!-- Contenido principal -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <!-- Fecha -->
-        <TextView
-            android:id="@+id/tvHistorialFecha"
-            android:layout_width="0dp"
+        <!-- Fila 1: Título + badge estado -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:textColor="@color/ai_text_muted" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
 
-        <!-- Badge MODO (Revisión azul / Evaluación naranja) -->
-        <TextView
-            android:id="@+id/tvHistorialModo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="Revisión" />
+            <TextView
+                android:id="@+id/tvHistorialTitulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ai_text_dark"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginEnd="8dp" />
 
-        <!-- Badge ESTADO (Correcto verde / Incorrecto rojo) -->
-        <TextView
-            android:id="@+id/tvHistorialEstado"
-            android:layout_width="wrap_content"
+            <!-- Badge ESTADO (Correcto / Incorrecto) -->
+            <TextView
+                android:id="@+id/tvHistorialEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:text="Correcto" />
+
+        </LinearLayout>
+
+        <!-- Fila 2: Fecha + badges modo + intentos -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:text="Correcto ✅" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/tvHistorialFecha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:textColor="@color/ai_text_muted" />
+
+            <!-- Badge MODO -->
+            <TextView
+                android:id="@+id/tvHistorialModo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:text="Revisión" />
+
+            <!-- Badge INTENTOS (visible solo si > 0) -->
+            <TextView
+                android:id="@+id/tvHistorialIntentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

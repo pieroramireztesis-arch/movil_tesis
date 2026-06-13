@@ -2,6 +2,7 @@ package com.example.aplicacion_tesis.ui.home.tabs
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,46 +35,58 @@ class HistorialAdapter : RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvTitulo: TextView = view.findViewById(R.id.tvHistorialTitulo)
-        private val tvFecha:  TextView = view.findViewById(R.id.tvHistorialFecha)
-        private val tvEstado: TextView = view.findViewById(R.id.tvHistorialEstado)
-        private val tvModo:   TextView = view.findViewById(R.id.tvHistorialModo)
+        private val accentBar:   View     = view.findViewById(R.id.viewAccentBar)
+        private val tvTitulo:    TextView = view.findViewById(R.id.tvHistorialTitulo)
+        private val tvFecha:     TextView = view.findViewById(R.id.tvHistorialFecha)
+        private val tvEstado:    TextView = view.findViewById(R.id.tvHistorialEstado)
+        private val tvModo:      TextView = view.findViewById(R.id.tvHistorialModo)
+        private val tvIntentos:  TextView = view.findViewById(R.id.tvHistorialIntentos)
 
         fun bind(item: ProgresoHistorialItemDTO) {
             tvTitulo.text = item.titulo ?: ""
             tvFecha.text  = formatearFecha(item.fecha)
 
             val estadoRaw = item.estado ?: ""
-            tvEstado.text = estadoRaw
-            when {
-                estadoRaw.contains("Correcto", ignoreCase = true) -> {
-                    tvEstado.setTextColor(Color.parseColor("#27AE60"))
-                    tvEstado.setBackgroundResource(R.drawable.bg_badge_correcto)
-                }
-                estadoRaw.contains("Incorrecto", ignoreCase = true) -> {
-                    tvEstado.setTextColor(Color.parseColor("#E74C3C"))
-                    tvEstado.setBackgroundResource(R.drawable.bg_badge_incorrecto)
-                }
-                else -> {
-                    tvEstado.setTextColor(Color.parseColor("#7F8C8D"))
-                    tvEstado.background = null
-                }
-            }
+            val esCorrecto = estadoRaw.contains("Correcto", ignoreCase = true) &&
+                             !estadoRaw.contains("In", ignoreCase = true)
 
+            // Barra de acento lateral
+            val accentColor = if (esCorrecto) Color.parseColor("#27AE60") else Color.parseColor("#E74C3C")
+            accentBar.setBackgroundColor(accentColor)
+
+            // Badge estado
+            tvEstado.text = if (esCorrecto) "✓ Correcto" else "✗ Incorrecto"
+            val badgeRadius = 50f * itemView.resources.displayMetrics.density
+            tvEstado.background = GradientDrawable().apply {
+                setColor(Color.parseColor(if (esCorrecto) "#1A27AE60" else "#1AE74C3C"))
+                cornerRadius = badgeRadius
+            }
+            tvEstado.setTextColor(accentColor)
+
+            // Badge modo
             val modoRaw = item.modo ?: "Revisión"
             tvModo.text = modoRaw
-            when {
-                modoRaw.contains("valuaci", ignoreCase = true) -> {
-                    tvModo.setTextColor(Color.WHITE)
-                    tvModo.setBackgroundResource(R.drawable.bg_badge_evaluacion)
+            val esEval = modoRaw.contains("valuaci", ignoreCase = true)
+            tvModo.background = GradientDrawable().apply {
+                setColor(Color.parseColor(if (esEval) "#1AF59E0B" else "#1A818CF8"))
+                cornerRadius = badgeRadius
+            }
+            tvModo.setTextColor(Color.parseColor(if (esEval) "#D97706" else "#6366F1"))
+
+            // Badge intentos incorrectos (solo si > 0)
+            val intentos = item.intentosIncorrectos ?: 0
+            if (intentos > 0) {
+                tvIntentos.text = "⚡ $intentos ${if (intentos == 1) "intento" else "intentos"}"
+                tvIntentos.background = GradientDrawable().apply {
+                    setColor(Color.parseColor("#1AF87171"))
+                    cornerRadius = badgeRadius
                 }
-                else -> {
-                    tvModo.setTextColor(Color.WHITE)
-                    tvModo.setBackgroundResource(R.drawable.bg_badge_repaso)
-                }
+                tvIntentos.setTextColor(Color.parseColor("#DC2626"))
+                tvIntentos.visibility = View.VISIBLE
+            } else {
+                tvIntentos.visibility = View.GONE
             }
 
-            // ✅ Click → abrir detalle
             itemView.setOnClickListener {
                 val ctx = itemView.context
                 val intent = Intent(ctx, HistorialDetalleActivity::class.java).apply {
