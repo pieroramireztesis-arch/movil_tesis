@@ -6,47 +6,80 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <!-- SECCIÓN AZUL: logo + nombre app + colegio -->
-    <LinearLayout
+    <!-- HEADER GRADIENTE con orbes decorativos -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:background="@color/ai_primary"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingBottom="24dp">
+        android:layout_height="240dp"
+        android:background="@drawable/bg_gradient_header">
 
-        <FrameLayout
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:padding="10dp"
-            android:background="@drawable/bg_white_circle">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:src="@drawable/logo_colegio"
-                android:contentDescription="Logo I.E. 27 de Diciembre"/>
-        </FrameLayout>
+        <!-- Orbe decorativo grande — esquina superior derecha -->
+        <View
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_orb_white"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="-60dp"
+            android:layout_marginEnd="-60dp"/>
 
-        <TextView
-            android:layout_marginTop="14dp"
-            android:text="TutorMath"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="26sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!-- Orbe decorativo pequeño — esquina inferior izquierda -->
+        <View
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/bg_orb_white"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="-20dp"
+            android:layout_marginStart="-20dp"/>
 
-        <TextView
-            android:layout_marginTop="3dp"
-            android:text="I.E. 27 de Diciembre · Lambayeque"
-            android:textColor="@color/ai_primary_light"
-            android:textSize="13sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        <!-- Orbe medio — centro izquierda -->
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_orb_white"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-40dp"/>
 
-    <!-- SECCIÓN BLANCA: formulario con esquinas superiores redondeadas -->
+        <!-- Contenido centrado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="28dp">
+
+            <FrameLayout
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:padding="10dp"
+                android:background="@drawable/bg_white_circle">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo_colegio"
+                    android:contentDescription="Logo I.E. 27 de Diciembre"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:text="TutorMath"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="3dp"
+                android:text="I.E. 27 de Diciembre · Lambayeque"
+                android:textColor="@color/ai_primary_light"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- FORMULARIO: tarjeta blanca con esquinas superiores redondeadas -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -59,7 +92,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:paddingHorizontal="24dp"
-            android:paddingTop="28dp"
+            android:paddingTop="32dp"
             android:paddingBottom="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -68,14 +101,14 @@
                 android:text="Bienvenido de nuevo"
                 android:textColor="@color/ai_text_dark"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="28dp"
                 android:text="¡Vamos a aprender álgebra!"
                 android:textColor="@color/ai_text_muted"
                 android:textSize="14sp"
@@ -83,7 +116,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <!-- Label usuario -->
             <TextView
                 android:layout_marginBottom="6dp"
                 android:text="Nombre de usuario o correo"
@@ -114,7 +146,6 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Label contraseña -->
             <TextView
                 android:layout_marginBottom="6dp"
                 android:text="Contraseña"
@@ -127,7 +158,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPassword"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:startIconDrawable="@drawable/ic_lock_24"
@@ -146,7 +177,6 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Olvidé contraseña (alineado derecha) -->
             <TextView
                 android:id="@+id/tvOlvide"
                 android:layout_marginBottom="20dp"
@@ -158,7 +188,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <!-- Botón Iniciar Sesión -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
@@ -171,7 +200,6 @@
                 app:backgroundTint="@color/ai_primary"
                 android:textColor="@android:color/white"/>
 
-            <!-- Registro -->
             <TextView
                 android:id="@+id/tvRegistro"
                 android:layout_width="wrap_content"

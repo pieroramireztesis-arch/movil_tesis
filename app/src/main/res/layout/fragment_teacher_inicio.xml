@@ -31,125 +31,133 @@
                 android:weightSum="2"
                 android:layout_marginBottom="12dp">
 
-                <!-- Matriculados -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- Matriculados — gradiente azul -->
+                <LinearLayout
                     android:id="@+id/cardEstudiantesActivos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
-                    <LinearLayout
+                    android:background="@drawable/bg_gradient_card_blue"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="#33FFFFFF"
+                        android:layout_marginBottom="8dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_nav_person"
+                            app:tint="@color/white"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/tvEstudiantesActivos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Matriculados"
-                            android:textColor="@color/ai_text_muted"
-                            android:textSize="13sp"
-                            android:gravity="center_vertical"
-                            app:drawableStartCompat="@drawable/ic_nav_person"
-                            android:drawableTint="@color/ai_primary"
-                            android:drawablePadding="6dp"
-                            android:layout_marginBottom="6dp"/>
-                        <TextView
-                            android:id="@+id/tvEstudiantesActivos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="@color/ai_primary"
-                            android:textSize="32sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Matriculados"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="13sp"/>
+                </LinearLayout>
 
-                <!-- Progreso promedio -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- Progreso promedio — gradiente verde -->
+                <LinearLayout
                     android:id="@+id/cardProgresoPromedio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
-                    <LinearLayout
+                    android:background="@drawable/bg_gradient_card_green"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="#33FFFFFF"
+                        android:layout_marginBottom="8dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_nav_chart"
+                            app:tint="@color/white"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/tvProgresoPromedio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Progreso"
-                            android:textColor="@color/ai_text_muted"
-                            android:textSize="13sp"
-                            android:gravity="center_vertical"
-                            app:drawableStartCompat="@drawable/ic_nav_chart"
-                            android:drawableTint="@color/ai_comp2"
-                            android:drawablePadding="6dp"
-                            android:layout_marginBottom="6dp"/>
-                        <TextView
-                            android:id="@+id/tvProgresoPromedio"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0%"
-                            android:textColor="@color/ai_progress"
-                            android:textSize="32sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                        android:text="0%"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Progreso"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="13sp"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- COMPETENCIA CON MÁS DIFICULTADES -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- COMPETENCIA CON MÁS DIFICULTADES — gradiente naranja -->
+            <LinearLayout
                 android:id="@+id/cardTemaDificil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white">
+                android:background="@drawable/bg_gradient_card_orange"
+                android:elevation="4dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Competencia con más dificultades"
-                            android:textColor="@color/ai_text_muted"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"/>
-                        <TextView
-                            android:id="@+id/tvTemaDificil"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="--"
-                            android:textColor="@color/ai_warning"
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_warning"
-                        app:tint="@color/ai_warning"
-                        android:background="@drawable/bg_circle_light"
-                        android:contentDescription="Competencia con dificultades"/>
+                        android:text="Competencia con más dificultades"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:id="@+id/tvTemaDificil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="#33FFFFFF">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_warning"
+                        app:tint="@color/white"
+                        android:contentDescription="Competencia con dificultades"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+                </FrameLayout>
+            </LinearLayout>
 
             <!-- BOTÓN VER INFORMES -->
             <com.google.android.material.button.MaterialButton

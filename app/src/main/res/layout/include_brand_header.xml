@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:background="@color/ai_primary"
-    android:paddingStart="@dimen/spacing_l"
-    android:paddingEnd="@dimen/spacing_l"
-    android:paddingTop="@dimen/spacing_m"
-    android:paddingBottom="@dimen/spacing_m">
+    android:background="@drawable/bg_gradient_header">
 
-    <ImageView
-        android:id="@+id/imgBrandLogo"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/logo_colegio"
-        android:contentDescription="Logo I.E. 27 de Diciembre"/>
+    <!-- Orbe decorativo derecha -->
+    <View
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@drawable/bg_orb_white"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="-20dp"/>
 
+    <!-- Contenido -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="@dimen/spacing_m"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/spacing_l"
+        android:paddingEnd="@dimen/spacing_l"
+        android:paddingTop="@dimen/spacing_m"
+        android:paddingBottom="@dimen/spacing_m">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TutorMath"
-            android:textAppearance="@style/TextAppearance.TutorMath.Subtitle"
-            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/imgBrandLogo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/logo_colegio"
+            android:contentDescription="Logo I.E. 27 de Diciembre"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="I.E. 27 de Diciembre · Lambayeque"
-            android:textAppearance="@style/TextAppearance.TutorMath.Label"
-            android:textColor="@color/ai_primary_light"/>
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_m"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TutorMath"
+                android:textAppearance="@style/TextAppearance.TutorMath.Subtitle"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I.E. 27 de Diciembre · Lambayeque"
+                android:textAppearance="@style/TextAppearance.TutorMath.Label"
+                android:textColor="@color/ai_primary_light"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>
