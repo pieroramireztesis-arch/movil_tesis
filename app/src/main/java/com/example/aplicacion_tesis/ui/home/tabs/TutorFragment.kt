@@ -1244,7 +1244,11 @@ class TutorFragment : Fragment() {
         val btnWeb         = dialogView.findViewById<MaterialButton>(R.id.btnDialogWebRecursos)
         val btnPdf         = dialogView.findViewById<MaterialButton>(R.id.btnDialogPdf)
 
-        val btnContin      = dialogView.findViewById<MaterialButton>(R.id.btnDialogContinuar)
+        val btnContin            = dialogView.findViewById<MaterialButton>(R.id.btnDialogContinuar)
+        val layoutCheckpoint     = dialogView.findViewById<android.view.View>(R.id.layoutCheckpoint)
+        val tvCheckpointEnun     = dialogView.findViewById<TextView>(R.id.tvCheckpointEnunciado)
+        val btnCheckpointSi      = dialogView.findViewById<MaterialButton>(R.id.btnCheckpointSi)
+        val btnCheckpointRevisar = dialogView.findViewById<MaterialButton>(R.id.btnCheckpointRevisar)
 
         // ── Estado del diálogo ────────────────────────────────────────────────
         var timerJob:         Job?  = null
@@ -1417,12 +1421,11 @@ class TutorFragment : Fragment() {
             }
         }
 
-        // ── Continuar / salir ─────────────────────────────────────────────────
-        btnContin.setOnClickListener {
+        // ── Lógica real de salida (reutilizada por checkpoint y salida directa) ──
+        fun ejecutarContinuacion() {
             waitJob?.cancel()
             timerJob?.cancel()
             viewLifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-            // Guardar tiempo visto (el servidor calcula estado: completado ≥240s, visto si no)
             if (materialAbierto && material != null) {
                 registrarMaterialInconcluso(material.idMaterial, tiempoTranscurrido)
             }
@@ -1432,13 +1435,34 @@ class TutorFragment : Fragment() {
             idEjercicioDesarrolloSubido = null
             ejercicioGuardado           = null
             limpiarPrefs()
-            // Verificación post-refuerzo: ejercicio más fácil de la misma competencia
             if (idCompFallado != null && idEjFallado != null) {
                 cargarEjercicioVerificacion(idCompFallado, idEjFallado)
             } else {
                 mostrarMensajeAjusteNivel(lastAjuste) {
                     cargarNuevoEjercicio(lastAjuste)
                 }
+            }
+        }
+
+        // ── Continuar / salir ─────────────────────────────────────────────────
+        btnContin.setOnClickListener {
+            // Si el alumno SÍ revisó el material → mostrar checkpoint de comprensión
+            val enunciado = enunciadoCorto?.takeIf { it.isNotBlank() }
+            if (materialAbierto && enunciado != null) {
+                // Animar transición: ocultar material, mostrar checkpoint
+                btnContin.visibility = android.view.View.GONE
+                layoutCheckpoint.visibility = android.view.View.VISIBLE
+                tvCheckpointEnun.text = enunciado
+
+                btnCheckpointSi.setOnClickListener { ejecutarContinuacion() }
+                btnCheckpointRevisar.setOnClickListener {
+                    // Volver al material: ocultar checkpoint, mostrar botón
+                    layoutCheckpoint.visibility = android.view.View.GONE
+                    btnContin.visibility = android.view.View.VISIBLE
+                }
+            } else {
+                // Sin enunciado (raro) o no abrió material → salir directo
+                ejecutarContinuacion()
             }
         }
 
