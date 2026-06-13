@@ -83,7 +83,7 @@
                     android:layout_marginStart="4dp"
                     android:text="0 de 9 vistos"
                     android:textColor="@color/ai_text_muted"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvPorcentaje"
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="0%"
                     android:textColor="@color/ai_primary"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 

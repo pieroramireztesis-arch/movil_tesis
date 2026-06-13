@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text="Total"
                     android:textColor="@color/ai_text_muted"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <!-- Vistos -->
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="Vistos"
                     android:textColor="@color/ai_text_muted"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <!-- Progreso % -->
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:text="Avance"
                     android:textColor="@color/ai_text_muted"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

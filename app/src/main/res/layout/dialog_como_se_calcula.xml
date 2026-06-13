@@ -82,13 +82,13 @@
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
-                    android:text="Nivel" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                    android:text="Nivel" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
-                    android:text="Nombre" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                    android:text="Nombre" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
-                    android:text="Puntaje" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                    android:text="Puntaje" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
-                    android:text="Progreso" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="end"/>
+                    android:text="Progreso" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" android:gravity="end"/>
             </LinearLayout>
 
             <!-- Nivel 1 -->
@@ -226,13 +226,13 @@
                     android:orientation="horizontal" android:background="@color/ai_primary"
                     android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
-                        android:text="Respuesta" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp"/>
+                        android:text="Respuesta" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="Rápida" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                        android:text="Rápida" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" android:gravity="center"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="Normal" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                        android:text="Normal" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" android:gravity="center"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                        android:text="Lenta" android:textColor="@color/white" android:textStyle="bold" android:textSize="11sp" android:gravity="center"/>
+                        android:text="Lenta" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" android:gravity="center"/>
                 </LinearLayout>
                 <!-- Correcta -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -266,7 +266,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="⏱ Rápida: menos de 30 s  •  Normal: 30–90 s  •  Lenta: más de 90 s"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 android:textColor="@color/ai_text_muted"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="16dp"/>

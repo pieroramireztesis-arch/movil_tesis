@@ -43,7 +43,7 @@
             android:layout_marginStart="6dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:text="Revisión" />
 
@@ -55,7 +55,7 @@
             android:layout_marginStart="6dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:text="Correcto ✅" />
 

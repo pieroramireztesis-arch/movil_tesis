@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="↑ % Correcto"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:textColor="@color/ai_text_muted"
                     android:layout_marginBottom="2dp"/>
 
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fecha / Hora →"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:textColor="@color/ai_text_muted"
                     android:gravity="center"
                     android:layout_marginTop="4dp"/>
@@ -348,7 +348,7 @@
                             android:textSize="24sp" android:textStyle="bold"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="Revisiones" android:textColor="@color/ai_text_dark"
-                            android:textSize="11sp" android:gravity="center"/>
+                            android:textSize="13sp" android:gravity="center"/>
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
                             android:textSize="18sp" android:textStyle="bold"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="Tiempo total" android:textColor="@color/ai_text_dark"
-                            android:textSize="11sp" android:gravity="center"/>
+                            android:textSize="13sp" android:gravity="center"/>
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
@@ -376,7 +376,7 @@
                             android:textSize="24sp" android:textStyle="bold"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:text="Materiales" android:textColor="@color/ai_text_dark"
-                            android:textSize="11sp" android:gravity="center"/>
+                            android:textSize="13sp" android:gravity="center"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -387,7 +387,7 @@
                     android:layout_height="wrap_content"
                     android:text="Revisiones por material"
                     android:textColor="@color/ai_text_muted"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="6dp"/>
 
@@ -454,19 +454,19 @@
                     android:layout_marginBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="2" android:text="Nivel"
-                        android:textSize="11sp" android:textStyle="bold"
+                        android:textSize="13sp" android:textStyle="bold"
                         android:textColor="@color/ai_text_muted"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1.5" android:text="Tiempo prom."
-                        android:textSize="11sp" android:textStyle="bold"
+                        android:textSize="13sp" android:textStyle="bold"
                         android:textColor="@color/ai_text_muted" android:gravity="center"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Aciertos"
-                        android:textSize="11sp" android:textStyle="bold"
+                        android:textSize="13sp" android:textStyle="bold"
                         android:textColor="@color/ai_text_muted" android:gravity="end"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Resp."
-                        android:textSize="11sp" android:textStyle="bold"
+                        android:textSize="13sp" android:textStyle="bold"
                         android:textColor="@color/ai_text_muted" android:gravity="end"/>
                 </LinearLayout>
 

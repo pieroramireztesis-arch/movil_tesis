@@ -93,8 +93,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4 o más errores recientes consecutivos"
-                                android:textSize="11sp"
-                                android:textColor="@color/ai_text_muted"/>
+                                android:textSize="13sp"
+                                android:textColor="@color/ai_text_dark"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -128,8 +128,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="2–3 errores recientes consecutivos"
-                                android:textSize="11sp"
-                                android:textColor="@color/ai_text_muted"/>
+                                android:textSize="13sp"
+                                android:textColor="@color/ai_text_dark"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -162,8 +162,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bajo rendimiento en competencia específica"
-                                android:textSize="11sp"
-                                android:textColor="@color/ai_text_muted"/>
+                                android:textSize="13sp"
+                                android:textColor="@color/ai_text_dark"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

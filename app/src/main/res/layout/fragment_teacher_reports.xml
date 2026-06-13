@@ -164,17 +164,17 @@
 
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
                                 <View android:layout_width="10dp" android:layout_height="10dp" android:background="#27AE60"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                             </LinearLayout>
 
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
                                 <View android:layout_width="10dp" android:layout_height="10dp" android:background="#F39C12"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                             </LinearLayout>
 
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                                 <View android:layout_width="10dp" android:layout_height="10dp" android:background="#E74C3C"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -303,17 +303,17 @@
 
                             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
                                 <TextView android:id="@+id/tvMatTotalMateriales" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_primary"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Revisados" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Revisados" android:textSize="13sp" android:textColor="@color/ai_text_muted"/>
                             </LinearLayout>
 
                             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
                                 <TextView android:id="@+id/tvMatTiempoTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_primary"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tiempo total" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tiempo total" android:textSize="13sp" android:textColor="@color/ai_text_muted"/>
                             </LinearLayout>
 
                             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
                                 <TextView android:id="@+id/tvMatCompletados" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/ai_comp2"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Completados" android:textSize="11sp" android:textColor="@color/ai_text_muted"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Completados" android:textSize="13sp" android:textColor="@color/ai_text_muted"/>
                             </LinearLayout>
                         </LinearLayout>
 

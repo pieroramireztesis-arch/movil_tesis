@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="📝  EVALUACIÓN ACTIVA"
                     android:textColor="#CCFFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.12"/>
 
@@ -217,7 +217,7 @@
                 android:id="@+id/tvCompetenciaTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"

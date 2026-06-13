@@ -209,17 +209,17 @@
 
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
                         <View android:layout_width="10dp" android:layout_height="10dp" android:background="#27AE60"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Logrado" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="14dp">
                         <View android:layout_width="10dp" android:layout_height="10dp" android:background="#F39C12"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="En Proceso" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                         <View android:layout_width="10dp" android:layout_height="10dp" android:background="#E74C3C"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="11sp" android:textColor="@color/ai_text_dark"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5dp" android:text="Inicio" android:textSize="13sp" android:textColor="@color/ai_text_dark"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -275,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:text="Nivel"
-                        android:textSize="11sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="@color/ai_text_muted"/>
                     <TextView
@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
                         android:text="Tiempo prom."
-                        android:textSize="11sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="@color/ai_text_muted"
                         android:gravity="center"/>
@@ -292,7 +292,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Aciertos"
-                        android:textSize="11sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="@color/ai_text_muted"
                         android:gravity="end"/>
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Resp."
-                        android:textSize="11sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="@color/ai_text_muted"
                         android:gravity="end"/>
