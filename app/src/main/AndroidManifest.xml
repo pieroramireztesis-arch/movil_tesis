@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.aplicacion_tesis">
 
-    <!-- Permiso para Internet -->
+    <!-- Permisos de red -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Notificaciones (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".App"
@@ -30,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ONBOARDING (primer uso) -->
+        <activity android:name=".ui.onboarding.OnboardingActivity" android:exported="false"/>
 
         <!-- ACTIVIDADES NORMALES -->
         <activity android:name=".ui.MainActivity" android:exported="false" />

@@ -539,13 +539,13 @@ class TeacherStudentReportActivity : AppCompatActivity() {
         val tvNombre = TextView(ctx).apply {
             text = item.nombreNivel
             textSize = 13f
-            setTextColor(Color.parseColor("#212121"))
+            setTextColor(Color.parseColor("#F1F5F9"))
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2f)
         }
         val tvTiempo = TextView(ctx).apply {
             text = item.promedioFormato
             textSize = 13f
-            setTextColor(Color.parseColor("#424242"))
+            setTextColor(Color.parseColor("#CBD5E1"))
             gravity = android.view.Gravity.CENTER
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.5f)
         }
@@ -561,7 +561,7 @@ class TeacherStudentReportActivity : AppCompatActivity() {
         val tvTotal = TextView(ctx).apply {
             text = item.totalRespuestas.toString()
             textSize = 12f
-            setTextColor(Color.parseColor("#9E9E9E"))
+            setTextColor(Color.parseColor("#94A3B8"))
             gravity = android.view.Gravity.END
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }

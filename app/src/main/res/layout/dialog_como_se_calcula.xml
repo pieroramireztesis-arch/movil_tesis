@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -18,14 +18,15 @@
         android:paddingEnd="20dp"
         android:background="@color/ai_primary">
 
-        <TextView
+        <ImageView
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:text="📊"
-            android:textSize="26sp"
-            android:gravity="center"
+            android:src="@drawable/ic_bar_chart"
+            android:padding="12dp"
             android:background="@drawable/bg_circle_light"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            app:tint="@color/ai_primary"
+            android:importantForAccessibility="no"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -176,7 +177,10 @@
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
                     android:text="N7" android:textColor="#F39C12" android:textSize="12sp" android:textStyle="bold"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
-                    android:text="Maestro ⭐" android:textColor="#E67E22" android:textSize="12sp" android:textStyle="bold"/>
+                    android:text="Maestro"
+                    android:drawableEnd="@drawable/ic_star"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="#E67E22" android:textColor="#E67E22" android:textSize="12sp" android:textStyle="bold"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
                     android:text="93 – 100" android:textColor="@color/ai_text_muted" android:textSize="12sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2"
@@ -239,7 +243,10 @@
                     android:orientation="horizontal" android:background="#F0FFF4"
                     android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="6dp" android:paddingBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
-                        android:text="✓ Correcta" android:textColor="@color/ai_comp2" android:textSize="12sp" android:textStyle="bold"/>
+                        android:text="Correcta"
+                        android:drawableStart="@drawable/ic_check"
+                        android:drawablePadding="4dp"
+                        android:drawableTint="@color/ai_comp2" android:textColor="@color/ai_comp2" android:textSize="12sp" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                         android:text="+8 pts" android:textColor="@color/ai_comp2" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
@@ -252,7 +259,10 @@
                     android:orientation="horizontal"
                     android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="6dp" android:paddingBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.5"
-                        android:text="✗ Incorrecta" android:textColor="#E74C3C" android:textSize="12sp" android:textStyle="bold"/>
+                        android:text="Incorrecta"
+                        android:drawableStart="@drawable/ic_cancel_24"
+                        android:drawablePadding="4dp"
+                        android:drawableTint="#E74C3C" android:textColor="#E74C3C" android:textSize="12sp" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                         android:text="–3 pts" android:textColor="#E74C3C" android:textSize="12sp" android:gravity="center" android:textStyle="bold"/>
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
@@ -265,7 +275,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="⏱ Rápida: menos de 30 s  •  Normal: 30–90 s  •  Lenta: más de 90 s"
+                android:text="Rápida: menos de 30 s  •  Normal: 30–90 s  •  Lenta: más de 90 s"
                 android:textSize="13sp"
                 android:textColor="@color/ai_text_muted"
                 android:layout_marginTop="6dp"

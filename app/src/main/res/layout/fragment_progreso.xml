@@ -40,6 +40,11 @@
         android:layout_marginStart="20dp"
         android:importantForAccessibility="no"/>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshProgreso"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -705,4 +710,5 @@
             <Space android:layout_width="match_parent" android:layout_height="16dp"/>
         </LinearLayout>
     </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

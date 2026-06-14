@@ -55,13 +55,18 @@ class HistorialAdapter : RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
             accentBar.setBackgroundColor(accentColor)
 
             // Badge estado
-            tvEstado.text = if (esCorrecto) "✓ Correcto" else "✗ Incorrecto"
             val badgeRadius = 50f * itemView.resources.displayMetrics.density
+            val dp4 = (4 * itemView.resources.displayMetrics.density).toInt()
+            tvEstado.text = if (esCorrecto) "Correcto" else "Incorrecto"
             tvEstado.background = GradientDrawable().apply {
                 setColor(Color.parseColor(if (esCorrecto) "#1A27AE60" else "#1AE74C3C"))
                 cornerRadius = badgeRadius
             }
             tvEstado.setTextColor(accentColor)
+            val iconEstado = if (esCorrecto) R.drawable.ic_check_circle_24 else R.drawable.ic_cancel_24
+            tvEstado.setCompoundDrawablesRelativeWithIntrinsicBounds(iconEstado, 0, 0, 0)
+            tvEstado.compoundDrawablePadding = dp4
+            tvEstado.compoundDrawablesRelative[0]?.mutate()?.setTint(accentColor)
 
             // Badge modo
             val modoRaw = item.modo ?: "Revisión"
@@ -74,14 +79,17 @@ class HistorialAdapter : RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
             tvModo.setTextColor(Color.parseColor(if (esEval) "#D97706" else "#6366F1"))
 
             // Badge intentos incorrectos (solo si > 0)
-            val intentos = item.intentosIncorrectos ?: 0
+            val intentos = (item.intentosIncorrectos ?: 0).coerceAtLeast(0)
             if (intentos > 0) {
-                tvIntentos.text = "⚡ $intentos ${if (intentos == 1) "intento" else "intentos"}"
+                tvIntentos.text = "$intentos ${if (intentos == 1) "intento" else "intentos"}"
                 tvIntentos.background = GradientDrawable().apply {
                     setColor(Color.parseColor("#1AF87171"))
                     cornerRadius = badgeRadius
                 }
                 tvIntentos.setTextColor(Color.parseColor("#DC2626"))
+                tvIntentos.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_bolt, 0, 0, 0)
+                tvIntentos.compoundDrawablePadding = dp4
+                tvIntentos.compoundDrawablesRelative[0]?.mutate()?.setTint(Color.parseColor("#DC2626"))
                 tvIntentos.visibility = View.VISIBLE
             } else {
                 tvIntentos.visibility = View.GONE

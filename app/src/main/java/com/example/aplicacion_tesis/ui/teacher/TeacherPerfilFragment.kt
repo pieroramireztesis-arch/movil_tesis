@@ -13,6 +13,7 @@ import com.example.aplicacion_tesis.model.dto.UpdateProfileRequest
 import com.example.aplicacion_tesis.network.RetrofitClient
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 /** F2: antes era TeacherProfileActivity. */
@@ -36,11 +37,18 @@ class TeacherPerfilFragment : Fragment() {
         binding.btnGuardarTeacher.setOnClickListener { guardarPerfilDocente() }
 
         binding.btnLogoutTeacher.setOnClickListener {
-            TokenStore.clear()
-            startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            })
-            requireActivity().finish()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Seguro que quieres salir?")
+                .setPositiveButton("Sí, salir") { _, _ ->
+                    TokenStore.clear()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                    requireActivity().finish()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
     }
 

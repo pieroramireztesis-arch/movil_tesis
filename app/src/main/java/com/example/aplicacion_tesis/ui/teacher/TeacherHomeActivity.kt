@@ -3,11 +3,16 @@ package com.example.aplicacion_tesis.ui.teacher
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aplicacion_tesis.R
 import com.example.aplicacion_tesis.databinding.ActivityTeacherHomeBinding
+import com.example.aplicacion_tesis.network.AuthEventBus
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.login.LoginActivity
+import kotlinx.coroutines.launch
 
 /**
  * F2: HOST único del panel docente.
@@ -48,6 +53,17 @@ class TeacherHomeActivity : AppCompatActivity() {
                     }
                 }
             })
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                AuthEventBus.sessionExpired.collect {
+                    startActivity(Intent(this@TeacherHomeActivity, LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        putExtra("session_expired", true)
+                    })
+                }
+            }
+        }
     }
 
     /** Navegación programática entre tabs (ej: botón "Ver Informes" del inicio). */

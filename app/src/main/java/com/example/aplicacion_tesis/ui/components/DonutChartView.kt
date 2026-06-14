@@ -21,7 +21,7 @@ class DonutChartView @JvmOverloads constructor(
     private val COLOR_C2 = Color.parseColor("#34D399") // Esmeralda — Regularidad
     private val COLOR_C3 = Color.parseColor("#FB923C") // Naranja — Forma
     private val COLOR_C4 = Color.parseColor("#C084FC") // Violeta — Datos
-    private val COLOR_BG = Color.parseColor("#1E3A5F") // Track oscuro (dark theme)
+    private val COLOR_BG = Color.parseColor("#475569") // Track visible en fondo oscuro (dark theme)
 
     private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE

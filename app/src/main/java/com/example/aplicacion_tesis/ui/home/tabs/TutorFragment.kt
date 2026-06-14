@@ -1,4 +1,4 @@
-package com.example.aplicacion_tesis.ui.home.tabs
+﻿package com.example.aplicacion_tesis.ui.home.tabs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -944,12 +944,15 @@ class TutorFragment : Fragment() {
 
         val idOpcion = requireView().findViewById<RadioButton>(selectedId).tag as? Int ?: return
         val idEst    = idEstudiante ?: return
-        val tiempo   = ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt()
+        val tiempo   = maxOf(1, ((System.currentTimeMillis() - startTimeMillis) / 1000).toInt())
         attempts++
         btnEnviar.isEnabled = false
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
+                // Capturar el modo en el momento de enviar — evita race condition si el
+                // alumno cambia de tab mientras la respuesta está en vuelo.
+                val modoAlResponder = modoActual
                 val req = TutorAnswerRequest(
                     idEstudiante         = idEst,
                     idEjercicio          = idEj,
@@ -957,7 +960,7 @@ class TutorFragment : Fragment() {
                     tiempoRespuesta      = tiempo,
                     usoPista             = usoPistaActual,
                     ajuste               = lastAjuste,
-                    modo                 = modoActual,
+                    modo                 = modoAlResponder,
                     idEvaluacion         = idEvaluacionActiva
                 )
 
@@ -968,7 +971,7 @@ class TutorFragment : Fragment() {
                     subirDesarrolloSiListo()
                 }
 
-                if (modoActual == "evaluacion") {
+                if (modoAlResponder == "evaluacion") {
                     totalEvaluacion++
                     if (resp.correcta) correctasEvaluacion++
                 }
@@ -995,7 +998,7 @@ class TutorFragment : Fragment() {
                             "¡Excelente! Pusiste en práctica lo que aprendiste. 🌟",
                             Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(requireContext(), "¡Correcto! 🎉", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "¡Correcto!", Toast.LENGTH_SHORT).show()
                     }
 
                     selectedFileUri             = null
@@ -1021,7 +1024,7 @@ class TutorFragment : Fragment() {
                     actualizarRachaBadge()
                     animarBarraFeedback(correcto = false)
 
-                    if (modoActual == "evaluacion") {
+                    if (modoAlResponder == "evaluacion") {
                         // En evaluación: sin pistas, sin diálogos, avanza directo
                         cardFeedback.visibility     = View.GONE
                         selectedFileUri             = null
@@ -1029,7 +1032,7 @@ class TutorFragment : Fragment() {
                         idEjercicioDesarrolloSubido = null
                         ejercicioGuardado           = null
                         limpiarPrefs()
-                        Toast.makeText(requireContext(), "❌ Incorrecto", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Incorrecto", Toast.LENGTH_SHORT).show()
                         delay(1500)
                         cargarNuevoEjercicio(resp.nuevoAjuste)
                     } else {
@@ -1087,7 +1090,7 @@ class TutorFragment : Fragment() {
                             idEjercicioDesarrolloSubido = null
                             btnEnviar.isEnabled         = false
                             Toast.makeText(requireContext(),
-                                "❌ Incorrecto. Sube un nuevo desarrollo para continuar.",
+                                "Incorrecto. Sube un nuevo desarrollo para continuar.",
                                 Toast.LENGTH_LONG).show()
                             btnSubirFoto.setOnClickListener { abrirSelectorArchivo() }
                         }
@@ -1125,13 +1128,16 @@ class TutorFragment : Fragment() {
 
     private fun actualizarRachaBadge() {
         if (rachaActual >= 2) {
-            tvRachaBadge.text = "🔥 $rachaActual"
+            tvRachaBadge.text = "$rachaActual"
             val bgColor = if (rachaActual >= 5) Color.parseColor("#DC2626")
                           else Color.parseColor("#F59E0B")
             val rad = 50f * resources.displayMetrics.density
             tvRachaBadge.background = GradientDrawable().apply {
                 setColor(bgColor); cornerRadius = rad
             }
+            tvRachaBadge.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_local_fire, 0, 0, 0)
+            tvRachaBadge.compoundDrawablePadding = (4 * resources.displayMetrics.density).toInt()
+            tvRachaBadge.compoundDrawablesRelative[0]?.mutate()?.setTint(Color.WHITE)
             tvRachaBadge.visibility = View.VISIBLE
         } else {
             tvRachaBadge.visibility = View.GONE
@@ -1169,13 +1175,13 @@ class TutorFragment : Fragment() {
             tvTituloTutor.text = "Práctica de Álgebra"
             return
         }
-        val (emoji, textoNivel) = when (nivelML.lowercase()) {
-            "alto"  -> "🟢" to "Nivel Alto"
-            "medio" -> "🟡" to "Nivel Medio"
-            "bajo"  -> "🔵" to "Nivel Básico"
-            else    -> "⚪" to nivelML
+        val textoNivel = when (nivelML.lowercase()) {
+            "alto"  -> "Nivel Alto"
+            "medio" -> "Nivel Medio"
+            "bajo"  -> "Nivel Básico"
+            else    -> nivelML
         }
-        tvTituloTutor.text       = "Práctica de Álgebra  $emoji $textoNivel"
+        tvTituloTutor.text       = "Práctica de Álgebra · $textoNivel"
         tvNivelActual.visibility = View.GONE
     }
 
@@ -1198,7 +1204,7 @@ class TutorFragment : Fragment() {
         dialog.setCancelable(false)
 
         if (ajuste == "mas_dificil") {
-            dialogView.findViewById<TextView>(R.id.dialogTitle).text = "¡Nivel superado! 🎉"
+            dialogView.findViewById<TextView>(R.id.dialogTitle).text = "¡Nivel superado!"
             dialogView.findViewById<TextView>(R.id.dialogStudentName).apply {
                 text = "Estás progresando muy bien"
                 setTextColor(requireContext().getColor(R.color.ai_progress))
@@ -1207,9 +1213,9 @@ class TutorFragment : Fragment() {
                 "Has demostrado dominar este nivel. " +
                 "El siguiente ejercicio será un poco más desafiante."
             dialogView.findViewById<TextView>(R.id.dialogFecha).text =
-                "🚀 ¡Sigue así, vas subiendo de nivel!"
+                "¡Sigue así, vas subiendo de nivel!"
         } else {
-            dialogView.findViewById<TextView>(R.id.dialogTitle).text = "¡Vamos paso a paso! 💪"
+            dialogView.findViewById<TextView>(R.id.dialogTitle).text = "¡Vamos paso a paso!"
             dialogView.findViewById<TextView>(R.id.dialogStudentName).apply {
                 text = "Encontré ejercicios más adecuados para ti"
                 setTextColor(requireContext().getColor(R.color.ai_primary))
@@ -1336,7 +1342,7 @@ class TutorFragment : Fragment() {
 
                 if (tiempoTranscurrido >= tiempoMinimo) {
                     progressTimer.progress = 100
-                    tvCountdown.text = "✅ ¡Listo! Ya puedes continuar."
+                    tvCountdown.text = "¡Listo! Ya puedes continuar."
                     tvCountdown.setTextColor(
                         androidx.core.content.ContextCompat.getColor(requireContext(), R.color.ai_success))
                     btnContin.visibility = View.VISIBLE
@@ -1346,7 +1352,7 @@ class TutorFragment : Fragment() {
                 } else {
                     btnContin.visibility = View.VISIBLE
                     btnContin.isEnabled  = true
-                    btnContin.text       = "⚠ Salir (quedará inconcluso)"
+                    btnContin.text       = "Salir (quedará inconcluso)"
                     btnContin.alpha      = 0.8f
 
                     timerJob = viewLifecycleOwner.lifecycleScope.launch {
@@ -1363,7 +1369,7 @@ class TutorFragment : Fragment() {
                             tiempoTranscurrido++
                         }
                         progressTimer.progress = 100
-                        tvCountdown.text = "✅ ¡Listo! Ya puedes continuar."
+                        tvCountdown.text = "¡Listo! Ya puedes continuar."
                         tvCountdown.setTextColor(
                             androidx.core.content.ContextCompat.getColor(requireContext(), R.color.ai_success))
                         btnContin.text  = "Continuar al siguiente ▶"
@@ -1386,7 +1392,7 @@ class TutorFragment : Fragment() {
                 materialAbierto        = true
                 tiempoInicioMaterial   = System.currentTimeMillis()
                 waitJob?.cancel()      // el timer del material toma el control
-                btnAbrir.text          = "✅ Ya lo estoy revisando"
+                btnAbrir.text          = "Ya lo estoy revisando"
                 btnAbrir.isEnabled     = false
                 layoutTimer.visibility = View.VISIBLE
                 btnContin.visibility   = View.GONE
@@ -1596,13 +1602,13 @@ class TutorFragment : Fragment() {
         cardResultadoEvaluacion.visibility = View.VISIBLE
         tvResultadoCorrectas.text          = "Correctas: $correctas / $total"
         tvResultadoPuntaje.text            = "$puntaje%"
-        tvTituloTutor.text                 = "Evaluación completada ✅"
+        tvTituloTutor.text                 = "Evaluación completada"
 
         val (mensaje, colorHex, nivelTextoRes) = when {
-            puntaje >= 90 -> Triple("🏆 ¡Excelente! Dominas estos temas.",          "#34D399", "⭐ Nivel Destacado")
-            puntaje >= 70 -> Triple("💪 ¡Muy bien! Estás en el nivel esperado.",     "#34D399", "✅ Nivel Logrado")
-            puntaje >= 50 -> Triple("📈 Buen intento. Practica en el Tutor para mejorar.", "#FB923C", "⚡ En Proceso")
-            else          -> Triple("📚 No te desanimes: el Tutor te ayudará a avanzar.",  "#F87171", "📌 En Inicio")
+            puntaje >= 90 -> Triple("¡Excelente! Dominas estos temas.",     "#34D399", "Nivel Destacado")
+            puntaje >= 70 -> Triple("¡Muy bien! Estás en el nivel esperado.", "#34D399", "Nivel Logrado")
+            puntaje >= 50 -> Triple("Buen intento. Practica en el Tutor para mejorar.", "#FB923C", "En Proceso")
+            else          -> Triple("No te desanimes: el Tutor te ayudará a avanzar.",  "#F87171", "En Inicio")
         }
         val color = Color.parseColor(colorHex)
 
@@ -1622,6 +1628,15 @@ class TutorFragment : Fragment() {
             cornerRadius = 50f * resources.displayMetrics.density
         }
         tvNivelResultado.setTextColor(color)
+        val iconNivelRes = when {
+            puntaje >= 90 -> R.drawable.ic_star
+            puntaje >= 70 -> R.drawable.ic_check_circle_24
+            puntaje >= 50 -> R.drawable.ic_sync
+            else          -> R.drawable.ic_flag
+        }
+        tvNivelResultado.setCompoundDrawablesRelativeWithIntrinsicBounds(iconNivelRes, 0, 0, 0)
+        tvNivelResultado.compoundDrawablePadding = (4 * resources.displayMetrics.density).toInt()
+        tvNivelResultado.compoundDrawablesRelative[0]?.mutate()?.setTint(color)
         tvNivelResultado.visibility = View.VISIBLE
 
         val tvMensaje = view?.findViewById<TextView>(R.id.tvResultadoMensaje)
@@ -1789,7 +1804,7 @@ class TutorFragment : Fragment() {
                 btnEnviar.isEnabled = true
                 if (lastRespuestaId == null) {
                     Toast.makeText(requireContext(),
-                        "✅ Archivo listo. Se subirá al verificar.", Toast.LENGTH_LONG).show()
+                        "Archivo listo. Se subirá al verificar.", Toast.LENGTH_LONG).show()
                 } else {
                     subirDesarrolloSiListo()
                 }
@@ -1814,7 +1829,7 @@ class TutorFragment : Fragment() {
                 val resp = RetrofitClient.tutorApi.uploadDevelopment(idBody, filePart)
                 if (resp.status) {
                     desarrolloSubidoOk = true
-                    Toast.makeText(requireContext(), "✅ Desarrollo subido.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Desarrollo subido.", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Error: ${resp.message}", Toast.LENGTH_LONG).show()
                 }

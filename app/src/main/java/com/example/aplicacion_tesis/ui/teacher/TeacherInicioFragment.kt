@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.lifecycleScope
 import com.example.aplicacion_tesis.databinding.FragmentTeacherInicioBinding
 import com.example.aplicacion_tesis.model.dto.TeacherDashboardData
+import com.example.aplicacion_tesis.network.NetworkHelper
 import com.example.aplicacion_tesis.network.RetrofitClient
 import com.example.aplicacion_tesis.network.TokenStore
 import kotlinx.coroutines.launch
@@ -49,7 +50,16 @@ class TeacherInicioFragment : Fragment() {
 
         val idDocente = TokenStore.teacherId
         if (idDocente == null || idDocente <= 0) {
-            Toast.makeText(requireContext(), "No se encontró el ID del docente.", Toast.LENGTH_LONG).show()
+            Snackbar.make(requireView(), "No se encontró el perfil del docente.", Snackbar.LENGTH_LONG).show()
+            return
+        }
+
+        if (!NetworkHelper.isOnline(requireContext())) {
+            Snackbar.make(requireView(), "Sin conexión a internet", Snackbar.LENGTH_LONG)
+                .setAction("Reintentar") {
+                    loadDashboard(idDocente)
+                    loadFrecuenciaUso(idDocente)
+                }.show()
             return
         }
 
@@ -99,17 +109,17 @@ class TeacherInicioFragment : Fragment() {
                     }
 
                 } else {
-                    Toast.makeText(requireContext(),
-                        resp.message ?: "No se pudo cargar el panel.",
-                        Toast.LENGTH_LONG).show()
+                    if (isAdded) Snackbar.make(requireView(),
+                        resp.message ?: "No se pudo cargar el panel.", Snackbar.LENGTH_LONG).show()
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 if (isAdded) {
-                    Toast.makeText(requireContext(),
-                        "Error al cargar dashboard: ${e.localizedMessage}",
-                        Toast.LENGTH_LONG).show()
+                    Snackbar.make(requireView(),
+                        "Error al cargar datos del panel.", Snackbar.LENGTH_LONG)
+                        .setAction("Reintentar") { loadDashboard(idDocente) }
+                        .show()
                 }
             }
         }

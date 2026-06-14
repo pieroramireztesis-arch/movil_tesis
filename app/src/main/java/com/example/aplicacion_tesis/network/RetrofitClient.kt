@@ -8,19 +8,14 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    // ======== 🔥 API LOCAL (emulador) ========
-    // 10.0.2.2 = localhost del PC desde el emulador Android
+    // ======== DESARROLLO LOCAL (emulador Android) ========
+    // Cambiar a la URL de Railway antes de generar el APK de producción.
     const val BASE_URL = "http://10.0.2.2:3008/"
 
-    /*
-    // ======== API EN LA NUBE (Railway) ========
-    // Descomenta esto y comenta la sección LOCAL antes de generar el APK final:
-    const val BASE_URL = "https://api-tesis-af92.onrender.com/"
-    */
-
-    // ⚠️ WEB_BASE_URL eliminado: nunca fue utilizado por ningún fragmento.
-    //    Si en el futuro se necesita (ej: abrir el portal web desde la app),
-    //    añadirlo como: "https://tesis-algebra.onrender.com/"
+    // ======== PRODUCCIÓN (Railway) ========
+    // 1. Obtener la URL de la API desde Railway → Settings → Domains
+    // 2. Comentar BASE_URL de arriba y descomentar la línea de abajo:
+    // const val BASE_URL = "https://TU-API.up.railway.app/"
 
     // ⚠️  Level.BODY registra contraseñas y tokens JWT en Logcat.
     //     En producción usa Level.NONE. Para depurar localmente puedes cambiar a Level.BASIC.
@@ -39,7 +34,12 @@ object RetrofitClient {
                     builder.header("Authorization", "Bearer $it")
             }
 
-            chain.proceed(builder.build())
+            val response = chain.proceed(builder.build())
+            if (response.code == 401) {
+                TokenStore.clear()
+                AuthEventBus.notifyExpired()
+            }
+            response
         }
         .addInterceptor(logging)
         .connectTimeout(30, TimeUnit.SECONDS)

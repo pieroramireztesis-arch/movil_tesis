@@ -13,6 +13,8 @@ import com.example.aplicacion_tesis.databinding.ActivityLoginBinding
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.HomeActivity
 import com.example.aplicacion_tesis.ui.teacher.TeacherHomeActivity
+import com.example.aplicacion_tesis.ui.onboarding.OnboardingActivity
+import com.example.aplicacion_tesis.network.NetworkHelper
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -23,21 +25,58 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // T3-A: onboarding — solo la primera vez que se instala la app
+        if (!getSharedPreferences("app_prefs", MODE_PRIVATE)
+                .getBoolean("onboarding_complete", false)) {
+            startActivity(Intent(this, OnboardingActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
+            return
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // T2-F: aviso si la sesión expiró (redirigido desde HomeActivity/TeacherHomeActivity)
+        if (intent.getBooleanExtra("session_expired", false)) {
+            com.google.android.material.snackbar.Snackbar.make(
+                binding.root, "Tu sesión expiró. Vuelve a ingresar.", com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+            ).show()
+        }
+
+        // T1-A: sesión persistente — si ya hay token válido, saltar el login
+        val savedToken = TokenStore.token
+        val savedUserId = TokenStore.userId
+        if (!savedToken.isNullOrBlank() && savedUserId != null && savedUserId > 0) {
+            val role = TokenStore.userRole
+            val intent = if (role == "docente") {
+                Intent(this, TeacherHomeActivity::class.java)
+            } else {
+                Intent(this, HomeActivity::class.java)
+            }.apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK }
+            startActivity(intent)
+            return
+        }
 
         startFloatAnim(binding.mathS1, -30f, 3000L, 0L)
         startFloatAnim(binding.mathS2, -22f, 3600L, 350L)
         startFloatAnim(binding.mathS3, -28f, 4200L, 700L)
         startFloatAnim(binding.mathS4, -18f, 2800L, 150L)
 
-        // 🔹 Iniciar sesión
+        // T1-F: validación inline por campo
         binding.btnLogin.setOnClickListener {
             val correo = binding.etCorreo.text?.toString()?.trim().orEmpty()
             val pass = binding.etPassword.text?.toString()?.trim().orEmpty()
 
-            if (correo.isBlank() || pass.isBlank()) {
-                Toast.makeText(this, "Ingresa correo y contraseña.", Toast.LENGTH_SHORT).show()
+            if (correo.isBlank()) {
+                binding.etCorreo.error = "Ingresa tu correo"
+                binding.etCorreo.requestFocus()
+                return@setOnClickListener
+            }
+            if (pass.isBlank()) {
+                binding.etPassword.error = "Ingresa tu contraseña"
+                binding.etPassword.requestFocus()
                 return@setOnClickListener
             }
 

@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,6 +19,7 @@ import com.example.aplicacion_tesis.R
 import com.example.aplicacion_tesis.model.dto.ChartPoint
 import com.example.aplicacion_tesis.model.dto.ProgresoPorCompetenciaItemDTO
 import com.example.aplicacion_tesis.model.dto.TiempoNivelItemDTO
+import com.example.aplicacion_tesis.network.NetworkHelper
 import com.example.aplicacion_tesis.network.RetrofitClient
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.components.DonutChartView
@@ -92,6 +94,8 @@ class ProgresoFragment : Fragment() {
     private val LIMITE_INICIAL = 5
     private var mostrandoTodo = false
     private var idEstudianteCached: Int? = null
+    private lateinit var swipeRefresh: SwipeRefreshLayout
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +105,10 @@ class ProgresoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        swipeRefresh = view.findViewById(R.id.swipeRefreshProgreso)
+        swipeRefresh.setColorSchemeColors(android.graphics.Color.parseColor("#818CF8"))
+        swipeRefresh.setOnRefreshListener { recargarProgreso() }
 
         // Card 1
         donutGeneral     = view.findViewById(R.id.donutGeneral)
@@ -180,10 +188,18 @@ class ProgresoFragment : Fragment() {
     // CARGA PRINCIPAL
     // ══════════════════════════════════════════════════════
     private fun recargarProgreso() {
+        if (!NetworkHelper.isOnline(requireContext())) {
+            Snackbar.make(requireView(), "Sin conexión a internet", Snackbar.LENGTH_LONG)
+                .setAction("Reintentar") { recargarProgreso() }
+                .show()
+            return
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             val idEst = try { obtenerIdEstudiante() } catch (e: Exception) { null }
             if (idEst == null) {
-                Toast.makeText(requireContext(), "No se pudo obtener el estudiante.", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "No se pudo obtener el perfil del estudiante.", Snackbar.LENGTH_LONG)
+                    .setAction("Reintentar") { recargarProgreso() }
+                    .show()
                 return@launch
             }
             idEstudianteCached = idEst
@@ -215,15 +231,14 @@ class ProgresoFragment : Fragment() {
                 val pct = resumen.nivelPorcentaje.coerceIn(0, 100)
                 donutGeneral.setPercentage(pct.toFloat(), Color.parseColor("#818CF8"))
                 tvPctGeneral.text     = "$pct%"
-                tvNivelGeneral.text   = nivelTexto(pct)
-                tvNivelGeneral.setTextColor(colorNivel(pct))
+                setNivelEstado(tvNivelGeneral, pct)
                 tvMensaje.text        = resumen.resumenTexto.ifBlank { "¡Sigue así, vas por buen camino!" }
                 tvStatEjercicios.text = resumen.ejerciciosDesarrollados.toString()
                 tvStatMateriales.text = resumen.leccionesVistas.toString()
             } else {
                 donutGeneral.setPercentage(0f, Color.parseColor("#818CF8"))
                 tvPctGeneral.text   = "0%"
-                tvNivelGeneral.text = "⚠ Inicio"
+                setNivelEstado(tvNivelGeneral, 0)
                 tvMensaje.text      = "Aún no se ha registrado progreso."
                 tvStatEjercicios.text = "0"
                 tvStatMateriales.text = "0"
@@ -242,10 +257,16 @@ class ProgresoFragment : Fragment() {
             // 5) Historial reciente
             mostrandoTodo = false
             cargarHistorial(idEstudiante, LIMITE_INICIAL)
+            swipeRefresh.isRefreshing = false
 
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(requireContext(), "Error al cargar progreso.", Toast.LENGTH_LONG).show()
+            swipeRefresh.isRefreshing = false
+            if (isAdded) {
+                Snackbar.make(requireView(), "Error al cargar progreso.", Snackbar.LENGTH_LONG)
+                    .setAction("Reintentar") { recargarProgreso() }
+                    .show()
+            }
         }
     }
 
@@ -253,9 +274,9 @@ class ProgresoFragment : Fragment() {
     // HELPERS DE NIVEL
     // ══════════════════════════════════════════════════════
     private fun nivelTexto(pct: Int): String = when {
-        pct >= 70 -> "✅ Logrado"
-        pct >= 40 -> "⚡ En Proceso"
-        else      -> "⚠ Inicio"
+        pct >= 70 -> "Logrado"
+        pct >= 40 -> "En Proceso"
+        else      -> "Inicio"
     }
 
     private fun colorNivel(pct: Int): Int = when {
@@ -263,6 +284,24 @@ class ProgresoFragment : Fragment() {
         pct >= 40 -> Color.parseColor("#FB923C")
         else      -> Color.parseColor("#F87171")
     }
+
+    private fun nivelIconRes(pct: Int): Int = when {
+        pct >= 70 -> R.drawable.ic_check_circle_24
+        pct >= 40 -> R.drawable.ic_sync
+        else      -> R.drawable.ic_flag
+    }
+
+    private fun setNivelEstado(tv: android.widget.TextView, texto: String, pct: Int) {
+        val color = colorNivel(pct)
+        tv.text = texto
+        tv.setTextColor(color)
+        tv.setCompoundDrawablesRelativeWithIntrinsicBounds(nivelIconRes(pct), 0, 0, 0)
+        tv.compoundDrawablePadding = (4 * resources.displayMetrics.density).toInt()
+        tv.compoundDrawablesRelative[0]?.mutate()?.setTint(color)
+    }
+
+    private fun setNivelEstado(tv: android.widget.TextView, pct: Int) =
+        setNivelEstado(tv, nivelTexto(pct), pct)
 
     private fun abreviarCompetencia(nombre: String): String = when {
         "cantidad"    in nombre.lowercase() -> "Cantidad"
@@ -293,8 +332,7 @@ class ProgresoFragment : Fragment() {
             if (tema != null) tvNombres[i].text = abreviarCompetencia(tema.nombre)
 
             val nivelLabel = tema?.nombreNivel?.ifBlank { nivelTexto(pct) } ?: nivelTexto(pct)
-            tvNiveles[i].text = nivelLabel
-            tvNiveles[i].setTextColor(colorNivel(pct))
+            setNivelEstado(tvNiveles[i], nivelLabel, pct)
         }
 
         actualizarRadarChart(temas)
@@ -467,7 +505,7 @@ class ProgresoFragment : Fragment() {
         // Si hay pocas respuestas, el % no es estadísticamente representativo
         val muestraInsuficiente = item.totalRespuestas < 3
         val tvAcierto = TextView(ctx).apply {
-            text = if (muestraInsuficiente) "$pct%  ⚠ pocos datos" else "$pct% acierto"
+            text = if (muestraInsuficiente) "$pct% · pocos datos" else "$pct% acierto"
             textSize = if (muestraInsuficiente) 11f else 13f
             typeface = android.graphics.Typeface.DEFAULT_BOLD
             setTextColor(if (muestraInsuficiente) Color.parseColor("#94A3B8") else colorPct)

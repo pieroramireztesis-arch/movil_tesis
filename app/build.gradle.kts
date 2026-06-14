@@ -25,7 +25,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -65,6 +66,7 @@ dependencies {
     // --- UI extra ---
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     // --- Retrofit + Gson (UNA sola versión) ---
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -86,5 +88,8 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
+
+    // --- WorkManager (notificaciones de racha diaria) ---
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
 
 }

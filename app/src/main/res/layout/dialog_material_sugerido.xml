@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,14 +13,16 @@
     android:padding="24dp">
 
     <!-- Ícono -->
-    <TextView
+    <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:text="📚"
-        android:textSize="28sp"
-        android:gravity="center"
+        android:src="@drawable/ic_nav_book"
+        android:padding="10dp"
+        android:background="@drawable/bg_circle_light"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:tint="@color/ai_primary"
+        android:importantForAccessibility="no"/>
 
     <!-- Título -->
     <TextView
@@ -108,7 +110,7 @@
                 android:id="@+id/tvTimerLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="⏱ Revisa el material al menos la mitad del tiempo estimado"
+                android:text="Revisa el material al menos la mitad del tiempo estimado"
                 android:textSize="12sp"
                 android:textColor="@color/ai_text_muted"
                 android:gravity="center"

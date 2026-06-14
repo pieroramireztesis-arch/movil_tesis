@@ -1,5 +1,6 @@
 package com.example.aplicacion_tesis.ui.home.tabs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.example.aplicacion_tesis.databinding.FragmentPerfilBinding
 import com.example.aplicacion_tesis.model.dto.UpdateProfileRequest
 import com.example.aplicacion_tesis.network.RetrofitClient
 import com.example.aplicacion_tesis.network.TokenStore
+import com.example.aplicacion_tesis.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -45,9 +48,18 @@ class ProfileFragment : Fragment() {
 
         // Botón Cerrar sesión
         binding.btnLogout.setOnClickListener {
-            TokenStore.clear()
-            Toast.makeText(requireContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show()
-            requireActivity().finish()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Seguro que quieres salir?")
+                .setPositiveButton("Sí, salir") { _, _ ->
+                    TokenStore.clear()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                    requireActivity().finish()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
     }
 

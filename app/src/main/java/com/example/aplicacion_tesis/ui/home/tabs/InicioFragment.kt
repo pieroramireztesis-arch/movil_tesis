@@ -1,4 +1,4 @@
-package com.example.aplicacion_tesis.ui.home.tabs
+﻿package com.example.aplicacion_tesis.ui.home.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aplicacion_tesis.R
+import com.example.aplicacion_tesis.network.NetworkHelper
 import com.example.aplicacion_tesis.network.RetrofitClient
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.components.DonutChartView
@@ -23,8 +25,8 @@ import kotlinx.coroutines.launch
 import com.example.aplicacion_tesis.model.dto.ProgresoPorCompetenciaItemDTO
 class InicioFragment : Fragment() {
 
-    // ID del estudiante (antes faltaba)
     private var idEstudiante: Int? = null
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     // Header
     private lateinit var imgAvatar: ImageView
@@ -61,6 +63,24 @@ class InicioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // === SWIPE REFRESH ===
+        swipeRefresh = view.findViewById(R.id.swipeRefreshInicio)
+        swipeRefresh.setColorSchemeColors(android.graphics.Color.parseColor("#818CF8"))
+        swipeRefresh.setOnRefreshListener {
+            if (!NetworkHelper.isOnline(requireContext())) {
+                swipeRefresh.isRefreshing = false
+                Snackbar.make(requireView(), "Sin conexión a internet", Snackbar.LENGTH_LONG)
+                    .setAction("Reintentar") { swipeRefresh.isRefreshing = true; swipeRefresh.setOnRefreshListener { onResume() } }
+                    .show()
+                return@setOnRefreshListener
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                val id = obtenerIdEstudiante() ?: run { swipeRefresh.isRefreshing = false; return@launch }
+                idEstudiante = id
+                cargarMiniDashboard(id)
+            }
+        }
 
         // === FINDVIEWBYID ===
         imgAvatar = view.findViewById(R.id.imgAvatar)
@@ -109,7 +129,12 @@ class InicioFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Único punto de carga — funciona tanto en el arranque como al volver al tab
+        if (!NetworkHelper.isOnline(requireContext())) {
+            Snackbar.make(requireView(), "Sin conexión a internet", Snackbar.LENGTH_LONG)
+                .setAction("Reintentar") { onResume() }
+                .show()
+            return
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             val id = obtenerIdEstudiante() ?: return@launch
             idEstudiante = id
@@ -157,55 +182,54 @@ class InicioFragment : Fragment() {
     // =============================
     private fun cargarMiniDashboard(idEst: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                // -------- 1. Mini resumen --------
-                val dto = RetrofitClient.api.getMiniDashboard(idEstudiante = idEst)
+            // Cada llamada es independiente: un fallo en una no bloquea las demás.
 
-                // -------- 2. Resumen global --------
-                val resumen = RetrofitClient.progresoApi.getResumen(idEstudiante = idEst)
+            // -------- 1. Saludo --------
+            runCatching { RetrofitClient.api.getMiniDashboard(idEstudiante = idEst) }
+                .onSuccess { dto ->
+                    val name = dto.nombreEstudiante ?: "Estudiante"
+                    tvSaludo.text = "Hola, $name"
+                }
 
-                // Barras de cabecera
-                val pctGeneral = resumen.nivelPorcentaje.coerceIn(0, 100)
-                tvPorcentajeCabecera.text = "$pctGeneral%"
-                progressGeneral.progress = pctGeneral
+            // -------- 2. Barra de progreso general --------
+            runCatching { RetrofitClient.progresoApi.getResumen(idEstudiante = idEst) }
+                .onSuccess { resumen ->
+                    val pctGeneral = resumen.nivelPorcentaje.coerceIn(0, 100)
+                    tvPorcentajeCabecera.text = "$pctGeneral%"
+                    progressGeneral.progress = pctGeneral
+                }
 
-                // -------- 3. Por competencia --------
-                val comp = RetrofitClient.progresoApi.getPorCompetencia(idEstudiante = idEst)
+            // -------- 3. Donut por competencia --------
+            runCatching { RetrofitClient.progresoApi.getPorCompetencia(idEstudiante = idEst) }
+                .onSuccess { comp ->
+                    val lista: List<ProgresoPorCompetenciaItemDTO> =
+                        if (comp.status) comp.temas ?: emptyList() else emptyList()
 
-                val lista: List<ProgresoPorCompetenciaItemDTO> = if (comp.status) comp.temas ?: emptyList() else emptyList()
+                    val c1 = lista.getOrNull(0)
+                    val c2 = lista.getOrNull(1)
+                    val c3 = lista.getOrNull(2)
+                    val c4 = lista.getOrNull(3)
 
+                    val p1 = (c1?.porcentaje ?: 0).coerceIn(0, 100)
+                    val p2 = (c2?.porcentaje ?: 0).coerceIn(0, 100)
+                    val p3 = (c3?.porcentaje ?: 0).coerceIn(0, 100)
+                    val p4 = (c4?.porcentaje ?: 0).coerceIn(0, 100)
 
-                val c1 = lista.getOrNull(0)
-                val c2 = lista.getOrNull(1)
-                val c3 = lista.getOrNull(2)
-                val c4 = lista.getOrNull(3)
+                    donutChart.setData(p1, p2, p3, p4)
 
-                val p1 = (c1?.porcentaje ?: 0).coerceIn(0, 100)
-                val p2 = (c2?.porcentaje ?: 0).coerceIn(0, 100)
-                val p3 = (c3?.porcentaje ?: 0).coerceIn(0, 100)
-                val p4 = (c4?.porcentaje ?: 0).coerceIn(0, 100)
+                    tvTema1.text = nombreCompetenciaOficial(c1?.idCompetencia ?: 1)
+                    tvTema1Pct.text = "$p1%"
 
-                donutChart.setData(p1, p2, p3, p4)
+                    tvTema2.text = nombreCompetenciaOficial(c2?.idCompetencia ?: 2)
+                    tvTema2Pct.text = "$p2%"
 
-                tvTema1.text = nombreCompetenciaOficial(c1?.idCompetencia ?: 1)
-                tvTema1Pct.text = "$p1%"
+                    tvTema3.text = nombreCompetenciaOficial(c3?.idCompetencia ?: 3)
+                    tvTema3Pct.text = "$p3%"
 
-                tvTema2.text = nombreCompetenciaOficial(c2?.idCompetencia ?: 2)
-                tvTema2Pct.text = "$p2%"
-
-                tvTema3.text = nombreCompetenciaOficial(c3?.idCompetencia ?: 3)
-                tvTema3Pct.text = "$p3%"
-
-                tvTema4.text = nombreCompetenciaOficial(c4?.idCompetencia ?: 4)
-                tvTema4Pct.text = "$p4%"
-
-                // -------- 4. Saludo --------
-                val name = dto.nombreEstudiante ?: "Estudiante"
-                tvSaludo.text = "Hola, $name 👋"
-
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
-            }
+                    tvTema4.text = nombreCompetenciaOficial(c4?.idCompetencia ?: 4)
+                    tvTema4Pct.text = "$p4%"
+                }
+            swipeRefresh.isRefreshing = false
         }
     }
 

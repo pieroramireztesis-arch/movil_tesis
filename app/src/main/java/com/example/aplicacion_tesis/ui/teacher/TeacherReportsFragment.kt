@@ -1,4 +1,4 @@
-package com.example.aplicacion_tesis.ui.teacher
+﻿package com.example.aplicacion_tesis.ui.teacher
 
 import android.content.Intent
 import android.graphics.Color
@@ -368,13 +368,16 @@ class TeacherReportsFragment : Fragment() {
             invalidate()
         }
 
-        val (nivel, descripcion) = when {
-            porcentaje >= 70 -> "✅ Logrado" to "Supera el mínimo MINEDU"
-            porcentaje >= 40 -> "⚡ En Proceso" to "Necesita refuerzo"
-            else             -> "⚠ Inicio" to "Requiere atención inmediata"
+        val (nivel, descripcion, iconNivel) = when {
+            porcentaje >= 70 -> Triple("Logrado",    "Supera el mínimo MINEDU",    R.drawable.ic_check_circle_24)
+            porcentaje >= 40 -> Triple("En Proceso", "Necesita refuerzo",           R.drawable.ic_sync)
+            else             -> Triple("Inicio",     "Requiere atención inmediata", R.drawable.ic_flag)
         }
         binding.tvPieDetalle.text = "$nivel  ·  $descripcion"
         binding.tvPieDetalle.setTextColor(colorLogrado)
+        binding.tvPieDetalle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconNivel, 0, 0, 0)
+        binding.tvPieDetalle.compoundDrawablePadding = (4 * resources.displayMetrics.density).toInt()
+        binding.tvPieDetalle.compoundDrawablesRelative[0]?.mutate()?.setTint(colorLogrado)
     }
 
     private fun formatearTiempo(segundos: Int): String = when {

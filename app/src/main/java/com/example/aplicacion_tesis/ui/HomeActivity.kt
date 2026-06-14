@@ -1,15 +1,24 @@
 package com.example.aplicacion_tesis.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aplicacion_tesis.R
+import com.example.aplicacion_tesis.network.AuthEventBus
 import com.example.aplicacion_tesis.network.TokenStore
 import com.example.aplicacion_tesis.ui.home.HomePagerAdapter
 import com.example.aplicacion_tesis.ui.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
 
@@ -27,7 +36,6 @@ class HomeActivity : AppCompatActivity() {
 
         val userId = TokenStore.userId
         if (userId == null || userId <= 0) {
-            Toast.makeText(this, "Sesión inválida. Vuelve a iniciar sesión.", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             })
@@ -36,6 +44,19 @@ class HomeActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_home)
+
+        requestNotifPermissionIfNeeded()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                AuthEventBus.sessionExpired.collect {
+                    startActivity(Intent(this@HomeActivity, LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        putExtra("session_expired", true)
+                    })
+                }
+            }
+        }
 
         viewPager = findViewById(R.id.viewPager)
         bottomNav = findViewById(R.id.bottomNav)
@@ -61,5 +82,23 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun requestNotifPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    REQ_NOTIF
+                )
+            }
+        }
+    }
+
+    companion object {
+        private const val REQ_NOTIF = 100
     }
 }
