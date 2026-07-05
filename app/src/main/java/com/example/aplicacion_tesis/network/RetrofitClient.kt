@@ -8,14 +8,13 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    // ======== DESARROLLO LOCAL (emulador Android) ========
-    // Cambiar a la URL de Railway antes de generar el APK de producción.
-    const val BASE_URL = "http://10.0.2.2:3008/"
-
     // ======== PRODUCCIÓN (Railway) ========
-    // 1. Obtener la URL de la API desde Railway → Settings → Domains
-    // 2. Comentar BASE_URL de arriba y descomentar la línea de abajo:
-    // const val BASE_URL = "https://TU-API.up.railway.app/"
+    const val BASE_URL = "https://apitesis-production-68de.up.railway.app/"
+
+    // ======== DESARROLLO LOCAL (emulador Android) ========
+    // Para volver a probar contra tu PC local, comenta la línea de arriba
+    // y descomenta esta:
+    // const val BASE_URL = "http://10.0.2.2:3008/"
 
     // ⚠️  Level.BODY registra contraseñas y tokens JWT en Logcat.
     //     En producción usa Level.NONE. Para depurar localmente puedes cambiar a Level.BASIC.

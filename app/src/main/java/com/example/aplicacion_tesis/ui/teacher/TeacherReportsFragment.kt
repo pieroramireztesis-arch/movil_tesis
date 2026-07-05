@@ -1,4 +1,4 @@
-﻿package com.example.aplicacion_tesis.ui.teacher
+package com.example.aplicacion_tesis.ui.teacher
 
 import android.content.Intent
 import android.graphics.Color
@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.aplicacion_tesis.R
 import com.example.aplicacion_tesis.databinding.FragmentTeacherReportsBinding
 import com.example.aplicacion_tesis.model.dto.ProgresoPorCompetenciaItemDTO
 import com.example.aplicacion_tesis.model.dto.TeacherActivityItem

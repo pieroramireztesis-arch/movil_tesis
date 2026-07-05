@@ -13,3 +13,11 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Firma de release — nunca subir al repo
+*.jks
+*.keystore
+keystore.properties
+
+# Fix local de certificados SSL (Avast) — específico de esta PC
+cacerts-local-fix

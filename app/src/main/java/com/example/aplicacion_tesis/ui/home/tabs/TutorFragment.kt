@@ -1,4 +1,4 @@
-﻿package com.example.aplicacion_tesis.ui.home.tabs
+package com.example.aplicacion_tesis.ui.home.tabs
 
 import android.app.Activity
 import android.app.AlertDialog
