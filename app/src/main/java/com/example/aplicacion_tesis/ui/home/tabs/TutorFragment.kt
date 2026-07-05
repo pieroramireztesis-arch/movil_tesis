@@ -619,16 +619,29 @@ class TutorFragment : Fragment() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 try {
-                    val dto = RetrofitClient.tutorApi.getNextExercise(
-                        idEstudiante = idEst,
-                        idDominio    = selectedDominioId,
-                        ajuste       = null,
-                        modo         = modoActual,
-                        idEvaluacion = if (modoActual == "evaluacion") idEvaluacionActiva else null
-                    )
-                    if (dto.idEjercicio == idEjercicio && dto.modo == modoPrefs) {
+                    // Rehidratar EXACTAMENTE el ejercicio guardado en prefs.
+                    // Antes se pedía "ejercicio_siguiente" para verificar, pero
+                    // el tutor elige al azar entre los candidatos del nivel y
+                    // casi nunca coincidía → cada vez que el proceso moría
+                    // (app quitada de recientes) se cambiaba de ejercicio.
+                    val det  = RetrofitClient.tutorApi.getEjercicioDetalle(idEjercicio)
+                    val data = det.data
+                    if (det.status && data != null && data.idEjercicio == idEjercicio &&
+                        !data.opciones.isNullOrEmpty()) {
+                        val dto = TutorExerciseDTO(
+                            status        = true,
+                            idEjercicio   = data.idEjercicio,
+                            idCompetencia = data.idCompetencia,
+                            enunciado     = data.enunciado ?: enunciado,
+                            imagenUrl     = data.imagenUrl,
+                            opciones      = data.opciones,
+                            pista         = data.pista ?: pistaPrefs,
+                            modo          = modoPrefs
+                        )
                         currentExercise   = dto
                         ejercicioGuardado = dto
+                        pistaActual       = dto.pista
+                        tvEnunciado.text  = dto.enunciado
                         val botones = listOf(rbA, rbB, rbC, rbD, rbE)
                         botones.forEach { it.visibility = View.GONE }
                         dto.opciones?.forEachIndexed { index, opcion ->
@@ -641,14 +654,7 @@ class TutorFragment : Fragment() {
                             }
                         }
                         mostrarCompetenciaTag(dto.idCompetencia)
-                        // Actualizar nivel desde API (fuente autoritativa por competencia)
-                        val nivelApi = dto.nivelEstudianteCompetencia
-                        if (nivelApi != null) {
-                            nivelActualCached = nivelApi
-                            mostrarNivelEnUI(nivelApi)
-                        } else {
-                            nivelActualCached?.let { mostrarNivelEnUI(it) }
-                        }
+                        nivelActualCached?.let { mostrarNivelEnUI(it) }
                         // Reinicia el cronómetro: el ejercicio recién se muestra ahora,
                         // aunque venga restaurado desde SharedPreferences (ver comentario
                         // en restaurarUIDesdeEjercicio sobre el mismo bug).
@@ -659,6 +665,7 @@ class TutorFragment : Fragment() {
                         btnEnviar.visibility      = View.VISIBLE
                         cargarImagenConGlide(dto.imagenUrl)
                     } else {
+                        // El ejercicio ya no existe en el banco → cargar uno nuevo
                         limpiarPrefs()
                         cargarNuevoEjercicio(null)
                     }

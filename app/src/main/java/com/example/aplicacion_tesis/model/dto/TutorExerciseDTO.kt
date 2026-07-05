@@ -31,9 +31,14 @@ data class TutorExerciseDTO(
 
 // ✅ Detalle fresco de un ejercicio (GET /ejercicios/{id}) — usado para
 //    refrescar la imagen del ejercicio en pantalla al volver a la pestaña
+//    y para restaurar el MISMO ejercicio tras matar el proceso de la app
 data class EjercicioDetalleDataDTO(
-    @SerializedName("idEjercicio") val idEjercicio: Int,
-    @SerializedName("imagenUrl")   val imagenUrl:   String? = null
+    @SerializedName("idEjercicio")   val idEjercicio:   Int,
+    @SerializedName("enunciado")     val enunciado:     String? = null,
+    @SerializedName("imagenUrl")     val imagenUrl:     String? = null,
+    @SerializedName("pista")         val pista:         String? = null,
+    @SerializedName("idCompetencia") val idCompetencia: Int?    = null,
+    @SerializedName("opciones")      val opciones:      List<TutorExerciseOptionDTO>? = null
 )
 
 data class EjercicioDetalleResponse(
