@@ -156,10 +156,15 @@ class HistorialDetalleActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ Corrige la URL para que funcione en emulador y dispositivo real
+    // ✅ Corrige la URL para que funcione en emulador y dispositivo real.
+    //    Solo aplica a hosts de desarrollo local; las URLs externas
+    //    (Cloudinary, Railway) pasan intactas.
     private fun corregirUrl(url: String?): String? {
         if (url.isNullOrBlank()) return null
         return try {
+            val hostUrl = Uri.parse(url).host ?: return url
+            val esLocal = hostUrl == "localhost" || hostUrl == "127.0.0.1" || hostUrl == "10.0.2.2"
+            if (!esLocal) return url
             val baseUri    = Uri.parse(RetrofitClient.BASE_URL.trimEnd('/'))
             val hostBase   = baseUri.host ?: return url
             val puertoBase = baseUri.port

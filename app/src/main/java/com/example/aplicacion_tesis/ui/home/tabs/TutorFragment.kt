@@ -177,11 +177,24 @@ class TutorFragment : Fragment() {
             idEstudiante = stored
             verificarEvaluacionActivaSilencioso()
         }
+        // Si la carga anterior no dejó ejercicio en pantalla (p. ej. bloqueo
+        // por diagnóstico pendiente), reintenta al volver a esta pestaña —
+        // ViewPager2 dispara onResume en cada cambio de página.
+        if (idEstudiante != null && !ejercicioCargadoUnaVez) {
+            iniciarTutor()
+        }
     }
 
     private fun corregirUrlParaDispositivo(url: String?): String? {
         if (url.isNullOrBlank()) return null
         return try {
+            // Solo reescribir URLs del entorno de desarrollo (emulador:
+            // localhost → 10.0.2.2). Las URLs externas (Cloudinary, Railway)
+            // deben pasar INTACTAS: antes se les cambiaba el host por el de
+            // la API y las imágenes daban 404 en producción.
+            val hostUrl = Uri.parse(url).host ?: return url
+            val esLocal = hostUrl == "localhost" || hostUrl == "127.0.0.1" || hostUrl == "10.0.2.2"
+            if (!esLocal) return url
             val baseUri    = Uri.parse(RetrofitClient.BASE_URL.trimEnd('/'))
             val hostBase   = baseUri.host ?: return url
             val puertoBase = baseUri.port
@@ -747,6 +760,10 @@ class TutorFragment : Fragment() {
                 )
                 if (dto.bloqueadoSinDiagnostico == true) {
                     mostrarMensajeSinEstudiante(dto.mensaje ?: "Tu docente aún no registró tu diagnóstico.")
+                    // Permite reintentar automáticamente al volver a esta
+                    // pestaña: cuando el docente registre el diagnóstico en
+                    // la web, el alumno se desbloquea sin reiniciar la app.
+                    ejercicioCargadoUnaVez = false
                     return@launch
                 }
                 if (!dto.status || dto.sinEjercicios == true || dto.opciones.isNullOrEmpty()) {
