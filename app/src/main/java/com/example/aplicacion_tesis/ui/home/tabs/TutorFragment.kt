@@ -611,6 +611,10 @@ class TutorFragment : Fragment() {
                         } else {
                             nivelActualCached?.let { mostrarNivelEnUI(it) }
                         }
+                        // Reinicia el cronómetro: el ejercicio recién se muestra ahora,
+                        // aunque venga restaurado desde SharedPreferences (ver comentario
+                        // en restaurarUIDesdeEjercicio sobre el mismo bug).
+                        startTimeMillis           = System.currentTimeMillis()
                         btnEnviar.isEnabled       = true
                         rgAlternativas.visibility = View.VISIBLE
                         btnSubirFoto.visibility   = View.VISIBLE
@@ -652,6 +656,11 @@ class TutorFragment : Fragment() {
     }
 
     private fun restaurarUIDesdeEjercicio(dto: TutorExerciseDTO) {
+        // El cronómetro se reinicia aquí porque el estudiante ve el ejercicio
+        // recién ahora (venía de caché/proceso anterior); sin esto, tiempo_respuesta
+        // se calculaba contra startTimeMillis=0 y mandaba el epoch actual como
+        // "segundos de respuesta" (~56 años), inflando los promedios del backend.
+        startTimeMillis = System.currentTimeMillis()
         tvTituloTutor.text = if (modoActual == "evaluacion")
             "Evaluación de Álgebra" else "Práctica de Álgebra"
         tvEnunciado.text   = dto.enunciado ?: ""

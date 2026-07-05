@@ -378,7 +378,7 @@ class TeacherStudentReportActivity : AppCompatActivity() {
                 axisMinimum   = 0f
                 axisMaximum   = 100f
                 granularity   = 25f
-                setDrawLabels(true)
+                setDrawLabels(false)
                 textColor     = Color.LTGRAY
                 textSize      = 9f
             }
@@ -459,19 +459,12 @@ class TeacherStudentReportActivity : AppCompatActivity() {
             setScaleEnabled(false)
             isDragEnabled = false
 
-            // Eje X (horizontal) = cantidad de revisiones
+            // En HorizontalBarChart, xAxis es el eje CATEGÓRICO (se dibuja a la
+            // izquierda, un renglón por barra) y axisLeft/axisRight es el eje
+            // NUMÉRICO (se dibuja abajo). Estaban invertidos: los nombres de
+            // material iban al eje de valores y viceversa.
             xAxis.apply {
-                position    = XAxis.XAxisPosition.BOTTOM
-                granularity = 1f
-                setGranularityEnabled(true)
-                setDrawGridLines(true)
-                textColor   = Color.DKGRAY
-                textSize    = 10f
-                axisMinimum = 0f
-            }
-
-            // Eje Y izquierdo = etiquetas de materiales
-            axisLeft.apply {
+                position       = XAxis.XAxisPosition.BOTTOM
                 valueFormatter = IndexAxisValueFormatter(labels)
                 granularity    = 1f
                 setGranularityEnabled(true)
@@ -479,6 +472,16 @@ class TeacherStudentReportActivity : AppCompatActivity() {
                 textColor      = Color.DKGRAY
                 textSize       = 9f
                 setLabelCount(top.size, true)
+            }
+
+            // Eje numérico = cantidad de revisiones
+            axisLeft.apply {
+                granularity = 1f
+                setGranularityEnabled(true)
+                setDrawGridLines(true)
+                textColor   = Color.DKGRAY
+                textSize    = 10f
+                axisMinimum = 0f
             }
             axisRight.isEnabled = false
 
