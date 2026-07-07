@@ -1,3 +1,41 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  📚 GUÍA DE ESTUDIO — PANTALLA DEL TUTOR (el archivo más grande de la app)
+// ═══════════════════════════════════════════════════════════════════════════
+//  Esta pantalla es el cliente del ciclo adaptativo. La INTELIGENCIA vive en
+//  el servidor (API ws/tutor.py + models/scoring.py): aquí solo se pide el
+//  ejercicio, se pinta, se cronometra y se envía la respuesta.
+//
+//  CICLO NORMAL (modo "repaso"):
+//   1. iniciarTutor() decide qué mostrar al entrar (ver RESTAURACIÓN abajo).
+//   2. cargarNuevoEjercicio() → GET /tutor/ejercicio_siguiente →
+//      bindExerciseToUI() pinta enunciado/opciones/imagen y ARRANCA EL
+//      CRONÓMETRO (startTimeMillis). Ese cronómetro es la base del
+//      tiempo_respuesta que usa el scoring — si se te ocurre otra ruta que
+//      muestre un ejercicio, SIEMPRE reinicia startTimeMillis ahí.
+//   3. btnEnviar → POST /tutor/responder con la opción y el tiempo.
+//      · Acierta → feedback verde y siguiente ejercicio.
+//      · Falla 1ª vez → el server manda mostrarPista → se muestra la pista.
+//      · Falla 2ª vez → materialSugerido (diálogo con el material de estudio
+//        de ESE ejercicio) + recursosAdicionales (búsquedas YouTube/Web/PDF).
+//   4. El nivel que se ve en la esquina viene del servidor
+//      (nivelEstudianteCompetencia) — la app nunca lo calcula.
+//
+//  MODO "evaluacion": examen activado por el docente — sin pistas, con
+//  registro por evaluación (cardEvaluacionActiva / finalizarEvaluacion).
+//
+//  RESTAURACIÓN (por qué hay tanto código en iniciarTutor):
+//  El ejercicio en curso se conserva para no perder el trabajo del alumno:
+//   · Cambio de pestaña → caché en memoria (companion object ejercicioGuardado)
+//   · App matada → SharedPreferences + rehidratación vía GET /ejercicios/{id}
+//     (se pide ESE id: pedir "ejercicio_siguiente" devolvía otro al azar).
+//   · onResume además refresca la imagen del ejercicio visible (por si el
+//     docente la subió después) y reintenta si estaba bloqueado por
+//     diagnóstico pendiente.
+//
+//  GATE DEL DIAGNÓSTICO: si el docente aún no registró la nota inicial
+//  MINEDU en la web, el server responde bloqueado=true y aquí se muestra el
+//  aviso (sin ejercicios hasta que exista el diagnóstico).
+// ═══════════════════════════════════════════════════════════════════════════
 package com.example.aplicacion_tesis.ui.home.tabs
 
 import android.app.Activity

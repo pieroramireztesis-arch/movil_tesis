@@ -1,3 +1,16 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  📚 GUÍA DE ESTUDIO — CLASE APPLICATION (arranque global de la app)
+// ═══════════════════════════════════════════════════════════════════════════
+//  Se ejecuta UNA vez al abrir la app, antes de cualquier pantalla
+//  (declarada con android:name=".App" en el AndroidManifest). Hace 3 cosas:
+//  1. TokenStore.init: prepara el almacén del token JWT en SharedPreferences
+//     (por eso la sesión sobrevive a cerrar la app).
+//  2. Crea el canal de notificaciones "Racha Diaria" (obligatorio en
+//     Android 8+ para poder notificar).
+//  3. Programa RachaWorker con WorkManager cada 24 h: si hay sesión activa,
+//     lanza la notificación "¿Ya practicaste hoy?". KEEP evita reprogramarlo
+//     en cada arranque.
+// ═══════════════════════════════════════════════════════════════════════════
 package com.example.aplicacion_tesis
 
 import android.app.Application

@@ -1,3 +1,30 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  📚 GUÍA DE ESTUDIO — CAPA DE RED (Retrofit + JWT)
+// ═══════════════════════════════════════════════════════════════════════════
+//  Único punto de la app que habla con el servidor. Cómo funciona:
+//
+//  · BASE_URL decide contra QUÉ servidor corre la app: producción (Railway)
+//    o desarrollo local (10.0.2.2 = "localhost de la PC" visto desde el
+//    emulador). ⚠️ Cambiar antes de compilar el APK que se reparte.
+//
+//  · El interceptor de OkHttp (abajo) se ejecuta en CADA petición:
+//    1. Agrega el header "Authorization: Bearer <token>" leyendo TokenStore
+//       (el token JWT que devolvió /auth/login y que vive en SharedPreferences).
+//    2. Si el servidor responde 401 (token expirado — duran 8 h), limpia el
+//       token y avisa por AuthEventBus → HomeActivity redirige al Login con
+//       el mensaje de sesión expirada. Así ninguna pantalla necesita manejar
+//       la expiración por su cuenta.
+//
+//  · Los "servicios" del final (authApi, tutorApi, progresoApi...) son
+//    interfaces de Retrofit: cada método anotado (@GET/@POST) se convierte
+//    en una llamada HTTP. Para consumir un endpoint nuevo de la API:
+//    agregar el método en la interfaz correspondiente (p. ej.
+//    TutorApiService.kt) + su DTO en model/dto/ y listo.
+//
+//  · Gson convierte JSON ⇄ data class automáticamente: los nombres de los
+//    campos del DTO deben coincidir con las claves del JSON (o usar
+//    @SerializedName).
+// ═══════════════════════════════════════════════════════════════════════════
 package com.example.aplicacion_tesis.network
 
 import okhttp3.OkHttpClient
