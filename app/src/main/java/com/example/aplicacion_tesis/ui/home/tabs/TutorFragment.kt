@@ -103,12 +103,17 @@ class TutorFragment : Fragment() {
         private const val KEY_PISTA         = "ejercicio_pista"
         private const val KEY_PISTA_VISIBLE = "pista_visible"
         private const val KEY_MODO          = "ejercicio_modo"
+        // Dueño de la caché: sin esto, al cambiar de cuenta en el mismo
+        // celular el alumno nuevo heredaba el ejercicio del anterior y se
+        // saltaba el bloqueo de "diagnóstico pendiente" del servidor.
+        private const val KEY_ID_ESTUDIANTE = "ejercicio_id_estudiante"
         private const val KEY_LAST_FILE    = "last_file_uri"
         private const val KEY_SONIDO       = "sonido_activado"
 
         var ejercicioGuardado: TutorExerciseDTO? = null
         var modoGuardado:      String            = "repaso"
         var pistaGuardada:     String?           = null
+        var estudianteGuardadoId: Int?           = null
     }
 
     private var idEstudiante:        Int?    = null
@@ -573,6 +578,19 @@ class TutorFragment : Fragment() {
         val idEst = idEstudiante ?: return
         if (ejercicioCargadoUnaVez) return
 
+        // La caché solo vale si pertenece a ESTE estudiante: si se cambió de
+        // cuenta en el mismo dispositivo, se descarta y se pide al servidor
+        // (que es quien decide si está bloqueado por diagnóstico pendiente).
+        val prefsDueno = requireContext()
+            .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .getInt(KEY_ID_ESTUDIANTE, -1)
+        if (ejercicioGuardado != null && estudianteGuardadoId != idEst) {
+            ejercicioGuardado = null
+        }
+        if (prefsDueno != -1 && prefsDueno != idEst) {
+            limpiarPrefs()
+        }
+
         val guardado = ejercicioGuardado
         if (guardado != null && modoGuardado == "repaso") {
             // ✅ FIX 3 — Solo restaurar ejercicio guardado si es modo repaso
@@ -862,8 +880,9 @@ class TutorFragment : Fragment() {
     }
 
     private fun bindExerciseToUI(dto: TutorExerciseDTO) {
-        ejercicioGuardado = dto
-        modoGuardado      = modoActual
+        ejercicioGuardado    = dto
+        modoGuardado         = modoActual
+        estudianteGuardadoId = idEstudiante
         guardarEjercicioEnPrefs(dto)
 
         tvTituloTutor.text = when {
@@ -936,6 +955,7 @@ class TutorFragment : Fragment() {
             .putInt(KEY_ID_COMP,       dto.idCompetencia ?: -1)
             .putString(KEY_PISTA,      dto.pista ?: "")
             .putString(KEY_MODO,       modoActual)
+            .putInt(KEY_ID_ESTUDIANTE, idEstudiante ?: -1)
             .apply()
     }
 
@@ -946,8 +966,10 @@ class TutorFragment : Fragment() {
             .remove(KEY_ENUNCIADO).remove(KEY_IMAGEN_URL)
             .remove(KEY_ID_EJERCICIO).remove(KEY_ID_COMP)
             .remove(KEY_PISTA).remove(KEY_PISTA_VISIBLE).remove(KEY_MODO)
+            .remove(KEY_ID_ESTUDIANTE)
             .apply()
-        ejercicioGuardado = null
+        ejercicioGuardado    = null
+        estudianteGuardadoId = null
     }
 
     private fun actualizarIconoSonido() {
