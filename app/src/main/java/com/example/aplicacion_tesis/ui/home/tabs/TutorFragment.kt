@@ -1208,6 +1208,30 @@ class TutorFragment : Fragment() {
                                 mostrarMensajeAjusteNivel(resp.nuevoAjuste) {
                                     cargarNuevoEjercicio(resp.nuevoAjuste)
                                 }
+                            } else if (attempts >= 3) {
+                                // ✅ TOPE DE INTENTOS: el alumno ya usó pista (fallo 1),
+                                // material + checkpoint (fallo 2) y su oportunidad
+                                // post-material (fallo 3). Sin tope podía probar todas
+                                // las alternativas por descarte hasta acertar a la
+                                // fuerza. Se avanza a la verificación más fácil; el
+                                // ejercicio fallado volverá por repetición espaciada.
+                                val idCompFallado = currentExercise?.idCompetencia
+                                val idEjFallado   = currentExercise?.idEjercicio
+                                selectedFileUri             = null
+                                desarrolloSubidoOk          = false
+                                idEjercicioDesarrolloSubido = null
+                                ejercicioGuardado           = null
+                                limpiarPrefs()
+                                Toast.makeText(requireContext(),
+                                    "Vamos a reforzar con uno más sencillo. Este ejercicio volverá a aparecer más adelante. 💪",
+                                    Toast.LENGTH_LONG).show()
+                                if (idCompFallado != null && idEjFallado != null) {
+                                    cargarEjercicioVerificacion(idCompFallado, idEjFallado)
+                                } else {
+                                    mostrarMensajeAjusteNivel(resp.nuevoAjuste) {
+                                        cargarNuevoEjercicio(resp.nuevoAjuste)
+                                    }
+                                }
                             } else if (resp.materialSugerido != null || resp.recursosAdicionales != null) {
                                 val enunciadoCorto = tvEnunciado.text.toString()
                                     .take(70).let { if (tvEnunciado.text.length > 70) "$it…" else it }
