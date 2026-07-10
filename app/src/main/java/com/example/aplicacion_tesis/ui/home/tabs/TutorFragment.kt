@@ -661,10 +661,16 @@ class TutorFragment : Fragment() {
             tvEnunciado.text   = enunciado
             cargarImagenConGlide(imagenUrl)
 
-            // ✅ Mostrar botones aunque vengan de cache
+            // ✅ ESTADO DE CARGA: el enunciado viene de la caché, pero las
+            // alternativas hay que pedirlas al servidor. Hasta que lleguen,
+            // los radios van ocultos (podrían quedar de otro ejercicio) y el
+            // botón comunica qué está pasando en vez de verse "roto".
+            listOf(rbA, rbB, rbC, rbD, rbE).forEach { it.visibility = View.GONE }
             rgAlternativas.visibility          = View.VISIBLE
             btnSubirFoto.visibility            = View.VISIBLE
             btnEnviar.visibility               = View.VISIBLE
+            val textoVerificar                 = btnEnviar.text
+            btnEnviar.text                     = "Cargando alternativas…"
             btnEnviar.isEnabled                = false
             btnSubirFoto.isEnabled             = true
             cardEjercicio.visibility           = View.VISIBLE
@@ -674,16 +680,29 @@ class TutorFragment : Fragment() {
             nivelActualCached?.let { mostrarNivelEnUI(it) }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                try {
                     // Rehidratar EXACTAMENTE el ejercicio guardado en prefs.
                     // Antes se pedía "ejercicio_siguiente" para verificar, pero
                     // el tutor elige al azar entre los candidatos del nivel y
                     // casi nunca coincidía → cada vez que el proceso moría
                     // (app quitada de recientes) se cambiaba de ejercicio.
-                    val det  = RetrofitClient.tutorApi.getEjercicioDetalle(idEjercicio)
-                    val data = det.data
-                    if (det.status && data != null && data.idEjercicio == idEjercicio &&
-                        !data.opciones.isNullOrEmpty()) {
+                    // Con señal débil la petición puede tardar o fallar: se
+                    // reintenta hasta 3 veces; si aun así no responde, se pide
+                    // un ejercicio nuevo en lugar de dejar la pantalla muerta
+                    // (antes quedaba el enunciado sin alternativas y sin salida).
+                    var det = runCatching {
+                        RetrofitClient.tutorApi.getEjercicioDetalle(idEjercicio)
+                    }.getOrNull()
+                    var reintentos = 0
+                    while (det == null && reintentos < 2) {
+                        delay(1500)
+                        det = runCatching {
+                            RetrofitClient.tutorApi.getEjercicioDetalle(idEjercicio)
+                        }.getOrNull()
+                        reintentos++
+                    }
+                    val data = det?.data
+                    if (det != null && det.status && data != null &&
+                        data.idEjercicio == idEjercicio && !data.opciones.isNullOrEmpty()) {
                         val dto = TutorExerciseDTO(
                             status        = true,
                             idEjercicio   = data.idEjercicio,
@@ -715,20 +734,21 @@ class TutorFragment : Fragment() {
                         // aunque venga restaurado desde SharedPreferences (ver comentario
                         // en restaurarUIDesdeEjercicio sobre el mismo bug).
                         startTimeMillis           = System.currentTimeMillis()
+                        btnEnviar.text            = textoVerificar
                         btnEnviar.isEnabled       = true
                         rgAlternativas.visibility = View.VISIBLE
                         btnSubirFoto.visibility   = View.VISIBLE
                         btnEnviar.visibility      = View.VISIBLE
                         cargarImagenConGlide(dto.imagenUrl)
                     } else {
-                        // El ejercicio ya no existe en el banco → cargar uno nuevo
+                        // El ejercicio ya no existe o no hay conexión tras los
+                        // reintentos → nunca dejar la pantalla muerta: se limpia
+                        // la caché y se pide un ejercicio nuevo (ese camino ya
+                        // muestra su propio mensaje si tampoco hay red).
+                        btnEnviar.text = textoVerificar
                         limpiarPrefs()
                         cargarNuevoEjercicio(null)
                     }
-                } catch (_: Exception) {
-                    tvEnunciado.text    = enunciado
-                    btnEnviar.isEnabled = false
-                }
             }
             return
         }
