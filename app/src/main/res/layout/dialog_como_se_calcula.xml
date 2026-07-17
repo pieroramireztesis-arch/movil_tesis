@@ -206,7 +206,7 @@
                         android:text="Examen diagnóstico"
                         android:textColor="@color/ai_primary_dark" android:textSize="13sp" android:textStyle="bold"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Tu docente asigna un puntaje inicial (0–100) basado en tu evaluación de inicio de año. Ese puntaje determina tu nivel de partida."
+                        android:text="Tu docente registra tu diagnóstico con las letras del colegio: AD (Logro destacado), A (Logrado), B (En proceso) y C (En inicio). Esa letra define tu nivel de partida en cada competencia."
                         android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -275,11 +275,39 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rápida: menos de 30 s  •  Normal: 30–90 s  •  Lenta: más de 90 s"
-                android:textSize="13sp"
+                android:text="⏱️ Ser «rápido» depende de la dificultad: en ejercicios fáciles ~2 min y en los difíciles hasta 5 min. ¡Tómate tu tiempo para resolver en papel!"
+                android:textSize="12sp"
                 android:textColor="@color/ai_text_muted"
+                android:lineSpacingExtra="2dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Reglas de apoyo (pista · material · verificación) -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/ai_primary_light"
+                android:paddingStart="12dp" android:paddingEnd="12dp"
+                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:layout_marginBottom="8dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="💡" android:textSize="18sp" android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="Si usas la pista y aciertas, avanzas un poco menos (pero nunca te resta puntos)."
+                    android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/ai_primary_light"
+                android:paddingStart="12dp" android:paddingEnd="12dp"
+                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:layout_marginBottom="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📚" android:textSize="18sp" android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="¿Fallaste 2 veces? Te mostramos material de apoyo. A la 3.ª, pasas a un ejercicio de verificación para demostrar lo aprendido."
+                    android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+            </LinearLayout>
 
             <!-- Botón cerrar -->
             <com.google.android.material.button.MaterialButton
