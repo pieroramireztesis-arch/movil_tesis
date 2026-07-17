@@ -35,13 +35,15 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    // ======== PRODUCCIÓN (Railway) ========
-    const val BASE_URL = "https://apitesis-production-68de.up.railway.app/"
-
     // ======== DESARROLLO LOCAL (emulador Android) ========
-    // Para volver a probar contra tu PC local, comenta la línea de arriba
-    // y descomenta esta:
+    // 10.0.2.2 = el "localhost" de tu PC visto desde el emulador.
+    // La API local debe estar corriendo (python app.py → puerto 3008).
     // const val BASE_URL = "http://10.0.2.2:3008/"
+
+    // ======== PRODUCCIÓN (Railway) ========
+    // ⚠️ ANTES de compilar un APK para repartir: comenta la línea de arriba
+    // y descomenta esta. NO subas a git el modo local.
+    const val BASE_URL = "https://apitesis-production-68de.up.railway.app/"
 
     // ⚠️  Level.BODY registra contraseñas y tokens JWT en Logcat.
     //     En producción usa Level.NONE. Para depurar localmente puedes cambiar a Level.BASIC.

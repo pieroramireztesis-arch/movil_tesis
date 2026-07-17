@@ -47,6 +47,15 @@
 
     <style name="Theme.Aplicacion_Tesis" parent="Base.Theme.Aplicacion_Tesis" />
 
+    <!-- ── SPLASH: escudo del colegio sobre navy al abrir la app ────
+         Se aplica a LoginActivity en el Manifest; la Activity vuelve al
+         tema normal con setTheme() en onCreate ANTES de setContentView. -->
+    <style name="Theme.Aplicacion_Tesis.Splash">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/ai_bg_screen</item>
+        <item name="android:navigationBarColor">@color/ai_bg_screen</item>
+    </style>
+
     <!-- ── Formas ─────────────────────────────────────────────────── -->
     <style name="Shape.TutorMath.Small" parent="ShapeAppearance.Material3.Corner.Small">
         <item name="cornerSize">@dimen/radius_small</item>

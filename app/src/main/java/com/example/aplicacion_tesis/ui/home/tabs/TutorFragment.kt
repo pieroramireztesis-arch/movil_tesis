@@ -882,10 +882,28 @@ class TutorFragment : Fragment() {
                 currentExercise = dto
                 bindExerciseToUI(dto)
             } catch (e: Exception) {
-                Toast.makeText(requireContext(),
-                    "Error al cargar ejercicio: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                // Fallo de red al cargar (típico: WiFi del colegio inestable).
+                // Mismo patrón que el bloqueo por diagnóstico: se deja la
+                // bandera en false para que al volver a esta pestaña (o al
+                // reabrir la app) se reintente automáticamente, en vez de
+                // quedar una pantalla vacía sin salida.
+                ejercicioCargadoUnaVez = false
+                mostrarMensajeSinEstudiante(mensajeErrorRed(e))
+                Toast.makeText(requireContext(), mensajeErrorRed(e), Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    /** Traduce excepciones de red a un mensaje entendible para el alumno. */
+    private fun mensajeErrorRed(e: Exception): String = when (e) {
+        is java.net.UnknownHostException, is java.net.ConnectException ->
+            "Sin conexión a internet 😕\nRevisa el WiFi o tus datos y vuelve a intentarlo."
+        is java.net.SocketTimeoutException ->
+            "La conexión está lenta ⏳\nEspera unos segundos y vuelve a intentarlo."
+        is java.io.IOException ->
+            "Se perdió la conexión 😕\nRevisa tu internet y vuelve a intentarlo."
+        else ->
+            "Ocurrió un problema al cargar 😕\nVuelve a intentarlo en unos segundos."
     }
 
     private fun mostrarFinDeEjercicios(mensaje: String?) {
@@ -1260,9 +1278,12 @@ class TutorFragment : Fragment() {
                 }
 
             } catch (e: Exception) {
+                // La respuesta NO llegó al servidor: se rehabilita el botón para
+                // que el alumno simplemente vuelva a tocar "Enviar".
                 btnEnviar.isEnabled = true
                 Toast.makeText(requireContext(),
-                    "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                    "${mensajeErrorRed(e)}\nTu respuesta no se envió: toca Enviar de nuevo.",
+                    Toast.LENGTH_LONG).show()
             }
         }
     }

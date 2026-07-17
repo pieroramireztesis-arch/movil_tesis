@@ -24,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Splash: el Manifest arranca esta Activity con el tema del escudo
+        // (windowBackground); aquí se vuelve al tema normal ANTES de
+        // dibujar el layout. El escudo se ve solo mientras la app carga.
+        setTheme(com.example.aplicacion_tesis.R.style.Theme_Aplicacion_Tesis)
         super.onCreate(savedInstanceState)
 
         // T3-A: onboarding — solo la primera vez que se instala la app

@@ -61,11 +61,17 @@ class LoginViewModel : ViewModel() {
                 }
 
             } catch (e: HttpException) {
-                _state.value = LoginState.Error("Error del servidor (${e.code()}).")
+                _state.value = LoginState.Error("Error del servidor (${e.code()}). Vuelve a intentarlo.")
+            } catch (e: java.net.SocketTimeoutException) {
+                // Railway "despierta" el servidor tras inactividad: el primer
+                // intento del día puede tardar más de lo normal.
+                _state.value = LoginState.Error(
+                    "El servidor está tardando en responder ⏳ Espera unos segundos y vuelve a intentar."
+                )
             } catch (e: IOException) {
-                _state.value = LoginState.Error("Sin conexión a la red.")
+                _state.value = LoginState.Error("Sin conexión a internet 😕 Revisa el WiFi o tus datos.")
             } catch (e: Exception) {
-                _state.value = LoginState.Error(e.localizedMessage ?: "Error desconocido.")
+                _state.value = LoginState.Error("Ocurrió un problema al iniciar sesión. Vuelve a intentarlo.")
             }
         }
     }
