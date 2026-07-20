@@ -196,7 +196,7 @@
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:background="@color/ai_primary_light"
                 android:paddingStart="12dp" android:paddingEnd="12dp"
-                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:paddingTop="12dp" android:paddingBottom="14dp"
                 android:layout_marginBottom="10dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="📝" android:textSize="20sp" android:layout_marginEnd="10dp"/>
@@ -204,10 +204,18 @@
                     android:layout_weight="1" android:orientation="vertical">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Examen diagnóstico"
-                        android:textColor="@color/ai_primary_dark" android:textSize="13sp" android:textStyle="bold"/>
+                        android:textColor="@color/ai_primary" android:textSize="14sp" android:textStyle="bold"
+                        android:layout_marginBottom="4dp"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Tu docente registra tu diagnóstico con las letras del colegio: AD (Logro destacado), A (Logrado), B (En proceso) y C (En inicio). Esa letra define tu nivel de partida en cada competencia."
-                        android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+                        android:text="Tu docente registra tu diagnóstico con letras:"
+                        android:textColor="#E0E7FF" android:textSize="13sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="AD · Logro destacado\nA · Logrado\nB · En proceso\nC · En inicio"
+                        android:textColor="#E0E7FF" android:textSize="13sp" android:textStyle="bold"
+                        android:layout_marginTop="4dp" android:layout_marginBottom="4dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Esa letra define tu nivel de partida en cada competencia."
+                        android:textColor="#E0E7FF" android:textSize="13sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -287,26 +295,26 @@
                 android:orientation="horizontal"
                 android:background="@color/ai_primary_light"
                 android:paddingStart="12dp" android:paddingEnd="12dp"
-                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:paddingTop="12dp" android:paddingBottom="14dp"
                 android:layout_marginBottom="8dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="💡" android:textSize="18sp" android:layout_marginEnd="10dp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                    android:text="Si usas la pista y aciertas, avanzas un poco menos (pero nunca te resta puntos)."
-                    android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+                    android:text="Pista: si la usas y aciertas, avanzas un poco menos. Nunca te resta puntos."
+                    android:textColor="#E0E7FF" android:textSize="13sp"/>
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/ai_primary_light"
                 android:paddingStart="12dp" android:paddingEnd="12dp"
-                android:paddingTop="10dp" android:paddingBottom="10dp"
+                android:paddingTop="12dp" android:paddingBottom="14dp"
                 android:layout_marginBottom="16dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="📚" android:textSize="18sp" android:layout_marginEnd="10dp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                    android:text="¿Fallaste 2 veces? Te mostramos material de apoyo. A la 3.ª, pasas a un ejercicio de verificación para demostrar lo aprendido."
-                    android:textColor="@color/ai_primary_dark" android:textSize="12sp" android:lineSpacingExtra="2dp"/>
+                    android:text="¿Fallaste 2 veces? → material de apoyo.\n¿Fallaste 3 veces? → ejercicio de verificación."
+                    android:textColor="#E0E7FF" android:textSize="13sp"/>
             </LinearLayout>
 
             <!-- Botón cerrar -->
